@@ -1,11 +1,6 @@
 import FilmCard from '../film-card/film-card';
 import { filmInfo } from '../../../filmData';
-
-type MainPageProps = {
-  title: string;
-  genre: string;
-  date: string | number;
-};
+import { MainPageProps } from '../../../filmData';
 
 function MainPage({title, genre, date}: MainPageProps){
   return (

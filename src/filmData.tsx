@@ -1,4 +1,4 @@
-type FilmCardProps = {
+export type FilmCardProps = {
   filmTitle: string;
   img: string;
 }
@@ -54,7 +54,7 @@ export const filmInfo: FilmCardProps[] = [
   },
 ];
 
-type MainPageProps = {
+export type MainPageProps = {
   title: string;
   genre: string;
   date: string | number;

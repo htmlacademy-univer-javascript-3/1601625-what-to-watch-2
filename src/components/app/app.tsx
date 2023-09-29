@@ -1,10 +1,5 @@
 import MainPage from '../pages/main/main';
-
-type MainPageProps = {
-  title: string;
-  genre: string;
-  date: string | number;
-};
+import { MainPageProps } from '../../filmData';
 
 function App({title, genre, date}: MainPageProps) {
 

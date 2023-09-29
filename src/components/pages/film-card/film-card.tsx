@@ -1,7 +1,4 @@
-type FilmCardProps = {
-  filmTitle: string;
-  img: string;
-}
+import { FilmCardProps } from '../../../filmData';
 
 function FilmCard({filmTitle, img}: FilmCardProps){
   return(
