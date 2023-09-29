@@ -1,4 +1,4 @@
-import FilmCard from '../film-card/film-card';
+import FilmCard from './film-card/film-card';
 import { filmInfo } from '../../../filmData';
 import { MainPageProps } from '../../../filmData';
 
