@@ -1,9 +1,6 @@
-export type FilmCardProps = {
-  filmTitle: string;
-  img: string;
-}
+import { FilmCardProps, MainPageProps } from '../types/types';
 
-export const filmInfo: FilmCardProps[] = [
+export const FILM_INFO: FilmCardProps[] = [
   {
     filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
     img: 'fantastic-beasts-the-crimes-of-grindelwald.jpg'
@@ -54,13 +51,8 @@ export const filmInfo: FilmCardProps[] = [
   },
 ];
 
-export type MainPageProps = {
-  title: string;
-  genre: string;
-  date: string | number;
-};
 
-export const promoFilmData: MainPageProps = {
+export const PROMO_FILM_DATA: MainPageProps = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   date: '2014',

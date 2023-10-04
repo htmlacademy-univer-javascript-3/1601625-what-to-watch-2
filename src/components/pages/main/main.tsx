@@ -1,6 +1,6 @@
 import FilmCard from './film-card/film-card';
-import { filmInfo } from '../../../filmData';
-import { MainPageProps } from '../../../filmData';
+import { FILM_INFO } from '../../../mock/film-data';
+import { MainPageProps } from '../../../types/types';
 
 function MainPage({title, genre, date}: MainPageProps){
   return (
@@ -104,7 +104,7 @@ function MainPage({title, genre, date}: MainPageProps){
           </ul>
 
           <div className="catalog__films-list">
-            {filmInfo.map(({filmTitle, img}) => (
+            {FILM_INFO.map(({filmTitle, img}) => (
               <FilmCard
                 filmTitle={filmTitle}
                 img={img}
