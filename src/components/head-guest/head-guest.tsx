@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../consts';
+
 function HeadGuest(){
   return(
     <section className="film-card">
@@ -18,7 +21,7 @@ function HeadGuest(){
         </div>
 
         <div className="user-block">
-          <a href="sign-in.html" className="user-block__link">Sign in</a>
+          <Link to={AppRoutes.Login} className="user-block__link">Sign in</Link>
         </div>
       </header>
     </section>
