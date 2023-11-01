@@ -24,3 +24,7 @@ export type FilmReviewsProps = {
   date: string;
   rating: string;
 }
+
+export type PropsList<T> = {
+  list: T[];
+}
