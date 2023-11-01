@@ -10,14 +10,14 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
-function App({title, genre, date}: MainPageProps) {
+function App({title, genre, date, filmsInfo}: MainPageProps) {
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Main}
-          element={ <MainPage title={title} genre={genre} date={date} /> }
+          element={ <MainPage title={title} genre={genre} date={date} filmsInfo={filmsInfo} /> }
         />
         <Route path={AppRoutes.Login} element={ <SignIn /> }/>
         <Route

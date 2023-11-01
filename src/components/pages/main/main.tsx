@@ -1,8 +1,7 @@
 import FilmCard from '../../film-card/film-card';
-import { FILM_INFO } from '../../../mocks/films';
 import { MainPageProps } from '../../../types/types';
 
-function MainPage({title, genre, date}: MainPageProps){
+function MainPage({title, genre, date, filmsInfo}: MainPageProps){
   return (
     <>
       <section className="film-card">
@@ -104,11 +103,12 @@ function MainPage({title, genre, date}: MainPageProps){
           </ul>
 
           <div className="catalog__films-list">
-            {FILM_INFO.map(({filmTitle, img}) => (
+            {filmsInfo.map(({id, filmTitle, img}) => (
               <FilmCard
+                key={id}
+                id={id}
                 filmTitle={filmTitle}
                 img={img}
-                key={filmTitle}
               />
             ))}
           </div>
