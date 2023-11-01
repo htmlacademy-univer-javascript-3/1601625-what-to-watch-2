@@ -68,3 +68,36 @@ export const PROMO_FILM_DATA: PromoFilm = {
   genre: 'Drama',
   date: '2014',
 };
+
+export const MY_LIST_FILMS: FilmCardProps[] = [
+  {
+    id: '1FBTCoG',
+    filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
+    img: 'fantastic-beasts-the-crimes-of-grindelwald.jpg'
+  },
+  {
+    id: '2BR',
+    filmTitle: 'Bohemian Rhapsody',
+    img: 'bohemian-rhapsody.jpg'
+  },
+  {
+    id: '3M',
+    filmTitle: 'Macbeth',
+    img: 'macbeth.jpg'
+  },
+  {
+    id: '4A',
+    filmTitle: 'Aviator',
+    img: 'aviator.jpg'
+  },
+  {
+    id: '11NCfOM',
+    filmTitle: 'No Country for Old Men',
+    img: 'no-country-for-old-men.jpg'
+  },
+  {
+    id: '12S',
+    filmTitle: 'Snatc',
+    img: 'snatch.jpg'
+  },
+];
