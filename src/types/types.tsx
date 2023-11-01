@@ -16,3 +16,11 @@ export type MainPageProps = {
   date: string | number;
   filmsInfo: FilmCardProps[];
 };
+
+export type FilmReviewsProps = {
+  id: string | number;
+  text: string;
+  author: string;
+  date: string;
+  rating: string;
+}
