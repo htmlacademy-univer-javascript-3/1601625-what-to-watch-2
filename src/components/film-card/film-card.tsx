@@ -1,4 +1,4 @@
-import { FilmCardProps } from '../../../../types/types';
+import { FilmCardProps } from '../../types/types';
 
 function FilmCard({filmTitle, img}: FilmCardProps){
   return(

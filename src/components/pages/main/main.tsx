@@ -1,4 +1,4 @@
-import FilmCard from './film-card/film-card';
+import FilmCard from '../../film-card/film-card';
 import { FILM_INFO } from '../../../mocks/films';
 import { MainPageProps } from '../../../types/types';
 
