@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { FILMS_INFO, PROMO_FILM_DATA } from './mocks/films';
+import { FILMS_INFO, PROMO_FILM_DATA} from './mocks/films';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

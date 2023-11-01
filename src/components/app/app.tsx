@@ -9,6 +9,7 @@ import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import { MY_LIST_FILMS } from '../../mocks/films';
 
 function App({title, genre, date, filmsInfo}: MainPageProps) {
 
@@ -23,8 +24,8 @@ function App({title, genre, date, filmsInfo}: MainPageProps) {
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorisationStatus.NoAuth}>
-              <MyList />
+            <PrivateRoute authorizationStatus={AuthorisationStatus.Auth}>
+              <MyList list={MY_LIST_FILMS} />
             </PrivateRoute>
           }
         />

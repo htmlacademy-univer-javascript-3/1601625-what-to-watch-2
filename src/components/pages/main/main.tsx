@@ -1,4 +1,4 @@
-import FilmCard from '../../film-card/film-card';
+import FilmsList from '../../films-list';
 import { MainPageProps } from '../../../types/types';
 
 function MainPage({title, genre, date, filmsInfo}: MainPageProps){
@@ -101,18 +101,9 @@ function MainPage({title, genre, date, filmsInfo}: MainPageProps){
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
           <div className="catalog__films-list">
-            {filmsInfo.map(({id, filmTitle, img}) => (
-              <FilmCard
-                key={id}
-                id={id}
-                filmTitle={filmTitle}
-                img={img}
-              />
-            ))}
+            <FilmsList list={filmsInfo}/>
           </div>
-
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
