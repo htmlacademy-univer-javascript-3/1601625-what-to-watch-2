@@ -27,4 +27,14 @@ export type FilmReviewsProps = {
 
 export type PropsList<T> = {
   list: T[];
+};
+
+export type PropsHeader = {
+  linkLogo: string;
+};
+
+export type PropsFooter = PropsHeader;
+
+export type PropsPoster = {
+  path: string;
 }
