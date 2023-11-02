@@ -10,10 +10,7 @@ export type PromoFilm = {
   date: string | number;
 }
 
-export type MainPageProps = {
-  title: string;
-  genre: string;
-  date: string | number;
+export type MainPageProps = PromoFilm & {
   filmsInfo: FilmCardProps[];
 };
 
