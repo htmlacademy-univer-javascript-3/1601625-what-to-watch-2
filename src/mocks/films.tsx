@@ -101,3 +101,11 @@ export const MY_LIST_FILMS: FilmCardProps[] = [
     img: 'snatch.jpg'
   },
 ];
+
+export const FILM_ADD_REVIEW: FilmCardProps = {
+  id: '1FBTCoG',
+  filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
+  img: 'fantastic-beasts-the-crimes-of-grindelwald.jpg'
+};
+
+export const VIDEO_LINK = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm';
