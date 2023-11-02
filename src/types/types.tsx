@@ -35,3 +35,15 @@ export type PropsFooter = PropsHeader;
 export type PropsPoster = {
   path: string;
 }
+
+export type PropsRatingStar = {
+  id: string;
+}
+
+export type PropsPlayer = {
+  videoLink: string;
+}
+
+export type PropsAddReview = {
+  filmInfo: FilmCardProps;
+}
