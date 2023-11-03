@@ -1,6 +1,6 @@
 import HeaderLogo from '../../header-logo/header-logo';
 import HeaderUserBlock from '../../header-user-block/header-user-block';
-import FilmsList from '../../films-list';
+import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { AppRoutes } from '../../../consts';
 import { PropsList, FilmCardProps } from '../../../types/types';

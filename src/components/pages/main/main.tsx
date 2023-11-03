@@ -4,7 +4,7 @@ import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-pla
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
 import GenresList from '../../genres-list/genres-list';
-import FilmsList from '../../films-list';
+import FilmsList from '../../films-list/films-list';
 import CatalogButton from '../../catalog-button/catalog-button';
 import Footer from '../../footer/footer';
 import { MainPageProps } from '../../../types/types';
