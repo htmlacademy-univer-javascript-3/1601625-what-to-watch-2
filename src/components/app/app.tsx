@@ -32,7 +32,7 @@ function App({title, genre, date, filmsInfo}: MainPageProps) {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Film} element={ <FilmPage /> }/>
+        <Route path={AppRoutes.Film} element={ <FilmPage list={filmsInfo.filter((film, idx) => idx < 4)} /> }/>
         <Route path={AppRoutes.AddReview} element={ <AddReview filmInfo={filmsInfo[0]} /> }/>
         <Route path={AppRoutes.Player} element={ <Player videoLink={VIDEO_LINK} /> }/>
         <Route path='*' element={ <NotFound /> }/>

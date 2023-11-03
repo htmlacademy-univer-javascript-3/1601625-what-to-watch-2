@@ -4,9 +4,11 @@ import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
+import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
+import { PropsList, FilmCardProps } from '../../../types/types';
 
-function FilmPage(){
+function FilmPage({list}:PropsList<FilmCardProps>){
   return (
     <>
       <section className="film-card film-card--full">
@@ -80,41 +82,7 @@ function FilmPage(){
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to={AppRoutes.Film}>Fantastic Beasts: The Crimes of Grindelwald</Link>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to={AppRoutes.Film}>Bohemian Rhapsody</Link>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to={AppRoutes.Film}>Macbeth</Link>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to={AppRoutes.Film}>Aviator</Link>
-              </h3>
-            </article>
+            <FilmsList list={list}/>
           </div>
         </section>
 
