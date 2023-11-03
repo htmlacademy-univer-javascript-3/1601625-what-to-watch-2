@@ -1,7 +1,11 @@
+import React from 'react';
+
 export type FilmCardProps = {
-  id: string | number;
+  id: string;
   filmTitle: string;
   img: string;
+  active: boolean;
+  setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export type PromoFilm = {
