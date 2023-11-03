@@ -1,13 +1,8 @@
 import Rating from '../rating/rating';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 function FormAddReview() {
   const [reviewText, setReviewText] = useState('');
-
-  const textReviewChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    setReviewText(value);
-  };
 
   return (
     <form action="#" className="add-review__form">
@@ -19,7 +14,7 @@ function FormAddReview() {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={textReviewChangeHandler}
+          onChange={(e) => setReviewText(e.target.value)}
           value={reviewText}
         />
         <div className="add-review__submit">
