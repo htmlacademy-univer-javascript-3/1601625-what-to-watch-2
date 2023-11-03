@@ -10,7 +10,7 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { MY_LIST_FILMS, VIDEO_LINK, FILM_ADD_REVIEW } from '../../mocks/films';
+import { MY_LIST_FILMS, VIDEO_LINK} from '../../mocks/films';
 
 function App({title, genre, date, filmsInfo}: MainPageProps) {
 
@@ -33,7 +33,7 @@ function App({title, genre, date, filmsInfo}: MainPageProps) {
           }
         />
         <Route path={AppRoutes.Film} element={ <FilmPage /> }/>
-        <Route path={AppRoutes.AddReview} element={ <AddReview filmInfo={FILM_ADD_REVIEW} /> }/>
+        <Route path={AppRoutes.AddReview} element={ <AddReview filmInfo={filmsInfo[0]} /> }/>
         <Route path={AppRoutes.Player} element={ <Player videoLink={VIDEO_LINK} /> }/>
         <Route path='*' element={ <NotFound /> }/>
       </Routes>
