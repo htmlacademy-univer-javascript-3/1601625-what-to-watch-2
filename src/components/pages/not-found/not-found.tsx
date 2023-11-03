@@ -1,4 +1,6 @@
 import './not-found.css';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../../consts';
 
 function NotFound(){
   return (
@@ -10,7 +12,7 @@ function NotFound(){
         How you got here is a mystery.<br/>
         But you can click the button below to go back to the homepage.
       </p>
-      <a href='#' className='not-found-btn'>HOME</a>
+      <Link to={AppRoutes.Main} className='not-found-btn'>HOME</Link>
     </div>
   );
 }
