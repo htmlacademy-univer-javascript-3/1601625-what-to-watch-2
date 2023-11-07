@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import HeaderLogo from '../../header-logo/header-logo';
+import BreadcrumbsList from '../../breadcrumbs-list/breadcrumb-list';
 import HeaderUserBlock from '../../header-user-block/header-user-block';
 import FormAddReview from '../../form-add-review/form-add-review';
 import { AppRoutes } from '../../../consts';
@@ -23,16 +24,10 @@ function AddReview({list}:PropsList<FilmCardProps>){
           <HeaderLogo linkLogo={AppRoutes.Main} />
 
           <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={id === undefined ? '*' : `/films/${id}`} className="breadcrumbs__link">{filmTitle}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
+            {
+              id === undefined || null ? <Link to='*' /> : <BreadcrumbsList id={id} filmTitle={filmTitle} />
+            }
           </nav>
-
           <HeaderUserBlock />
         </header>
 
