@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppRoutes } from '../../../consts';
 import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
@@ -9,6 +9,10 @@ import Footer from '../../footer/footer';
 import { PropsList, FilmCardProps } from '../../../types/types';
 
 function FilmPage({list}:PropsList<FilmCardProps>){
+  const {id} = useParams();
+  const film = list.filter((item) => item.id === id);
+  const {filmTitle, img} = film[0];
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -18,17 +22,16 @@ function FilmPage({list}:PropsList<FilmCardProps>){
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              {/* Передать данные выбранного на главной странице фильма */}
               <FilmCardDesc
-                title='The Grand Budapest Hotel'
+                title={filmTitle}
                 genre='Drama'
-                date='2014'
+                year='2014'
               />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />
                 <FilmCardButtonMylist />
-                <Link to={AppRoutes.AddReview} className="btn film-card__button">Add review</Link>
+                <Link to={id === undefined ? '*' : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -37,7 +40,7 @@ function FilmPage({list}:PropsList<FilmCardProps>){
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={`img/${img}`} alt={`${filmTitle} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -82,7 +85,7 @@ function FilmPage({list}:PropsList<FilmCardProps>){
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={list}/>
+            <FilmsList list={list.filter((item, idx) => idx < 4)}/>
           </div>
         </section>
 
