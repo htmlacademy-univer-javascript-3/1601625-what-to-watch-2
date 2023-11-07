@@ -85,7 +85,7 @@ function FilmPage({list}:PropsList<FilmCardProps>){
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={list.filter((item, idx) => idx < 4)}/>
+            <FilmsList list={list.filter((_, idx) => idx < 4)}/>
           </div>
         </section>
 
