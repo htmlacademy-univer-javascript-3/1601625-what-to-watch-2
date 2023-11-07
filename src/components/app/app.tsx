@@ -9,28 +9,32 @@ import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import Layout from '../layout/layout';
+import { MY_LIST_FILMS, VIDEO_LINK} from '../../mocks/films';
 
-function App({title, genre, date}: MainPageProps) {
+function App({title, genre, year, filmsInfo}: MainPageProps) {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path={AppRoutes.Main}
-          element={ <MainPage title={title} genre={genre} date={date} /> }
-        />
+        <Route element={<Layout />}>
+          <Route
+            path={AppRoutes.Main}
+            element={ <MainPage title={title} genre={genre} year={year} filmsInfo={filmsInfo} /> }
+          />
+        </Route>
         <Route path={AppRoutes.Login} element={ <SignIn /> }/>
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorisationStatus.NoAuth}>
-              <MyList />
+            <PrivateRoute authorizationStatus={AuthorisationStatus.Auth}>
+              <MyList list={MY_LIST_FILMS} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Film} element={ <FilmPage /> }/>
-        <Route path={AppRoutes.AddReview} element={ <AddReview /> }/>
-        <Route path={AppRoutes.Player} element={ <Player /> }/>
+        <Route path={AppRoutes.Film} element={ <FilmPage list={filmsInfo} /> }/>
+        <Route path={AppRoutes.AddReview} element={ <AddReview list={filmsInfo} /> }/>
+        <Route path={AppRoutes.Player} element={ <Player videoLink={VIDEO_LINK} /> }/>
         <Route path='*' element={ <NotFound /> }/>
       </Routes>
 
