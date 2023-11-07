@@ -9,7 +9,7 @@ import CatalogButton from '../../catalog-button/catalog-button';
 import Footer from '../../footer/footer';
 import { MainPageProps } from '../../../types/types';
 
-function MainPage({title, genre, date, filmsInfo}: MainPageProps){
+function MainPage({title, genre, year, filmsInfo}: MainPageProps){
   return (
     <>
       <section className="film-card">
@@ -20,7 +20,7 @@ function MainPage({title, genre, date, filmsInfo}: MainPageProps){
             <Poster path='img/the-grand-budapest-hotel-poster.jpg'/>
 
             <div className="film-card__desc">
-              <FilmCardDesc title={title} genre={genre} date={date} />
+              <FilmCardDesc title={title} genre={genre} year={year} />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />

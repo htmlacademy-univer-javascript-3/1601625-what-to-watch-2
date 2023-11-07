@@ -4,7 +4,7 @@ export const FILMS_INFO: FilmCardProps[] = [
   {
     id: '1FBTCoG',
     filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
-    img: 'fantastic-beasts-the-crimes-of-grindelwald.jpg'
+    img: 'fantastic-beasts-the-crimes-of-grindelwald.jpg',
   },
   {
     id: '2BR',
@@ -66,10 +66,10 @@ export const FILMS_INFO: FilmCardProps[] = [
 export const PROMO_FILM_DATA: PromoFilm = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
-  date: '2014',
+  year: '2014',
 };
 
-export const MY_LIST_FILMS: FilmCardProps[] = [
+export const MY_LIST_FILMS:FilmCardProps[] = [
   {
     id: '1FBTCoG',
     filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',

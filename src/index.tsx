@@ -12,7 +12,7 @@ root.render(
     <App
       title={PROMO_FILM_DATA.title}
       genre={PROMO_FILM_DATA.genre}
-      date={PROMO_FILM_DATA.date}
+      year={PROMO_FILM_DATA.year}
       filmsInfo={FILMS_INFO}
     />
   </React.StrictMode>

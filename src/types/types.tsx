@@ -1,9 +1,10 @@
-import React from 'react';
-
 export type FilmCardProps = {
   id: string;
   filmTitle: string;
   img: string;
+}
+
+export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
   setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -11,7 +12,7 @@ export type FilmCardProps = {
 export type PromoFilm = {
   title: string;
   genre: string;
-  date: string | number;
+  year: string | number;
 }
 
 export type MainPageProps = PromoFilm & {
