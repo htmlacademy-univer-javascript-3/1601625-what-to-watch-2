@@ -52,3 +52,5 @@ export type PropsPlayer = {
 export type PropsAddReview = {
   filmInfo: FilmCardProps;
 }
+
+export type BreadcrumbsListProps = Omit<FilmCardProps, 'img'>
