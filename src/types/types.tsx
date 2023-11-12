@@ -10,6 +10,7 @@ export type FilmCardProps = {
 export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
   setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
+  videoLink: string;
 }
 
 export type PromoFilm = {
@@ -66,4 +67,14 @@ export type PrivateRouteProps = {
 }
 
 export type FilmCardBgProps = Omit<FilmCardProps, 'id'>
+
+export type VideoPlayerProps = {
+  active: boolean;
+  src: string;
+  img: string;
+  filmTitle: string;
+  videoTimeout: number;
+  width?: string;
+  height?: string;
+}
 
