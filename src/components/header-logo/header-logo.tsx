@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { PropsHeader } from '../../types/types';
+import { HeaderProps } from '../../types/types';
 
-function HeaderLogo({linkLogo}:PropsHeader){
+function HeaderLogo({linkLogo}:HeaderProps){
   return(
     <div className="logo">
       <Link to={linkLogo} className="logo__link">

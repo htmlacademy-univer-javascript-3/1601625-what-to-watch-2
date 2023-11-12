@@ -1,6 +1,6 @@
-import { PropsRatingStar } from '../../types/types';
+import { RatingStarProps } from '../../types/types';
 
-function RatingStar({id}:PropsRatingStar) {
+function RatingStar({id}:RatingStarProps) {
   return (
     <>
       <input className="rating__input" id={`star-${id}`} type="radio" name="rating" value={id} />

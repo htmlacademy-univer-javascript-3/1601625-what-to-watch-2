@@ -1,6 +1,6 @@
-import { PropsPlayer } from '../../../types/types';
+import { PlayerProps } from '../../../types/types';
 
-function Player({videoLink}:PropsPlayer){
+function Player({videoLink}:PlayerProps){
   return (
     <div className="player">
       <video src={videoLink} className="player__video" poster="img/player-poster.jpg"></video>

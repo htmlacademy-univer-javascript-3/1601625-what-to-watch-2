@@ -1,10 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
-import HeaderLogo from '../../header-logo/header-logo';
+import FilmCardBg from '../../film-card-bg/film-card-bg';
 import BreadcrumbsList from '../../breadcrumbs-list/breadcrumb-list';
-import HeaderUserBlock from '../../header-user-block/header-user-block';
 import FormAddReview from '../../form-add-review/form-add-review';
 import { AppRoutes } from '../../../consts';
 import { PropsList, FilmCardProps } from '../../../types/types';
+import Header from '../../header/header';
 
 function AddReview({list}:PropsList<FilmCardProps>){
   const {id} = useParams();
@@ -14,22 +14,16 @@ function AddReview({list}:PropsList<FilmCardProps>){
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src={`img\\${img}`} alt={filmTitle} />
-        </div>
-
+        <FilmCardBg img={img} filmTitle={filmTitle} />
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header">
-          <HeaderLogo linkLogo={AppRoutes.Main} />
-
+        <Header linkLogo={AppRoutes.Main}>
           <nav className="breadcrumbs">
             {
               id === undefined || null ? <Link to='*' /> : <BreadcrumbsList id={id} filmTitle={filmTitle} />
             }
           </nav>
-          <HeaderUserBlock />
-        </header>
+        </Header>
 
         <div className="film-card__poster film-card__poster--small">
           <img src={`img\\${img}`} alt={`${filmTitle}`} width="218" height="327" />

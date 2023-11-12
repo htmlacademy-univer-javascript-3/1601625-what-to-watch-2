@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { AppRoutes } from '../../../consts';
+import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
@@ -17,8 +18,9 @@ function FilmPage({list}:PropsList<FilmCardProps>){
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-
-          <Header linkLogo={AppRoutes.Main} />
+          <FilmCardBg img={img} filmTitle={filmTitle} />
+          <h1 className="visually-hidden">WTW</h1>
+          <Header linkLogo={AppRoutes.Main} classes='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">

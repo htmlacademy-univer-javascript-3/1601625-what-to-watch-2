@@ -1,3 +1,6 @@
+import { ReactNode } from 'react';
+import { AuthorisationStatus } from '../consts';
+
 export type FilmCardProps = {
   id: string;
   filmTitle: string;
@@ -7,6 +10,7 @@ export type FilmCardProps = {
 export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
   setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
+  videoLink: string;
 }
 
 export type PromoFilm = {
@@ -31,26 +35,46 @@ export type PropsList<T> = {
   list: T[];
 };
 
-export type PropsHeader = {
+export type HeaderProps = {
   linkLogo: string;
+  children?: ReactNode;
+  classes?: string;
 };
 
-export type PropsFooter = PropsHeader;
+export type PropsFooter = HeaderProps;
 
-export type PropsPoster = {
+export type PosterProps = {
   path: string;
 }
 
-export type PropsRatingStar = {
+export type RatingStarProps = {
   id: string;
 }
 
-export type PropsPlayer = {
+export type PlayerProps = {
   videoLink: string;
 }
 
-export type PropsAddReview = {
+export type AddReviewProps = {
   filmInfo: FilmCardProps;
 }
 
 export type BreadcrumbsListProps = Omit<FilmCardProps, 'img'>
+
+export type PrivateRouteProps = {
+  authorizationStatus: AuthorisationStatus;
+  children: JSX.Element;
+}
+
+export type FilmCardBgProps = Omit<FilmCardProps, 'id'>
+
+export type VideoPlayerProps = {
+  active: boolean;
+  src: string;
+  img: string;
+  filmTitle: string;
+  videoTimeout: number;
+  width?: string;
+  height?: string;
+}
+

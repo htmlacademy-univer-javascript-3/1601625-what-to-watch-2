@@ -12,3 +12,5 @@ export enum AuthorisationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const VIDEO_TIMEOUT = 1000;

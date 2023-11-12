@@ -1,3 +1,4 @@
+import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import Poster from '../../poster/poster';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
@@ -13,7 +14,10 @@ function MainPage({title, genre, year, filmsInfo}: MainPageProps){
   return (
     <>
       <section className="film-card">
-        <Header linkLogo="/" />
+        <FilmCardBg img='bg-the-grand-budapest-hotel.jpg' filmTitle='The Grand Budapest Hotel'/>
+        <h1 className="visually-hidden">WTW</h1>
+
+        <Header linkLogo="/" classes='film-card__head' />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
