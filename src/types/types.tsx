@@ -78,3 +78,16 @@ export type VideoPlayerProps = {
   height?: string;
 }
 
+export type AddActiveClassFunction = (idx: number, activeClass: string) => string;
+
+export type TabsNavProps = {
+  tabs: string[];
+  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
+  addActiveClass: AddActiveClassFunction;
+}
+
+export type FilmTabsContainerProps = {
+  activeTab: number;
+}
+
+export type getHalfArrayFunction<T> = (arr:T[]) => number;
