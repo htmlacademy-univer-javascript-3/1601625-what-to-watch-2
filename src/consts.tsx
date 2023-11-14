@@ -14,3 +14,4 @@ export enum AuthorisationStatus {
 }
 
 export const VIDEO_TIMEOUT = 1000;
+export const TABS = ['Overview', 'Details', 'Reviews'];
