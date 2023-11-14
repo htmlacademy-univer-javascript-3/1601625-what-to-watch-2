@@ -43,8 +43,10 @@ export type HeaderProps = {
 
 export type PropsFooter = HeaderProps;
 
-export type PosterProps = {
-  path: string;
+export type FilmCardPosterProps = {
+  imgSrc: string;
+  imgTitle: string;
+  classes?: string;
 }
 
 export type RatingStarProps = {
