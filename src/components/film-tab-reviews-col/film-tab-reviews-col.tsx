@@ -1,6 +1,6 @@
-import { PropsList, FilmReviewsProps } from '../../types/types';
+import { PropsList, FilmReviews } from '../../types/types';
 
-function FilmTabReviewsCol({ list }:PropsList<FilmReviewsProps>){
+function FilmTabReviewsCol({ list }:PropsList<FilmReviews>){
   return (
     <div className="film-card__reviews-col">
       {list.map((review) => (
@@ -10,7 +10,7 @@ function FilmTabReviewsCol({ list }:PropsList<FilmReviewsProps>){
 
             <footer className="review__details">
               <cite className="review__author">{review.author}</cite>
-              <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+              <time className="review__date" dateTime={review.date}>{review.date}</time>
             </footer>
           </blockquote>
 

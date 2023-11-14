@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MainPageProps } from '../../types/types';
+import { AppProps } from '../../types/types';
 import { AppRoutes, AuthorisationStatus } from '../../consts';
 import MainPage from '../pages/main/main';
 import SignIn from '../pages/sign-in/sign-in';
@@ -10,9 +10,8 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { MY_LIST_FILMS, VIDEO_LINK} from '../../mocks/films';
 
-function App({title, genre, year, filmsInfo}: MainPageProps) {
+function App(props:AppProps) {
 
   return (
     <BrowserRouter>
@@ -20,7 +19,7 @@ function App({title, genre, year, filmsInfo}: MainPageProps) {
         <Route element={<Layout />}>
           <Route
             path={AppRoutes.Main}
-            element={ <MainPage title={title} genre={genre} year={year} filmsInfo={filmsInfo} /> }
+            element={ <MainPage title={props.title} genre={props.genre} year={props.year} filmsInfo={props.filmsInfo} /> }
           />
         </Route>
         <Route path={AppRoutes.Login} element={ <SignIn /> }/>
@@ -28,13 +27,21 @@ function App({title, genre, year, filmsInfo}: MainPageProps) {
           path={AppRoutes.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorisationStatus.Auth}>
-              <MyList list={MY_LIST_FILMS} />
+              <MyList list={props.myList} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Film} element={ <FilmPage list={filmsInfo} /> }/>
-        <Route path={AppRoutes.AddReview} element={ <AddReview list={filmsInfo} /> }/>
-        <Route path={AppRoutes.Player} element={ <Player videoLink={VIDEO_LINK} /> }/>
+        <Route path={AppRoutes.Film} element={
+          <FilmPage
+            list={props.filmsInfo}
+            overviewInfo={props.overviewInfo}
+            detailsInfo={props.detailsInfo}
+            reviewsInfo={props.reviewsInfo}
+          />
+        }
+        />
+        <Route path={AppRoutes.AddReview} element={ <AddReview list={props.filmsInfo} /> }/>
+        <Route path={AppRoutes.Player} element={ <Player videoLink={props.videoLink} /> }/>
         <Route path='*' element={ <NotFound /> }/>
       </Routes>
 

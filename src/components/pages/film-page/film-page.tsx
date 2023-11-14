@@ -9,9 +9,9 @@ import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmTabs from '../../film-tabs/film-tabs';
 import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
-import { PropsList, FilmCardProps } from '../../../types/types';
+import {FilmCardProps, FilmPageProps } from '../../../types/types';
 
-function FilmPage({list}:PropsList<FilmCardProps>){
+function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
   const {id} = useParams();
   const film = list.filter((item) => item.id === id);
   const {filmTitle, img} = film[0];
@@ -46,7 +46,7 @@ function FilmPage({list}:PropsList<FilmCardProps>){
             <FilmCardPoster imgSrc={img} imgTitle={filmTitle} classes='film-card__poster--big'/>
 
             <div className="film-card__desc">
-              <FilmTabs />
+              <FilmTabs overviewInfo={overviewInfo} detailsInfo={detailsInfo} reviewsInfo={reviewsInfo} />
             </div>
           </div>
         </div>

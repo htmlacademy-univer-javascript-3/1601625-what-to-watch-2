@@ -1,18 +1,17 @@
-import { REVIEWS } from '../../mocks/reviews';
 import FilmTabReviewsCol from '../film-tab-reviews-col/film-tab-reviews-col';
-import { getHalfArrayFunction, FilmReviewsProps } from '../../types/types';
+import { getHalfArrayFunction, FilmReviews, FilmTabReviewsProps } from '../../types/types';
 
-function FilmTabReviews(){
-  const getHalfArray:getHalfArrayFunction<FilmReviewsProps> = (arr:FilmReviewsProps[]) => (
+function FilmTabReviews({reviewsInfo}:FilmTabReviewsProps){
+  const getHalfArray:getHalfArrayFunction<FilmReviews> = (arr:FilmReviews[]) => (
     Math.round(arr.length / 2) - 1
   );
 
-  const REVIEWS_COL = getHalfArray(REVIEWS);
+  const REVIEWS_COL = getHalfArray(reviewsInfo);
 
   return (
     <div className="film-card__reviews film-card__row">
-      <FilmTabReviewsCol list={REVIEWS.filter((_, idx) => idx <= REVIEWS_COL)} />
-      <FilmTabReviewsCol list={REVIEWS.filter((_, idx) => idx > REVIEWS_COL)} />
+      <FilmTabReviewsCol list={reviewsInfo.filter((_, idx) => idx <= REVIEWS_COL)} />
+      <FilmTabReviewsCol list={reviewsInfo.filter((_, idx) => idx > REVIEWS_COL)} />
     </div>
   );
 }
