@@ -1,4 +1,3 @@
-// import { TabsProps } from '../../types/types';
 import { useState } from 'react';
 import FilmTabsNav from '../film-tabs-nav/film-tabs-nav';
 import FilmTabsContainer from '../film-tabs-container/film-tabs-container';
