@@ -23,7 +23,12 @@ export type MainPageProps = PromoFilm & {
   filmsInfo: FilmCardProps[];
 };
 
-export type FilmReviewsProps = {
+export type AppProps = MainPageProps & FilmTabsProps & {
+  myList: FilmCardProps[];
+  videoLink: string;
+}
+
+export type FilmReviews = {
   id: string | number;
   text: string;
   author: string;
@@ -33,7 +38,11 @@ export type FilmReviewsProps = {
 
 export type PropsList<T> = {
   list: T[];
-};
+}
+
+export type FilmPageProps<T> = PropsList<T> & FilmTabsProps;
+
+export type FilmTabsProps = FilmTabOverviewProps & FilmTabDetailsProps & FilmTabReviewsProps;
 
 export type HeaderProps = {
   linkLogo: string;
@@ -88,8 +97,42 @@ export type TabsNavProps = {
   addActiveClass: AddActiveClassFunction;
 }
 
-export type FilmTabsContainerProps = {
+export type FilmTabsContainerProps = FilmTabsProps & {
   activeTab: number;
 }
 
 export type getHalfArrayFunction<T> = (arr:T[]) => number;
+
+export type FilmCardOverview = {
+  rating: {
+    score: string;
+    level: string;
+    count: string;
+  };
+  text: {
+    paragraphs: string[];
+    director: string;
+    starring: string;
+  };
+}
+
+export type FilmCardDetails = {
+  director: string;
+  starring: string[];
+  runTime: string;
+  genre: string;
+  realeased: string;
+}
+
+export type FilmTabOverviewProps = {
+  overviewInfo: FilmCardOverview;
+}
+
+export type FilmTabDetailsProps = {
+  detailsInfo: FilmCardDetails;
+}
+
+export type FilmTabReviewsProps = {
+  reviewsInfo: FilmReviews[];
+}
+
