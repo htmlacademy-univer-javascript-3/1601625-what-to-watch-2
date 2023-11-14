@@ -5,6 +5,7 @@ import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
+import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmTabs from '../../film-tabs/film-tabs';
 import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
@@ -42,9 +43,7 @@ function FilmPage({list}:PropsList<FilmCardProps>){
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img src={`img/${img}`} alt={`${filmTitle} poster`} width="218" height="327" />
-            </div>
+            <FilmCardPoster imgSrc={img} imgTitle={filmTitle} classes='film-card__poster--big'/>
 
             <div className="film-card__desc">
               <FilmTabs />

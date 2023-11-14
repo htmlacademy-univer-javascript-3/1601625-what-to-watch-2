@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import BreadcrumbsList from '../../breadcrumbs-list/breadcrumb-list';
+import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FormAddReview from '../../form-add-review/form-add-review';
 import { AppRoutes } from '../../../consts';
 import { PropsList, FilmCardProps } from '../../../types/types';
@@ -24,10 +25,7 @@ function AddReview({list}:PropsList<FilmCardProps>){
             }
           </nav>
         </Header>
-
-        <div className="film-card__poster film-card__poster--small">
-          <img src={`img\\${img}`} alt={`${filmTitle}`} width="218" height="327" />
-        </div>
+        <FilmCardPoster imgSrc={img} imgTitle={filmTitle} classes='film-card__poster--small' />
       </div>
 
       <div className="add-review">

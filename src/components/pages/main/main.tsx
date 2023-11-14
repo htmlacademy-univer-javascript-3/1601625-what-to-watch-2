@@ -1,6 +1,6 @@
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
-import Poster from '../../poster/poster';
+import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
@@ -21,7 +21,7 @@ function MainPage({title, genre, year, filmsInfo}: MainPageProps){
 
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <Poster path='img/the-grand-budapest-hotel-poster.jpg'/>
+            <FilmCardPoster imgSrc='the-grand-budapest-hotel-poster.jpg' imgTitle='The Grand Budapest Hotel poster'/>
 
             <div className="film-card__desc">
               <FilmCardDesc title={title} genre={genre} year={year} />
