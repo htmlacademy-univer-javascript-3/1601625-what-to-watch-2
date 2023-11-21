@@ -1,12 +1,14 @@
 import { FilmTabOverviewProps } from '../../types/types';
+import { getRatingDescription } from '../../utils/getRatingDescription';
+import { numberRatingScoreToString } from '../../utils/numberRatingScoreToString';
 
 function FilmTabOverview({overviewInfo}:FilmTabOverviewProps){
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{overviewInfo.rating.score}</div>
+        <div className="film-rating__score">{numberRatingScoreToString(overviewInfo.rating.score)}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{overviewInfo.rating.level}</span>
+          <span className="film-rating__level">{getRatingDescription(overviewInfo.rating.score)}</span>
           <span className="film-rating__count">{overviewInfo.rating.count}</span>
         </p>
       </div>
