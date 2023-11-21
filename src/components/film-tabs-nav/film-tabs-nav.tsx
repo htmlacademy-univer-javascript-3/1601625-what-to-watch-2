@@ -1,4 +1,5 @@
 import { TabsNavProps } from '../../types/types';
+import './film-tabs-nav.css';
 
 function FilmTabsNav({ tabs, setActiveTab, addActiveClass }:TabsNavProps) {
   return (
@@ -6,7 +7,7 @@ function FilmTabsNav({ tabs, setActiveTab, addActiveClass }:TabsNavProps) {
       <ul className="film-nav__list">
         {
           tabs.map((tab, idx) => (
-            <li className={`film-nav__item ${addActiveClass(idx, 'film-nav__item--active')}`} key={`tab-${tab}`}>
+            <li className={`film-nav__item tab-hover ${addActiveClass(idx, 'film-nav__item--active')}`} key={`tab-${tab}`}>
               <a className='film-nav__link' onClick={() => setActiveTab(idx)}>{tab}</a>
             </li>
           ))
