@@ -1,11 +1,8 @@
 import FilmTabReviewsCol from '../film-tab-reviews-col/film-tab-reviews-col';
-import { getHalfArrayFunction, FilmReviews, FilmTabReviewsProps } from '../../types/types';
+import { FilmTabReviewsProps } from '../../types/types';
+import { getHalfArray } from '../../utils/getHalfArray';
 
 function FilmTabReviews({reviewsInfo}:FilmTabReviewsProps){
-  const getHalfArray:getHalfArrayFunction<FilmReviews> = (arr:FilmReviews[]) => (
-    Math.round(arr.length / 2) - 1
-  );
-
   const rewiewsCol = getHalfArray(reviewsInfo);
 
   return (
