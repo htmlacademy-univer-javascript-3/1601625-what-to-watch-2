@@ -67,6 +67,8 @@ export const PROMO_FILM_DATA: PromoFilm = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   year: '2014',
+  poster: 'the-grand-budapest-hotel-poster.jpg',
+  bgImg: 'bg-the-grand-budapest-hotel.jpg',
 };
 
 export const MY_LIST_FILMS:FilmCardProps[] = [
