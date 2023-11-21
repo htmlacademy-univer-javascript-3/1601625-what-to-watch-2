@@ -17,6 +17,8 @@ export type PromoFilm = {
   title: string;
   genre: string;
   year: string | number;
+  poster: string;
+  bgImg: string;
 }
 
 export type MainPageProps = PromoFilm & {
@@ -135,4 +137,6 @@ export type FilmTabDetailsProps = {
 export type FilmTabReviewsProps = {
   reviewsInfo: FilmReviews[];
 }
+
+export type FilmCardDescProps = Omit<PromoFilm, 'poster' | 'bgImg'>
 
