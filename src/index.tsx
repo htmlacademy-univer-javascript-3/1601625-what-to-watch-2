@@ -15,6 +15,8 @@ root.render(
       title={PROMO_FILM_DATA.title}
       genre={PROMO_FILM_DATA.genre}
       year={PROMO_FILM_DATA.year}
+      poster={PROMO_FILM_DATA.poster}
+      bgImg={PROMO_FILM_DATA.bgImg}
       filmsInfo={FILMS_INFO}
       myList={MY_LIST_FILMS}
       videoLink={VIDEO_LINK}

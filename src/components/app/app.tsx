@@ -19,7 +19,16 @@ function App(props:AppProps) {
         <Route element={<Layout />}>
           <Route
             path={AppRoutes.Main}
-            element={ <MainPage title={props.title} genre={props.genre} year={props.year} filmsInfo={props.filmsInfo} /> }
+            element={
+              <MainPage
+                title={props.title}
+                genre={props.genre}
+                year={props.year}
+                poster={props.poster}
+                bgImg={props.bgImg}
+                filmsInfo={props.filmsInfo}
+              />
+            }
           />
         </Route>
         <Route path={AppRoutes.Login} element={ <SignIn /> }/>

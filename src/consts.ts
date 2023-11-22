@@ -15,3 +15,11 @@ export enum AuthorisationStatus {
 
 export const VIDEO_TIMEOUT = 1000;
 export const TABS = ['Overview', 'Details', 'Reviews'];
+
+export enum RatingDescription {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
+}

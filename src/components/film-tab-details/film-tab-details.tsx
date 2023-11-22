@@ -1,3 +1,4 @@
+import React from 'react';
 import { FilmTabDetailsProps } from '../../types/types';
 
 function FilmTabDetails({detailsInfo}:FilmTabDetailsProps){
@@ -14,12 +15,12 @@ function FilmTabDetails({detailsInfo}:FilmTabDetailsProps){
             {
               detailsInfo.starring
                 .filter((_, idx) => idx < detailsInfo.starring.length - 1)
-                .map((star) => <span key={`details-starring${star}`}>{star}, <br/></span>)
+                .map((star) => <React.Fragment key={`details-starring${star}`}>{star},<br/></React.Fragment>)
             }
             {
               detailsInfo.starring
                 .filter((_, idx) => idx === detailsInfo.starring.length - 1)
-                .map((star) => <span key={`details-starring${star}`}>{star}</span>)
+                .map((star) => <React.Fragment key={`details-starring${star}`}>{star}</React.Fragment>)
             }
           </span>
         </p>

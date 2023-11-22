@@ -2,7 +2,7 @@ import { FilmCardOverview, FilmCardDetails } from '../types/types';
 
 export const TAB_OVERVIEW_INFO:FilmCardOverview = {
   rating: {
-    score: '8,9',
+    score: 8.9,
     level: 'Very good',
     count: '240 ratings'
   },

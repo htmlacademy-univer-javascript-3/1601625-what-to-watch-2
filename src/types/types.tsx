@@ -17,6 +17,8 @@ export type PromoFilm = {
   title: string;
   genre: string;
   year: string | number;
+  poster: string;
+  bgImg: string;
 }
 
 export type MainPageProps = PromoFilm & {
@@ -101,11 +103,11 @@ export type FilmTabsContainerProps = FilmTabsProps & {
   activeTab: number;
 }
 
-export type getHalfArrayFunction<T> = (arr:T[]) => number;
+export type GetHalfArrayFunction<T> = (arr:T[]) => number;
 
 export type FilmCardOverview = {
   rating: {
-    score: string;
+    score: number;
     level: string;
     count: string;
   };
@@ -135,4 +137,11 @@ export type FilmTabDetailsProps = {
 export type FilmTabReviewsProps = {
   reviewsInfo: FilmReviews[];
 }
+
+export type FilmCardDescProps = Omit<PromoFilm, 'poster' | 'bgImg'>
+
+export type GetRatingDescriptionFunction = (rating:number) => string
+
+export type NumberRatingScoreToStringFunc = (rating: number) => string
+
 
