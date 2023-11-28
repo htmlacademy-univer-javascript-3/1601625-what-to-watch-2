@@ -1,16 +1,16 @@
 import { RatingDescription } from '../consts';
 import { GetRatingDescriptionFunction } from '../types/types';
 
-export const getRatingDescription:GetRatingDescriptionFunction = (rating:number) => {
-  if (rating >= 1 && rating < 4){
+export const getRatingDescription: GetRatingDescriptionFunction = (rating:number) => {
+  if (rating >= 0 && rating < 3){
     return RatingDescription.Bad;
-  } else if (rating >= 4 && rating < 6){
+  } else if (rating >= 3 && rating < 5){
     return RatingDescription.Normal;
-  } else if (rating >= 6 && rating < 7.5) {
+  } else if (rating >= 5 && rating < 8) {
     return RatingDescription.Good;
-  } else if (rating >= 7.5 && rating < 9) {
+  } else if (rating >= 8 && rating < 10) {
     return RatingDescription.VeryGood;
-  } else if (rating >= 9 && rating <= 10){
+  } else if (rating === 10){
     return RatingDescription.Awesome;
   } else {
     return '';
