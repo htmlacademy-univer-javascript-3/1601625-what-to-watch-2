@@ -73,7 +73,7 @@ export type AddReviewProps = {
   filmInfo: FilmCardProps;
 };
 
-export type BreadcrumbsListProps = Omit<FilmCardProps, 'img'>;
+export type BreadcrumbsListProps = Omit<FilmCardProps, 'img' | 'genre'>;
 
 export type PrivateRouteProps = {
   authorizationStatus: AuthorisationStatus;
