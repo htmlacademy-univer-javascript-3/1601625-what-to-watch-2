@@ -1,6 +1,6 @@
-import { PromoFilm } from '../../types/types';
+import { FilmCardDescProps } from '../../types/types';
 
-function FilmCardDesc({title, genre, year}:PromoFilm){
+function FilmCardDesc({title, genre, year}:FilmCardDescProps){
   return (
     <>
       <h2 className="film-card__title">{title}</h2>

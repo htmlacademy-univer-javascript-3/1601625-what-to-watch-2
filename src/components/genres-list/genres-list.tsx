@@ -1,36 +1,29 @@
+import { useState, useEffect } from 'react';
+import Genre from '../genre/genre';
+import { GenresEnum } from '../../consts';
+import { updateGenre } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
+
 function GenresList(){
+  const [activeGenre, setActiveGenre] = useState(GenresEnum.AllGenres);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(updateGenre(activeGenre));
+  }, [dispatch, activeGenre]);
+
   return (
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="#" className="catalog__genres-link">All genres</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Comedies</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Crime</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Documentary</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Dramas</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Horror</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Kids & Family</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Romance</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Sci-Fi</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Thrillers</a>
-      </li>
+      {
+        Object.values(GenresEnum).map((genre) => (
+          <Genre
+            key={genre}
+            genre={genre}
+            setActiveGenre={setActiveGenre}
+            activeClass={activeGenre === genre ? 'catalog__genres-item--active' : ''}
+          />
+        ))
+      }
     </ul>
   );
 }
