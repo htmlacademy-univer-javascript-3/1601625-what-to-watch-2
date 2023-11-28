@@ -12,32 +12,38 @@ function FilmsList({list}: PropsList<FilmCardProps>){
 
   return (
     activeGenre === GenresEnum.AllGenres
-      ? list.map(({id, filmTitle, img, genre}) => (
-        <FilmCard
-          key={id}
-          id={id}
-          filmTitle={filmTitle}
-          img={img}
-          active={activeCardId === id}
-          genre={genre}
+      ?
+      <>
+        { list.map(({id, filmTitle, img, genre}) => (
+          <FilmCard
+            key={id}
+            id={id}
+            filmTitle={filmTitle}
+            img={img}
+            active={activeCardId === id}
+            genre={genre}
 
-          setActiveCardId={setActiveCardId}
-          videoLink={VIDEO_LINK}
-        />
-      ))
-      : list.filter(({genre}) => genre === activeGenre).map(({id, filmTitle, img, genre}) => (
-        <FilmCard
-          key={id}
-          id={id}
-          filmTitle={filmTitle}
-          img={img}
-          active={activeCardId === id}
-          genre={genre}
+            setActiveCardId={setActiveCardId}
+            videoLink={VIDEO_LINK}
+          />
+        ))}
+      </>
+      :
+      <>
+        { list.filter(({genre}) => genre === activeGenre).map(({id, filmTitle, img, genre}) => (
+          <FilmCard
+            key={id}
+            id={id}
+            filmTitle={filmTitle}
+            img={img}
+            active={activeCardId === id}
+            genre={genre}
 
-          setActiveCardId={setActiveCardId}
-          videoLink={VIDEO_LINK}
-        />
-      ))
+            setActiveCardId={setActiveCardId}
+            videoLink={VIDEO_LINK}
+          />
+        ))}
+      </>
   );
 }
 
