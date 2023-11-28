@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { AppProps } from '../../types/types';
 import { AppRoutes, AuthorisationStatus } from '../../consts';
 import MainPage from '../pages/main/main';
@@ -10,8 +11,16 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import { useAppDispatch } from '../../hooks';
+import { showFilmcardList } from '../../store/action';
+
 
 function App(props:AppProps) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(showFilmcardList(props.filmsInfo));
+  }, [dispatch, props.filmsInfo]);
 
   return (
     <BrowserRouter>
