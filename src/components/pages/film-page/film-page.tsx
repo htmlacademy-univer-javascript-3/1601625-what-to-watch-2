@@ -14,7 +14,7 @@ import {FilmCardProps, FilmPageProps } from '../../../types/types';
 function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
   const {id} = useParams();
   const film = list.filter((item) => item.id === id);
-  const {filmTitle, img} = film[0];
+  const {filmTitle, img, genre} = film[0];
 
   return (
     <>
@@ -28,7 +28,7 @@ function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<F
             <div className="film-card__desc">
               <FilmCardDesc
                 title={filmTitle}
-                genre='Drama'
+                genre={genre}
                 year='2014'
               />
 

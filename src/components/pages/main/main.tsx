@@ -4,7 +4,7 @@ import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
-import GenresList from '../../genres-list/genres-list';
+import GenresEnum from '../../genres-list/genres-list';
 import FilmsList from '../../films-list/films-list';
 import CatalogButton from '../../catalog-button/catalog-button';
 import Footer from '../../footer/footer';
@@ -39,7 +39,7 @@ function MainPage({title, genre, year, poster, bgImg, filmsInfo}: MainPageProps)
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList />
+          <GenresEnum />
 
           <div className="catalog__films-list">
             <FilmsList list={filmsInfo}/>
