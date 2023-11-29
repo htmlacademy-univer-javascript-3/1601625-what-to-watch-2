@@ -2,18 +2,21 @@ import { useState } from 'react';
 import FilmTabsNav from '../film-tabs-nav/film-tabs-nav';
 import FilmTabsContainer from '../film-tabs-container/film-tabs-container';
 import { TABS } from '../../consts';
-import { AddActiveClassFunction, FilmTabsProps } from '../../types/types';
+import { AddActiveClassFunc, FilmTabsProps } from '../../types/types';
 
-function FilmTabs({overviewInfo, detailsInfo, reviewsInfo}:FilmTabsProps){
+function FilmTabs({ overviewInfo, detailsInfo, reviewsInfo }: FilmTabsProps) {
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const addActiveClass:AddActiveClassFunction = (idx, activeClass) => (
-    activeTab === idx ? activeClass : ''
-  );
+  const addActiveClass: AddActiveClassFunc = (idx, activeClass) =>
+    activeTab === idx ? activeClass : '';
 
-  return(
+  return (
     <>
-      <FilmTabsNav tabs={TABS} setActiveTab={setActiveTab} addActiveClass={addActiveClass}/>
+      <FilmTabsNav
+        tabs={TABS}
+        setActiveTab={setActiveTab}
+        addActiveClass={addActiveClass}
+      />
       <FilmTabsContainer
         activeTab={activeTab}
         overviewInfo={overviewInfo}
