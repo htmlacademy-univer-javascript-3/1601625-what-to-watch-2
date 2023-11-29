@@ -22,13 +22,12 @@ export type PromoFilm = {
   bgImg: string;
 };
 
-export type MainPageProps = PromoFilm & {
-  filmsInfo: FilmCardProps[];
-};
+export type MainPageProps = PromoFilm;
 
 export type AppProps = MainPageProps & FilmTabsProps & {
   myList: FilmCardProps[];
   videoLink: string;
+  filmsInfo: FilmCardProps[];
 };
 
 export type FilmReviews = {
@@ -92,19 +91,19 @@ export type VideoPlayerProps = {
   height?: string;
 };
 
-export type AddActiveClassFunction = (idx: number, activeClass: string) => string;
+export type AddActiveClassFunc = (idx: number, activeClass: string) => string;
 
 export type TabsNavProps = {
   tabs: string[];
   setActiveTab: React.Dispatch<React.SetStateAction<number>>;
-  addActiveClass: AddActiveClassFunction;
+  addActiveClass: AddActiveClassFunc;
 };
 
 export type FilmTabsContainerProps = FilmTabsProps & {
   activeTab: number;
 };
 
-export type GetHalfArrayFunction<T> = (arr:T[]) => number;
+export type GetHalfArrayFunc<T> = (arr:T[]) => number;
 
 export type FilmCardOverview = {
   rating: {
@@ -141,7 +140,7 @@ export type FilmTabReviewsProps = {
 
 export type FilmCardDescProps = Omit<PromoFilm, 'poster' | 'bgImg'>;
 
-export type GetRatingDescriptionFunction = (rating:number) => string;
+export type GetRatingDescriptionFunc = (rating:number) => string;
 
 export type GenreProps = {
   genre: GenresEnum;
@@ -152,4 +151,10 @@ export type GenreProps = {
 export type InitialState = {
   genre: string;
   filmCardList: FilmCardProps[];
+}
+
+export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
+
+export type ShowMoreButtonProps = {
+  onShowMoreClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
