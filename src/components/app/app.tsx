@@ -14,7 +14,6 @@ import Layout from '../layout/layout';
 import { useAppDispatch } from '../../hooks';
 import { showFilmcardList } from '../../store/action';
 
-
 function App(props:AppProps) {
   const dispatch = useAppDispatch();
 
@@ -35,7 +34,6 @@ function App(props:AppProps) {
                 year={props.year}
                 poster={props.poster}
                 bgImg={props.bgImg}
-                filmsInfo={props.filmsInfo}
               />
             }
           />
