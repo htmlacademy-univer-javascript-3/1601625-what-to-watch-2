@@ -14,6 +14,7 @@ export enum AuthorisationStatus {
 }
 
 export const VIDEO_TIMEOUT = 1000;
+
 export const TABS = ['Overview', 'Details', 'Reviews'];
 
 export enum RatingDescription {
@@ -36,3 +37,7 @@ export enum GenresEnum {
   SciFi = 'Sci-Fi',
   Thrillers = 'Thrillers',
 }
+
+export const MAX_NUM_FILMS = 7;
+
+export const NUM_SIMILAR_FILM = 3;

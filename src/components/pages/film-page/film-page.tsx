@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { AppRoutes } from '../../../consts';
+import { useEffect } from 'react';
+import { AppRoutes, GenresEnum } from '../../../consts';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
@@ -10,11 +11,19 @@ import FilmTabs from '../../film-tabs/film-tabs';
 import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import {FilmCardProps, FilmPageProps } from '../../../types/types';
+import { useAppDispatch } from '../../../hooks';
+import { updateGenre } from '../../../store/action';
 
 function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
   const {id} = useParams();
   const film = list.filter((item) => item.id === id);
   const {filmTitle, img, genre} = film[0];
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(updateGenre(GenresEnum.AllGenres));
+  }, [dispatch]);
 
   return (
     <>

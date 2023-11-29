@@ -1,5 +1,5 @@
-import { GetHalfArrayFunction, FilmReviews } from '../types/types';
+import { GetHalfArrayFunc, FilmReviews } from '../types/types';
 
-export const getHalfArray:GetHalfArrayFunction<FilmReviews> = (arr:FilmReviews[]) => (
+export const getHalfArray:GetHalfArrayFunc<FilmReviews> = (arr:FilmReviews[]) => (
   Math.round(arr.length / 2) - 1
 );
