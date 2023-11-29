@@ -4,7 +4,6 @@ import VideoPlayer from '../video-player/video-player';
 import { VIDEO_TIMEOUT } from '../../consts';
 
 function FilmCard({id, filmTitle, img, active, setActiveCardId, videoLink}: FilmCardStateProps){
-
   return(
     <article
       className="small-film-card catalog__films-card"
