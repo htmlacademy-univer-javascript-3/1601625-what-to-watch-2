@@ -41,3 +41,12 @@ export enum GenresEnum {
 export const MAX_NUM_FILMS = 7;
 
 export const NUM_SIMILAR_FILM = 3;
+
+export enum APIRoute {
+  Films = '/films',
+  Promo = '/promo',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
