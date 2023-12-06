@@ -38,7 +38,7 @@ export enum GenresEnum {
   Thrillers = 'Thrillers',
 }
 
-export const MAX_NUM_FILMS = 7;
+export const MAX_NUM_FILMS = 8;
 
 export const NUM_SIMILAR_FILM = 3;
 
