@@ -28,7 +28,7 @@ function App(props: AppProps) {
           path={AppRoutes.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorisationStatus.Auth}>
-              <MyList list={props.myList} />
+              <MyList list={[]} />
             </PrivateRoute>
           }
         />
@@ -36,7 +36,7 @@ function App(props: AppProps) {
           path={AppRoutes.Film}
           element={
             <FilmPage
-              list={props.filmsInfo}
+              list={[]}
               overviewInfo={props.overviewInfo}
               detailsInfo={props.detailsInfo}
               reviewsInfo={props.reviewsInfo}
@@ -45,7 +45,7 @@ function App(props: AppProps) {
         />
         <Route
           path={AppRoutes.AddReview}
-          element={<AddReview list={props.filmsInfo} />}
+          element={<AddReview list={[]} />}
         />
         <Route
           path={AppRoutes.Player}
