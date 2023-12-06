@@ -20,8 +20,8 @@ function VideoPlayer({active, src, img, filmTitle, videoTimeout, width, height}:
 
   return (
     active
-      ? <video ref={videoPlayerRef} src={src} width={width} height={height} poster={`img/${img}`} muted loop />
-      : <img src={`img/${img}`} alt={filmTitle} width={width} height={height}/>
+      ? <video ref={videoPlayerRef} src={src} width={width} height={height} poster={img} muted loop />
+      : <img src={img} alt={filmTitle} width={width} height={height}/>
   );
 }
 

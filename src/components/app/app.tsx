@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
 import { AppProps } from '../../types/types';
 import { AppRoutes, AuthorisationStatus } from '../../consts';
 import MainPage from '../pages/main/main';
@@ -11,16 +10,8 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { useAppDispatch } from '../../hooks';
-import { showFilmcardList } from '../../store/action';
 
-function App(props:AppProps) {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(showFilmcardList(props.filmsInfo));
-  }, [dispatch, props.filmsInfo]);
-
+function App(props: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,39 +19,40 @@ function App(props:AppProps) {
           <Route
             path={AppRoutes.Main}
             element={
-              <MainPage
-                title={props.title}
-                genre={props.genre}
-                year={props.year}
-                poster={props.poster}
-                bgImg={props.bgImg}
-              />
+              <MainPage />
             }
           />
         </Route>
-        <Route path={AppRoutes.Login} element={ <SignIn /> }/>
+        <Route path={AppRoutes.Login} element={<SignIn />} />
         <Route
           path={AppRoutes.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorisationStatus.Auth}>
-              <MyList list={props.myList} />
+              <MyList list={[]} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Film} element={
-          <FilmPage
-            list={props.filmsInfo}
-            overviewInfo={props.overviewInfo}
-            detailsInfo={props.detailsInfo}
-            reviewsInfo={props.reviewsInfo}
-          />
-        }
+        <Route
+          path={AppRoutes.Film}
+          element={
+            <FilmPage
+              list={[]}
+              overviewInfo={props.overviewInfo}
+              detailsInfo={props.detailsInfo}
+              reviewsInfo={props.reviewsInfo}
+            />
+          }
         />
-        <Route path={AppRoutes.AddReview} element={ <AddReview list={props.filmsInfo} /> }/>
-        <Route path={AppRoutes.Player} element={ <Player videoLink={props.videoLink} /> }/>
-        <Route path='*' element={ <NotFound /> }/>
+        <Route
+          path={AppRoutes.AddReview}
+          element={<AddReview list={[]} />}
+        />
+        <Route
+          path={AppRoutes.Player}
+          element={<Player videoLink={props.videoLink} />}
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-
     </BrowserRouter>
   );
 }

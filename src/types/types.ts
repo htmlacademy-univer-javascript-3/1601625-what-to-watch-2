@@ -3,31 +3,21 @@ import { AuthorisationStatus, GenresEnum } from '../consts';
 
 export type FilmCardProps = {
   id: string;
-  filmTitle: string;
-  img: string;
-  genre: GenresEnum;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
 };
 
 export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
   setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
-  videoLink: string;
-};
-
-export type PromoFilm = {
-  title: string;
-  genre: string;
-  year: string | number;
-  poster: string;
-  bgImg: string;
 };
 
 export type MainPageProps = PromoFilm;
 
-export type AppProps = MainPageProps & FilmTabsProps & {
-  myList: FilmCardProps[];
+export type AppProps = FilmTabsProps & {
   videoLink: string;
-  filmsInfo: FilmCardProps[];
 };
 
 export type FilmReviews = {
@@ -72,14 +62,20 @@ export type AddReviewProps = {
   filmInfo: FilmCardProps;
 };
 
-export type BreadcrumbsListProps = Omit<FilmCardProps, 'img' | 'genre'>;
+export type BreadcrumbsListProps = {
+  id: string;
+  filmTitle: string;
+}
 
 export type PrivateRouteProps = {
   authorizationStatus: AuthorisationStatus;
   children: JSX.Element;
 };
 
-export type FilmCardBgProps = Omit<FilmCardProps, 'id' | 'genre'>;
+export type FilmCardBgProps = {
+  img: string;
+  filmTitle: string;
+};
 
 export type VideoPlayerProps = {
   active: boolean;
@@ -138,7 +134,11 @@ export type FilmTabReviewsProps = {
   reviewsInfo: FilmReviews[];
 };
 
-export type FilmCardDescProps = Omit<PromoFilm, 'poster' | 'bgImg'>;
+export type FilmCardDescProps = {
+  title: string;
+  genre: string;
+  year: string | number;
+};
 
 export type GetRatingDescriptionFunc = (rating:number) => string;
 
@@ -150,11 +150,26 @@ export type GenreProps = {
 
 export type InitialState = {
   genre: string;
-  filmCardList: FilmCardProps[];
+  films: FilmCardProps[];
+  authorisationStatus: AuthorisationStatus;
+  filmsLoadStatus: [];
+  isLoading: boolean;
+  promoFilm: PromoFilm;
 }
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
 
 export type ShowMoreButtonProps = {
   onShowMoreClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
-}
+};
+
+export type PromoFilm = {
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  videoLink: string;
+  genre: string;
+  released: number;
+  isFavorite: boolean;
+};

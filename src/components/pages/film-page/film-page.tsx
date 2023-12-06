@@ -13,11 +13,13 @@ import Footer from '../../footer/footer';
 import {FilmCardProps, FilmPageProps } from '../../../types/types';
 import { useAppDispatch } from '../../../hooks';
 import { updateGenre } from '../../../store/action';
+import { useAppSelector } from '../../../hooks';
 
-function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
+function FilmPage({overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
   const {id} = useParams();
-  const film = list.filter((item) => item.id === id);
-  const {filmTitle, img, genre} = film[0];
+  const films = useAppSelector((state) => state.filterGenres.films);
+  const film = films.filter((item) => item.id === id);
+  const {name, previewImage, genre} = film[0];
 
   const dispatch = useAppDispatch();
 
@@ -29,14 +31,14 @@ function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<F
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <FilmCardBg img={img} filmTitle={filmTitle} />
+          <FilmCardBg img={previewImage} filmTitle={name} />
           <h1 className="visually-hidden">WTW</h1>
           <Header linkLogo={AppRoutes.Main} classes='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <FilmCardDesc
-                title={filmTitle}
+                title={name}
                 genre={genre}
                 year='2014'
               />
@@ -52,7 +54,7 @@ function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<F
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster imgSrc={img} imgTitle={filmTitle} classes='film-card__poster--big'/>
+            <FilmCardPoster imgSrc={previewImage} imgTitle={name} classes='film-card__poster--big'/>
 
             <div className="film-card__desc">
               <FilmTabs overviewInfo={overviewInfo} detailsInfo={detailsInfo} reviewsInfo={reviewsInfo} />
@@ -66,7 +68,7 @@ function FilmPage({list, overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<F
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={list.filter((_, idx) => idx < 4)}/>
+            <FilmsList list={films.filter((_, idx) => idx < 4)}/>
           </div>
         </section>
 

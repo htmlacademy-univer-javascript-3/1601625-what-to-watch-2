@@ -9,23 +9,24 @@ import Header from '../../header/header';
 
 function AddReview({list}:PropsList<FilmCardProps>){
   const {id} = useParams();
-  const film = list.filter((item) => item.id === id);
-  const {filmTitle, img} = film[0];
+  list.filter((item) => item.id === id);
+  // const film = list.filter((item) => item.id === id);
+  // const {filmTitle, img} = film[0];
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBg img={img} filmTitle={filmTitle} />
+        <FilmCardBg img={''} filmTitle={''} />
         <h1 className="visually-hidden">WTW</h1>
 
         <Header linkLogo={AppRoutes.Main}>
           <nav className="breadcrumbs">
             {
-              id === undefined || null ? <Link to='*' /> : <BreadcrumbsList id={id} filmTitle={filmTitle} />
+              id === undefined || null ? <Link to='*' /> : <BreadcrumbsList id={id} filmTitle={''} />
             }
           </nav>
         </Header>
-        <FilmCardPoster imgSrc={img} imgTitle={filmTitle} classes='film-card__poster--small' />
+        <FilmCardPoster imgSrc={''} imgTitle={''} classes='film-card__poster--small' />
       </div>
 
       <div className="add-review">
