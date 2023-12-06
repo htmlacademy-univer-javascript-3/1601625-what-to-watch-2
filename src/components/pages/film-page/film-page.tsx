@@ -31,7 +31,7 @@ function FilmPage({overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCar
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <FilmCardBg previewImage={previewImage} name={name} />
+          <FilmCardBg img={previewImage} filmTitle={name} />
           <h1 className="visually-hidden">WTW</h1>
           <Header linkLogo={AppRoutes.Main} classes='film-card__head'/>
 
