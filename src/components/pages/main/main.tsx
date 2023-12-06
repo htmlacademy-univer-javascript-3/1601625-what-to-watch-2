@@ -13,7 +13,7 @@ import Spinner from '../../spinner/spinner';
 import { GetFilmsByGenreFunc } from '../../../types/types';
 import { GenresEnum, MAX_NUM_FILMS } from '../../../consts';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { fetchFilmsAction } from '../../../store/api-actions';
+import { fetchFilmsAction, fetchPromoFilmAction } from '../../../store/api-actions';
 
 function MainPage() {
   const dispatch = useAppDispatch();
@@ -22,12 +22,18 @@ function MainPage() {
     dispatch(fetchFilmsAction());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+
   const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
 
   const activeGenre = useAppSelector((state) => state.filterGenres.genre);
   const filmsInfo = useAppSelector((state) => state.filterGenres.films);
 
   const isLoadingFilms = useAppSelector((state) => state.filterGenres.isLoading);
+
+  const promoFilm = useAppSelector((state) => state.promo.promoFilm);
 
   const getFilmsByGenre: GetFilmsByGenreFunc = (list) => {
     if (activeGenre === GenresEnum.AllGenres) {
@@ -44,24 +50,24 @@ function MainPage() {
   const filmsByGenre = getFilmsByGenre(filmsInfo);
 
   const shownFilms = useMemo(
-    () => filmsByGenre.filter((_, idx) => idx <= maxNumFilms),
+    () => filmsByGenre.filter((_, idx) => idx < maxNumFilms),
     [filmsByGenre, maxNumFilms]
   );
 
   return (
     <>
       <section className="film-card">
-        <FilmCardBg previewImage={''} name={''} />
+        <FilmCardBg img={promoFilm.backgroundImage} filmTitle={promoFilm.name} />
         <h1 className="visually-hidden">WTW</h1>
 
         <Header linkLogo="/" classes="film-card__head" />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmCardPoster imgSrc={''} imgTitle={''} />
+            <FilmCardPoster imgSrc={promoFilm.posterImage} imgTitle={promoFilm.name} />
 
             <div className="film-card__desc">
-              <FilmCardDesc title={''} genre={''} year={''} />
+              <FilmCardDesc title={promoFilm.name} genre={promoFilm.genre} year={promoFilm.released} />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />

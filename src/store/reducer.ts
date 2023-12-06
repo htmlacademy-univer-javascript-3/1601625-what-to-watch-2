@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { InitialState } from '../types/types';
-import { updateGenre, loadFilms, setloadingFilms } from './action';
+import { updateGenre, loadFilms, setloadingFilms, loadPromoFilm} from './action';
 import { GenresEnum, AuthorisationStatus } from '../consts';
 
 const initialState: InitialState = {
@@ -9,6 +9,16 @@ const initialState: InitialState = {
   authorisationStatus: AuthorisationStatus.Unknown,
   filmsLoadStatus: [],
   isLoading: false,
+  promoFilm: {
+    id: '',
+    name: '',
+    posterImage: '',
+    backgroundImage: '',
+    videoLink: '',
+    genre: '',
+    released: 0,
+    isFavorite: false
+  },
 };
 
 export const filterGenresReducer = createReducer(initialState, (builder) => {
@@ -21,5 +31,12 @@ export const filterGenresReducer = createReducer(initialState, (builder) => {
     })
     .addCase((setloadingFilms), (state, action) => {
       state.isLoading = action.payload;
+    });
+});
+
+export const promoFilmReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
     });
 });
