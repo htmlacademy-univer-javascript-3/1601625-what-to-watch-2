@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import FilmCard from '../film-card/film-card';
 import { PropsList, FilmCardProps } from '../../types/types';
-import { VIDEO_LINK } from '../../mocks/films';
 
 function FilmsList({ list }: PropsList<FilmCardProps>) {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -9,16 +8,16 @@ function FilmsList({ list }: PropsList<FilmCardProps>) {
   return (
     <>
       {
-        list.map(({ id, filmTitle, img, genre }) => (
+        list.map(({ id, name, previewImage, genre, previewVideoLink}) => (
           <FilmCard
             key={id}
             id={id}
-            filmTitle={filmTitle}
-            img={img}
+            name={name}
+            previewImage={previewImage}
             active={activeCardId === id}
             genre={genre}
             setActiveCardId={setActiveCardId}
-            videoLink={VIDEO_LINK}
+            previewVideoLink={previewVideoLink}
           />
         ))
       }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import FilmCardPoster from '../../film-card-poster/film-card-poster';
@@ -9,15 +9,25 @@ import GenresList from '../../genres-list/genres-list';
 import FilmsList from '../../films-list/films-list';
 import ShowMoreButton from '../../show-more-button/show-more-button';
 import Footer from '../../footer/footer';
-import { MainPageProps, GetFilmsByGenreFunc } from '../../../types/types';
+import Spinner from '../../spinner/spinner';
+import { GetFilmsByGenreFunc } from '../../../types/types';
 import { GenresEnum, MAX_NUM_FILMS } from '../../../consts';
-import { useAppSelector } from '../../../hooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { fetchFilmsAction } from '../../../store/api-actions';
 
-function MainPage({ title, genre, year, poster, bgImg }: MainPageProps) {
+function MainPage() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilmsAction());
+  }, [dispatch]);
+
   const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
 
   const activeGenre = useAppSelector((state) => state.filterGenres.genre);
-  const filmsInfo = useAppSelector((state) => state.filterGenres.filmCardList);
+  const filmsInfo = useAppSelector((state) => state.filterGenres.films);
+
+  const isLoadingFilms = useAppSelector((state) => state.filterGenres.isLoading);
 
   const getFilmsByGenre: GetFilmsByGenreFunc = (list) => {
     if (activeGenre === GenresEnum.AllGenres) {
@@ -33,24 +43,25 @@ function MainPage({ title, genre, year, poster, bgImg }: MainPageProps) {
 
   const filmsByGenre = getFilmsByGenre(filmsInfo);
 
-  const shownFilms = useMemo(() => (
-    filmsByGenre.filter((_, idx) => idx <= maxNumFilms)
-  ), [filmsByGenre, maxNumFilms]);
+  const shownFilms = useMemo(
+    () => filmsByGenre.filter((_, idx) => idx <= maxNumFilms),
+    [filmsByGenre, maxNumFilms]
+  );
 
   return (
     <>
       <section className="film-card">
-        <FilmCardBg img={bgImg} filmTitle={title} />
+        <FilmCardBg previewImage={''} name={''} />
         <h1 className="visually-hidden">WTW</h1>
 
         <Header linkLogo="/" classes="film-card__head" />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmCardPoster imgSrc={poster} imgTitle={title} />
+            <FilmCardPoster imgSrc={''} imgTitle={''} />
 
             <div className="film-card__desc">
-              <FilmCardDesc title={title} genre={genre} year={year} />
+              <FilmCardDesc title={''} genre={''} year={''} />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />
@@ -68,13 +79,12 @@ function MainPage({ title, genre, year, poster, bgImg }: MainPageProps) {
           <GenresList />
 
           <div className="catalog__films-list">
+            {isLoadingFilms && <Spinner />}
             <FilmsList list={shownFilms} />
           </div>
-          {
-            shownFilms.length >= maxNumFilms
-              ? <ShowMoreButton onShowMoreClick={handlerShowMoreClick} />
-              : null
-          }
+          {shownFilms.length >= maxNumFilms ? (
+            <ShowMoreButton onShowMoreClick={handlerShowMoreClick} />
+          ) : null}
         </section>
 
         <Footer linkLogo="/" />
