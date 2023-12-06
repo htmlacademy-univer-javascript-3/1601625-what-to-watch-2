@@ -3,15 +3,15 @@ import { AuthorisationStatus, GenresEnum } from '../consts';
 
 export type FilmCardProps = {
   id: string;
-  filmTitle: string;
-  img: string;
-  genre: GenresEnum;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
 };
 
 export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
   setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
-  videoLink: string;
 };
 
 export type PromoFilm = {
@@ -79,7 +79,7 @@ export type PrivateRouteProps = {
   children: JSX.Element;
 };
 
-export type FilmCardBgProps = Omit<FilmCardProps, 'id' | 'genre'>;
+export type FilmCardBgProps = Omit<FilmCardProps, 'id' | 'genre' | 'previewVideoLink'>;
 
 export type VideoPlayerProps = {
   active: boolean;
@@ -150,11 +150,16 @@ export type GenreProps = {
 
 export type InitialState = {
   genre: string;
-  filmCardList: FilmCardProps[];
+  films: FilmCardProps[];
+  authorisationStatus: AuthorisationStatus;
+  filmsLoadStatus: [];
+  isLoading: boolean;
 }
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
 
 export type ShowMoreButtonProps = {
   onShowMoreClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
-}
+};
+
+
