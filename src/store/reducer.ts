@@ -1,11 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { InitialState } from '../types/types';
-import { updateGenre, showFilmcardList } from './action';
-import { GenresEnum } from '../consts';
+import { updateGenre, loadFilms, setloadingFilms } from './action';
+import { GenresEnum, AuthorisationStatus } from '../consts';
 
 const initialState: InitialState = {
   genre: GenresEnum.AllGenres,
-  filmCardList: [],
+  films: [],
+  authorisationStatus: AuthorisationStatus.Unknown,
+  filmsLoadStatus: [],
+  isLoading: false,
 };
 
 export const filterGenresReducer = createReducer(initialState, (builder) => {
@@ -13,7 +16,10 @@ export const filterGenresReducer = createReducer(initialState, (builder) => {
     .addCase(updateGenre, (state, action) => {
       state.genre = action.payload;
     })
-    .addCase(showFilmcardList, (state, action) => {
-      state.filmCardList = action.payload;
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+    })
+    .addCase((setloadingFilms), (state, action) => {
+      state.isLoading = action.payload;
     });
 });
