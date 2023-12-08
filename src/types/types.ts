@@ -68,7 +68,6 @@ export type BreadcrumbsListProps = {
 }
 
 export type PrivateRouteProps = {
-  authorizationStatus: AuthorisationStatus;
   children: JSX.Element;
 };
 
@@ -155,6 +154,8 @@ export type InitialState = {
   filmsLoadStatus: [];
   isLoading: boolean;
   promoFilm: PromoFilm;
+  user: UserData;
+  error: null | string;
 }
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
@@ -173,3 +174,36 @@ export type PromoFilm = {
   released: number;
   isFavorite: boolean;
 };
+
+export type UserData = {
+  name: string;
+  avatarUrl: string;
+  email: string;
+  token: string;
+};
+
+export type AuthData = {
+  login: string;
+  password: string;
+};
+
+export type SignInFieldProps = {
+  type: string;
+  placeholder: string;
+  name: string;
+  id: string;
+  value: string;
+  onChangeHandler: React.Dispatch<React.SetStateAction<string>>;
+  htmlFor: string;
+  label: string;
+  errorClass: string;
+};
+
+export type checkEmailFunc = (email: string) => boolean;
+
+export type checkPasswordFunc = (password: string) => boolean;
+
+export type SignInErrorProps = {
+  message: string;
+};
+

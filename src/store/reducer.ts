@@ -1,6 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { InitialState } from '../types/types';
-import { updateGenre, loadFilms, setloadingFilms, loadPromoFilm} from './action';
+import {
+  updateGenre,
+  loadFilms,
+  setloadingFilms,
+  loadPromoFilm,
+  requireAuthorization,
+  requireUser
+} from './action';
 import { GenresEnum, AuthorisationStatus } from '../consts';
 
 const initialState: InitialState = {
@@ -19,6 +26,13 @@ const initialState: InitialState = {
     released: 0,
     isFavorite: false
   },
+  user: {
+    name: '',
+    avatarUrl: '',
+    email: '',
+    token: ''
+  },
+  error: null,
 };
 
 export const filterGenresReducer = createReducer(initialState, (builder) => {
@@ -40,3 +54,15 @@ export const promoFilmReducer = createReducer(initialState, (builder) => {
       state.promoFilm = action.payload;
     });
 });
+
+export const userReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorisationStatus = action.payload;
+    })
+    .addCase(requireUser, (state, action) => {
+      state.user = action.payload;
+    });
+});
+
+
