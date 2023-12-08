@@ -27,15 +27,17 @@ export enum RatingDescription {
 
 export enum GenresEnum {
   AllGenres = 'All genres',
-  Comedies = 'Comedies',
+  Comedies = 'Comedy',
   Crime = 'Crime',
-  Documentary = 'Documentary',
-  Dramas = 'Dramas',
+  Drama = 'Drama',
+  Thriller = 'Thriller',
+  Action = 'Action',
+  Adventure = 'Adventure',
   Horror = 'Horror',
+  Documentary = 'Documentary',
   KidsAndFamily = 'Kids & Family',
   Romance = 'Romance',
   SciFi = 'Sci-Fi',
-  Thrillers = 'Thrillers',
 }
 
 export const MAX_NUM_FILMS = 8;
@@ -50,3 +52,6 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+export const MAX_NUM_GENRES = 10;
+
