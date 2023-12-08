@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { filterGenresReducer, promoFilmReducer} from './reducer';
+import { filterGenresReducer, promoFilmReducer, userReducer} from './reducer';
 import { createAPI } from '../services/api';
 
 export const api = createAPI();
@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: {
     filterGenres: filterGenresReducer,
     promo: promoFilmReducer,
-    // authorisation: authorisationReducer,
+    authorisation: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

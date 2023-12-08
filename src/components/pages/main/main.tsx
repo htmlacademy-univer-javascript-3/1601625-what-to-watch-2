@@ -20,20 +20,21 @@ function MainPage() {
 
   useEffect(() => {
     dispatch(fetchFilmsAction());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-  }, [dispatch]);
+  }, []);
 
   const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
-
   const activeGenre = useAppSelector((state) => state.filterGenres.genre);
   const filmsInfo = useAppSelector((state) => state.filterGenres.films);
-
   const isLoadingFilms = useAppSelector((state) => state.filterGenres.isLoading);
-
   const promoFilm = useAppSelector((state) => state.promo.promoFilm);
+
+  const handlerShowMoreClick = () => {
+    setMaxNumFilms((max) => max + MAX_NUM_FILMS);
+  };
 
   const getFilmsByGenre: GetFilmsByGenreFunc = (list) => {
     if (activeGenre === GenresEnum.AllGenres) {
@@ -41,10 +42,6 @@ function MainPage() {
     } else {
       return list.filter((film) => film.genre === activeGenre);
     }
-  };
-
-  const handlerShowMoreClick = () => {
-    setMaxNumFilms((max) => max + MAX_NUM_FILMS);
   };
 
   const filmsByGenre = getFilmsByGenre(filmsInfo);
