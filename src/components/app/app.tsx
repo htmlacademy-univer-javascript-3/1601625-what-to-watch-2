@@ -32,20 +32,14 @@ function App(props: AppProps) {
             </PrivateRoute>
           }
         />
-        <Route
-          path={AppRoutes.Film}
-          element={
-            <FilmPage
-              list={[]}
-              overviewInfo={props.overviewInfo}
-              detailsInfo={props.detailsInfo}
-              reviewsInfo={props.reviewsInfo}
-            />
-          }
-        />
+        <Route path={AppRoutes.Film} element={<FilmPage />}/>
         <Route
           path={AppRoutes.AddReview}
-          element={<AddReview list={[]} />}
+          element={
+            <PrivateRoute>
+              <AddReview />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoutes.Player}

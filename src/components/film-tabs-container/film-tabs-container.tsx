@@ -3,16 +3,16 @@ import FilmTabOverview from '../film-tab-overview/film-tab-overview';
 import FilmTabReviews from '../film-tab-reviews/film-tab-reviews';
 import { FilmTabsContainerProps } from '../../types/types';
 
-function FilmTabsContainer({ activeTab, overviewInfo, detailsInfo, reviewsInfo }:FilmTabsContainerProps) {
+function FilmTabsContainer({ activeTab }:FilmTabsContainerProps) {
   switch (activeTab){
     case 0:
-      return <FilmTabOverview overviewInfo={overviewInfo} />;
+      return <FilmTabOverview />;
     case 1:
-      return <FilmTabDetails detailsInfo={detailsInfo} />;
+      return <FilmTabDetails />;
     case 2:
-      return <FilmTabReviews reviewsInfo={reviewsInfo} />;
+      return <FilmTabReviews />;
     default:
-      return <FilmTabOverview overviewInfo={overviewInfo} />;
+      return <FilmTabOverview />;
   }
 }
 
