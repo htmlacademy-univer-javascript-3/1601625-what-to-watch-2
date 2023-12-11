@@ -6,7 +6,12 @@ import {
   setloadingFilms,
   loadPromoFilm,
   requireAuthorization,
-  requireUser
+  requireUser,
+  loadFilm,
+  loadComments,
+  loadSimilarFlms,
+  sendComment,
+  setError
 } from './action';
 import { GenresEnum, AuthorisationStatus } from '../consts';
 
@@ -32,6 +37,25 @@ const initialState: InitialState = {
     email: '',
     token: ''
   },
+  film: {
+    id: '',
+    name: '',
+    posterImage: '',
+    backgroundImage: '',
+    backgroundColor: '',
+    videoLink: '',
+    description: '',
+    rating: 0,
+    scoresCount: 0,
+    director: '',
+    starring: [],
+    runTime: 0,
+    genre: '',
+    released: 0,
+    isFavorite: false,
+  },
+  comments: [],
+  similarFilms: [],
   error: null,
 };
 
@@ -62,6 +86,29 @@ export const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireUser, (state, action) => {
       state.user = action.payload;
+    });
+});
+
+export const filmPageReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadFilm, (state, action) => {
+      state.film = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(loadSimilarFlms, (state, action) => {
+      state.similarFilms = action.payload;
+    })
+    .addCase(sendComment, (state, action) => {
+      state.comments.push(action.payload);
+    });
+});
+
+export const mainReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
