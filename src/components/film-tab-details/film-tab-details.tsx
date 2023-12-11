@@ -1,25 +1,27 @@
 import React from 'react';
-import { FilmTabDetailsProps } from '../../types/types';
+import { useAppSelector } from '../../hooks';
 
-function FilmTabDetails({detailsInfo}:FilmTabDetailsProps){
+function FilmTabDetails() {
+  const film = useAppSelector((state) => state.filmPage.film);
+
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{detailsInfo.director}</span>
+          <span className="film-card__details-value">{film.director}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {
-              detailsInfo.starring
-                .filter((_, idx) => idx < detailsInfo.starring.length - 1)
+              film.starring
+                .filter((_, idx) => idx < film.starring.length - 1)
                 .map((star) => <React.Fragment key={`details-starring${star}`}>{star},<br/></React.Fragment>)
             }
             {
-              detailsInfo.starring
-                .filter((_, idx) => idx === detailsInfo.starring.length - 1)
+              film.starring
+                .filter((_, idx) => idx === film.starring.length - 1)
                 .map((star) => <React.Fragment key={`details-starring${star}`}>{star}</React.Fragment>)
             }
           </span>
@@ -29,15 +31,15 @@ function FilmTabDetails({detailsInfo}:FilmTabDetailsProps){
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{detailsInfo.runTime}</span>
+          <span className="film-card__details-value">{film.runTime}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
-          <span className="film-card__details-value">{detailsInfo.genre}</span>
+          <span className="film-card__details-value">{film.genre}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{detailsInfo.realeased}</span>
+          <span className="film-card__details-value">{film.released}</span>
         </p>
       </div>
     </div>

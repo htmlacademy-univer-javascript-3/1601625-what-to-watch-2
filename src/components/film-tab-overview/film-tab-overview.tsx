@@ -1,26 +1,38 @@
-import { FilmTabOverviewProps } from '../../types/types';
+import React from 'react';
 import { getRatingDescription } from '../../utils/getRatingDescription';
+import { useAppSelector } from '../../hooks';
 
-function FilmTabOverview({overviewInfo}:FilmTabOverviewProps){
+function FilmTabOverview(){
+  const film = useAppSelector((state) => state.filmPage.film);
+
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{(overviewInfo.rating.score).toFixed(1).replace('.', ',')}</div>
+        <div className="film-rating__score">{(film.rating).toFixed(1).replace('.', ',')}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{getRatingDescription(overviewInfo.rating.score)}</span>
-          <span className="film-rating__count">{overviewInfo.rating.count}</span>
+          <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
+          <span className="film-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="film-card__text">
-        {
-          overviewInfo.text.paragraphs.map((paragraph, idx) => {
-            const i = idx;
-            return <p key={`paragraph-${i}`}>{paragraph}</p>;
-          })
-        }
-        <p className="film-card__director"><strong>{`Director: ${overviewInfo.text.director}`}</strong></p>
-        <p className="film-card__starring"><strong>{`Starring: ${overviewInfo.text.starring}`}</strong></p>
+        <p>{film.description}</p>
+        <p className="film-card__director"><strong>{`Director: ${film.director}`}</strong></p>
+        <p className="film-card__starring">
+          <strong>
+            Starring:
+            {
+              film.starring
+                .filter((_, idx) => idx < film.starring.length - 1)
+                .map((fio) => <React.Fragment key={fio}> {fio},</React.Fragment>)
+            }
+            {
+              film.starring
+                .filter((_, idx) => idx === film.starring.length - 1)
+                .map((fio) => <React.Fragment key={fio}> {fio}</React.Fragment>)
+            }
+          </strong>
+        </p>
       </div>
     </>
   );

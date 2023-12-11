@@ -1,14 +1,15 @@
 import FilmTabReviewsCol from '../film-tab-reviews-col/film-tab-reviews-col';
-import { FilmTabReviewsProps } from '../../types/types';
 import { getHalfArray } from '../../utils/getHalfArray';
+import { useAppSelector } from '../../hooks';
 
-function FilmTabReviews({reviewsInfo}:FilmTabReviewsProps){
-  const rewiewsCol = getHalfArray(reviewsInfo);
+function FilmTabReviews(){
+  const comments = useAppSelector((state) => state.filmPage.comments);
+  const commentsCol = getHalfArray(comments);
 
   return (
     <div className="film-card__reviews film-card__row">
-      <FilmTabReviewsCol list={reviewsInfo.filter((_, idx) => idx <= rewiewsCol)} />
-      <FilmTabReviewsCol list={reviewsInfo.filter((_, idx) => idx > rewiewsCol)} />
+      <FilmTabReviewsCol list={comments.filter((_, idx) => idx <= commentsCol)} />
+      <FilmTabReviewsCol list={comments.filter((_, idx) => idx > commentsCol)} />
     </div>
   );
 }
