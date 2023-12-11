@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { AppRoutes } from '../../consts';
 
 function HeaderUserBlock() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.authorisation.user);
+  const navigate = useNavigate();
 
   const handlerSignOutLinkClick = () => {
     dispatch(logoutAction());
+    navigate(AppRoutes.Main);
   };
 
   return (
