@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { AppRoutes, GenresEnum } from '../../../consts';
+import { AppRoutes, AuthorisationStatus, GenresEnum } from '../../../consts';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-play';
@@ -10,43 +10,53 @@ import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmTabs from '../../film-tabs/film-tabs';
 import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
-import {FilmCardProps, FilmPageProps } from '../../../types/types';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { updateGenre } from '../../../store/action';
-import { useAppSelector } from '../../../hooks';
+import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
+import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
 
-function FilmPage({overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCardProps>){
-  const {id} = useParams();
-  const films = useAppSelector((state) => state.filterGenres.films);
-  const film = films.filter((item) => item.id === id);
-  const {name, previewImage, genre} = film[0];
-
+function FilmPage(){
   const dispatch = useAppDispatch();
+  const {id} = useParams();
 
   useEffect(() => {
     dispatch(updateGenre(GenresEnum.AllGenres));
-  }, [dispatch]);
+
+    if (id !== undefined){
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchComentsAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
+    }
+  }, [id]);
+
+  const film = useAppSelector((state) => state.filmPage.film);
+  const similarFilms = useAppSelector((state) => state.filmPage.similarFilms);
+  const authStatus = useAppSelector((state) => state.authorisation.authorisationStatus);
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
         <div className="film-card__hero">
-          <FilmCardBg img={previewImage} filmTitle={name} />
+          <FilmCardBg img={film.backgroundImage} filmTitle={film.name} />
           <h1 className="visually-hidden">WTW</h1>
           <Header linkLogo={AppRoutes.Main} classes='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <FilmCardDesc
-                title={name}
-                genre={genre}
-                year='2014'
+                title={film.name}
+                genre={film.genre}
+                year={film.released}
               />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />
                 <FilmCardButtonMylist />
-                <Link to={id === undefined ? '*' : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                {
+                  authStatus === AuthorisationStatus.Auth
+                    ? <Link to={id === undefined ? '*' : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                    : null
+                }
               </div>
             </div>
           </div>
@@ -54,10 +64,10 @@ function FilmPage({overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCar
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster imgSrc={previewImage} imgTitle={name} classes='film-card__poster--big'/>
+            <FilmCardPoster imgSrc={film.posterImage} imgTitle={film.name} classes='film-card__poster--big'/>
 
             <div className="film-card__desc">
-              <FilmTabs overviewInfo={overviewInfo} detailsInfo={detailsInfo} reviewsInfo={reviewsInfo} />
+              <FilmTabs />
             </div>
           </div>
         </div>
@@ -68,7 +78,7 @@ function FilmPage({overviewInfo, detailsInfo, reviewsInfo}:FilmPageProps<FilmCar
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={films.filter((_, idx) => idx < 4)}/>
+            <FilmsList list={similarFilms.filter((_, idx) => idx < MAX_NUM_SIMILAR_FILM)}/>
           </div>
         </section>
 
