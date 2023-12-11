@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import HeaderLogo from '../../header-logo/header-logo';
 import SignInField from '../../sign-in-field/sign-in-field';
 import SignInError from '../sign-in-error/sign-in-error';
@@ -29,7 +29,7 @@ function SignIn() {
       setIsEmailError(false);
       setIsPasswordError(false);
       dispatch(loginAction({login: email, password}));
-      navigate(AppRoutes.Main);
+      navigate(-1);
     } else if (isEmailValid || email === '') {
       setIsEmailError(false);
       setIsPasswordError(true);
