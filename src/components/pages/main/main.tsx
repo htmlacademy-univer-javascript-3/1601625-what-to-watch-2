@@ -27,10 +27,10 @@ function MainPage() {
   }, []);
 
   const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
-  const activeGenre = useAppSelector((state) => state.filterGenres.genre);
-  const filmsInfo = useAppSelector((state) => state.filterGenres.films);
-  const isLoadingFilms = useAppSelector((state) => state.filterGenres.isLoading);
-  const promoFilm = useAppSelector((state) => state.promo.promoFilm);
+  const activeGenre = useAppSelector((state) => state.genre);
+  const filmsInfo = useAppSelector((state) => state.films);
+  const isLoadingFilms = useAppSelector((state) => state.isLoading);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
 
   const handlerShowMoreClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);

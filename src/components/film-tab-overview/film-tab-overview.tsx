@@ -3,7 +3,7 @@ import { getRatingDescription } from '../../utils/getRatingDescription';
 import { useAppSelector } from '../../hooks';
 
 function FilmTabOverview(){
-  const film = useAppSelector((state) => state.filmPage.film);
+  const film = useAppSelector((state) => state.film);
 
   return (
     <>

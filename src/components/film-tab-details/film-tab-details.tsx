@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '../../hooks';
 
 function FilmTabDetails() {
-  const film = useAppSelector((state) => state.filmPage.film);
+  const film = useAppSelector((state) => state.film);
 
   return (
     <div className="film-card__text film-card__row">

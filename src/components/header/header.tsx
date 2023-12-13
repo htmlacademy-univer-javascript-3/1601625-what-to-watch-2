@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks';
 import { AuthorisationStatus } from '../../consts';
 
 function Header({linkLogo, children, classes}:HeaderProps){
-  const authorisationStatus = useAppSelector((state) => state.authorisation.authorisationStatus);
+  const authorisationStatus = useAppSelector((state) => state.authorisationStatus);
 
   return(
     <header className={`page-header ${classes === undefined ? '' : classes}`}>

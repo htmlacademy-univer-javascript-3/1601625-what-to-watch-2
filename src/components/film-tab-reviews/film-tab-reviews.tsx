@@ -3,7 +3,7 @@ import { getHalfArray } from '../../utils/getHalfArray';
 import { useAppSelector } from '../../hooks';
 
 function FilmTabReviews(){
-  const comments = useAppSelector((state) => state.filmPage.comments);
+  const comments = useAppSelector((state) => state.comments);
   const commentsCol = getHalfArray(comments);
 
   return (
