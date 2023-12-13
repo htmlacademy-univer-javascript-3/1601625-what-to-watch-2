@@ -5,6 +5,7 @@ export enum AppRoutes {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+  NotFound = '*',
 }
 
 export enum AuthorisationStatus {
@@ -55,3 +56,9 @@ export enum APIRoute {
 
 export const MAX_NUM_GENRES = 10;
 
+export const MAX_NUM_SIMILAR_FILM = 4;
+
+export const enum ReviewConsts {
+  MinLength = 40,
+  MaxLength = 500
+}

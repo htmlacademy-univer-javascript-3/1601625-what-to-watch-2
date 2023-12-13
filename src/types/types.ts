@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import type { BrowserHistory } from 'history';
 import { AuthorisationStatus, GenresEnum } from '../consts';
 
 export type FilmCardProps = {
@@ -16,7 +17,7 @@ export type FilmCardStateProps = FilmCardProps & {
 
 export type MainPageProps = PromoFilm;
 
-export type AppProps = FilmTabsProps & {
+export type AppProps = {
   videoLink: string;
 };
 
@@ -32,10 +33,6 @@ export type PropsList<T> = {
   list: T[];
 };
 
-export type FilmPageProps<T> = PropsList<T> & FilmTabsProps;
-
-export type FilmTabsProps = FilmTabOverviewProps & FilmTabDetailsProps & FilmTabReviewsProps;
-
 export type HeaderProps = {
   linkLogo: string;
   children?: ReactNode;
@@ -50,7 +47,7 @@ export type FilmCardPosterProps = {
   classes?: string;
 };
 
-export type RatingStarProps = {
+export type RatingStarProps = RatingProps & {
   id: string;
 };
 
@@ -94,7 +91,7 @@ export type TabsNavProps = {
   addActiveClass: AddActiveClassFunc;
 };
 
-export type FilmTabsContainerProps = FilmTabsProps & {
+export type FilmTabsContainerProps = {
   activeTab: number;
 };
 
@@ -121,18 +118,6 @@ export type FilmCardDetails = {
   realeased: string;
 };
 
-export type FilmTabOverviewProps = {
-  overviewInfo: FilmCardOverview;
-};
-
-export type FilmTabDetailsProps = {
-  detailsInfo: FilmCardDetails;
-};
-
-export type FilmTabReviewsProps = {
-  reviewsInfo: FilmReviews[];
-};
-
 export type FilmCardDescProps = {
   title: string;
   genre: string;
@@ -155,7 +140,10 @@ export type InitialState = {
   isLoading: boolean;
   promoFilm: PromoFilm;
   user: UserData;
-  error: null | string;
+  film: LoadableFilm;
+  comments: LoadableComment[];
+  similarFilms: FilmCardProps[];
+  pagePath: string;
 }
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
@@ -207,3 +195,48 @@ export type SignInErrorProps = {
   message: string;
 };
 
+export type LoadableFilm = {
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+  videoLink: string;
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: string[];
+  runTime: number;
+  genre: string;
+  released: number;
+  isFavorite: boolean;
+};
+
+export type LoadableComment = {
+  id: string;
+  date: string;
+  user: string;
+  comment: string;
+  rating: number;
+};
+
+export type Comment = {
+  id: string;
+  comment: string;
+  rating: number;
+}
+
+export type RatingProps = {
+  setRating: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export type FormAddReviewMessageProps = {
+  message: string | boolean;
+};
+
+export interface HistoryRouterProps {
+  history: BrowserHistory;
+  basename?: string;
+  children?: React.ReactNode;
+}

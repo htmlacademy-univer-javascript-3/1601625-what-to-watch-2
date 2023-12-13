@@ -2,9 +2,9 @@ import { useState } from 'react';
 import FilmTabsNav from '../film-tabs-nav/film-tabs-nav';
 import FilmTabsContainer from '../film-tabs-container/film-tabs-container';
 import { TABS } from '../../consts';
-import { AddActiveClassFunc, FilmTabsProps } from '../../types/types';
+import { AddActiveClassFunc } from '../../types/types';
 
-function FilmTabs({ overviewInfo, detailsInfo, reviewsInfo }: FilmTabsProps) {
+function FilmTabs() {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const addActiveClass: AddActiveClassFunc = (idx, activeClass) =>
@@ -19,9 +19,6 @@ function FilmTabs({ overviewInfo, detailsInfo, reviewsInfo }: FilmTabsProps) {
       />
       <FilmTabsContainer
         activeTab={activeTab}
-        overviewInfo={overviewInfo}
-        detailsInfo={detailsInfo}
-        reviewsInfo={reviewsInfo}
       />
     </>
   );

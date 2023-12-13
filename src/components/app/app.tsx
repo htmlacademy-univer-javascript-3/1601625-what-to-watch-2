@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppProps } from '../../types/types';
 import { AppRoutes } from '../../consts';
 import MainPage from '../pages/main/main';
@@ -10,10 +10,12 @@ import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 function App(props: AppProps) {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route element={<Layout />}>
           <Route
@@ -32,28 +34,22 @@ function App(props: AppProps) {
             </PrivateRoute>
           }
         />
-        <Route
-          path={AppRoutes.Film}
-          element={
-            <FilmPage
-              list={[]}
-              overviewInfo={props.overviewInfo}
-              detailsInfo={props.detailsInfo}
-              reviewsInfo={props.reviewsInfo}
-            />
-          }
-        />
+        <Route path={AppRoutes.Film} element={<FilmPage />}/>
         <Route
           path={AppRoutes.AddReview}
-          element={<AddReview list={[]} />}
+          element={
+            <PrivateRoute>
+              <AddReview />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoutes.Player}
           element={<Player videoLink={props.videoLink} />}
         />
-        <Route path="*" element={<NotFound />} />
+        <Route path={AppRoutes.NotFound} element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
