@@ -10,7 +10,7 @@ import {
   LoadableComment,
   Comment
 } from '../types/types';
-import { APIRoute, AuthorisationStatus, TIMEOUT_SHOW_ERROR } from '../consts';
+import { APIRoute, AppRoutes, AuthorisationStatus } from '../consts';
 import {
   loadFilms,
   loadPromoFilm,
@@ -21,10 +21,9 @@ import {
   loadComments,
   loadSimilarFlms,
   sendComment,
-  setError
+  redirectToRoute
 } from './action';
 import { saveToken, dropToken } from '../services/token';
-import { store } from '.';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -99,6 +98,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+    dispatch(redirectToRoute(AppRoutes.Main));
     dispatch(requireAuthorization(AuthorisationStatus.NoAuth));
   },
 );
@@ -111,8 +111,13 @@ export const fetchFilmAction = createAsyncThunk<void, string, {
 >(
   'data/fetchFilm',
   async (id, { dispatch, extra: api }) => {
-    const {data} = await api.get<LoadableFilm>(`${APIRoute.Films}/${id}`);
-    dispatch(loadFilm(data));
+    try {
+      const { data } = await api.get<LoadableFilm>(`${APIRoute.Films}/${id}`);
+
+      dispatch(loadFilm(data));
+    } catch(error) {
+      dispatch(redirectToRoute(AppRoutes.NotFound));
+    }
   }
 );
 
@@ -156,15 +161,5 @@ export const sendCommentAction = createAsyncThunk<void, Comment, {
     });
 
     dispatch(sendComment(data));
-  },
-);
-
-export const clearErrorAction = createAsyncThunk(
-  'main/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
   },
 );

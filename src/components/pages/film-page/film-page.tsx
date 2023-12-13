@@ -11,7 +11,7 @@ import FilmTabs from '../../film-tabs/film-tabs';
 import FilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { updateGenre } from '../../../store/action';
+import { updateGenre, setPagePath } from '../../../store/action';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
 import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
 
@@ -21,6 +21,7 @@ function FilmPage(){
 
   useEffect(() => {
     dispatch(updateGenre(GenresEnum.AllGenres));
+    dispatch(setPagePath(AppRoutes.Film));
 
     if (id !== undefined){
       dispatch(fetchFilmAction(id));
@@ -29,9 +30,9 @@ function FilmPage(){
     }
   }, [id]);
 
-  const film = useAppSelector((state) => state.filmPage.film);
-  const similarFilms = useAppSelector((state) => state.filmPage.similarFilms);
-  const authStatus = useAppSelector((state) => state.authorisation.authorisationStatus);
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const authStatus = useAppSelector((state) => state.authorisationStatus);
 
   return (
     <>
@@ -54,7 +55,7 @@ function FilmPage(){
                 <FilmCardButtonMylist />
                 {
                   authStatus === AuthorisationStatus.Auth
-                    ? <Link to={id === undefined ? '*' : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                    ? <Link to={id === undefined ? AppRoutes.NotFound : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
                     : null
                 }
               </div>

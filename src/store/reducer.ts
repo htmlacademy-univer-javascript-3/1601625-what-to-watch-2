@@ -11,7 +11,7 @@ import {
   loadComments,
   loadSimilarFlms,
   sendComment,
-  setError
+  setPagePath
 } from './action';
 import { GenresEnum, AuthorisationStatus } from '../consts';
 
@@ -56,10 +56,10 @@ const initialState: InitialState = {
   },
   comments: [],
   similarFilms: [],
-  error: null,
+  pagePath: '',
 };
 
-export const filterGenresReducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(updateGenre, (state, action) => {
       state.genre = action.payload;
@@ -69,28 +69,16 @@ export const filterGenresReducer = createReducer(initialState, (builder) => {
     })
     .addCase((setloadingFilms), (state, action) => {
       state.isLoading = action.payload;
-    });
-});
-
-export const promoFilmReducer = createReducer(initialState, (builder) => {
-  builder
+    })
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
-    });
-});
-
-export const userReducer = createReducer(initialState, (builder) => {
-  builder
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorisationStatus = action.payload;
     })
     .addCase(requireUser, (state, action) => {
       state.user = action.payload;
-    });
-});
-
-export const filmPageReducer = createReducer(initialState, (builder) => {
-  builder
+    })
     .addCase(loadFilm, (state, action) => {
       state.film = action.payload;
     })
@@ -102,13 +90,9 @@ export const filmPageReducer = createReducer(initialState, (builder) => {
     })
     .addCase(sendComment, (state, action) => {
       state.comments.push(action.payload);
-    });
-});
-
-export const mainReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
+    })
+    .addCase(setPagePath, (state, action) => {
+      state.pagePath = action.payload;
     });
 });
 

@@ -5,6 +5,7 @@ export enum AppRoutes {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+  NotFound = '*',
 }
 
 export enum AuthorisationStatus {
@@ -61,5 +62,3 @@ export const enum ReviewConsts {
   MinLength = 40,
   MaxLength = 500
 }
-
-export const TIMEOUT_SHOW_ERROR = 2000;
