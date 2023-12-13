@@ -6,7 +6,7 @@ import {
   LoadableFilm,
   LoadableComment,
 } from '../types/types';
-import { AuthorisationStatus } from '../consts';
+import { AppRoutes, AuthorisationStatus } from '../consts';
 
 export const updateGenre = createAction<string>('main/updateGenre');
 
@@ -28,4 +28,6 @@ export const loadSimilarFlms = createAction<FilmCardProps[]>('film/similarFilms'
 
 export const sendComment = createAction<LoadableComment>('film/sendComment');
 
-export const setError = createAction<string | null>('main/setError');
+export const redirectToRoute = createAction<AppRoutes>('main/redirectToRoute');
+
+export const setPagePath = createAction<AppRoutes>('main/setPagePath');

@@ -1,27 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  filterGenresReducer,
-  promoFilmReducer,
-  userReducer,
-  filmPageReducer,
-  mainReducer
-} from './reducer';
+import {reducer} from './reducer';
 import { createAPI } from '../services/api';
+import { redirect } from './middlewares/redirect';
 
 export const api = createAPI();
 
 export const store = configureStore({
-  reducer: {
-    filterGenres: filterGenresReducer,
-    promo: promoFilmReducer,
-    authorisation: userReducer,
-    filmPage: filmPageReducer,
-    main: mainReducer
-  },
+  reducer: reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
       },
-    }),
+    }).concat(redirect),
 });
