@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import type { BrowserHistory } from 'history';
 import { AuthorisationStatus, GenresEnum } from '../consts';
 
 export type FilmCardProps = {
@@ -142,7 +143,7 @@ export type InitialState = {
   film: LoadableFilm;
   comments: LoadableComment[];
   similarFilms: FilmCardProps[];
-  error: null | string;
+  pagePath: string;
 }
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
@@ -233,3 +234,9 @@ export type RatingProps = {
 export type FormAddReviewMessageProps = {
   message: string | boolean;
 };
+
+export interface HistoryRouterProps {
+  history: BrowserHistory;
+  basename?: string;
+  children?: React.ReactNode;
+}
