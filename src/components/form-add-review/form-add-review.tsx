@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import Rating from '../rating/rating';
 import FormAddReviewMessage from '../form-add-review-message/form-add-review-message';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -12,7 +13,7 @@ function FormAddReview() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
 
-  const {id} = useAppSelector((state) => state.filmPage.film);
+  const {id} = useAppSelector((state) => state.film);
 
   const handlerFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +22,12 @@ function FormAddReview() {
       setIsError(false);
       setError('');
       dispatch(sendCommentAction({id, comment: reviewText, rating}));
+
+      toast.success('The comment has been added successfully!', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 1500,
+
+      });
     } else if (reviewText.length < ReviewConsts.MinLength) {
       setIsError(true);
       setError('Please enter a comment of at least 50 characters!');
@@ -30,6 +37,9 @@ function FormAddReview() {
     } else if (rating === 0) {
       setIsError(true);
       setError('The rating cannot be 0!');
+    } else {
+      setIsError(false);
+      setError('');
     }
   };
 

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import HeaderLogo from '../../header-logo/header-logo';
 import SignInField from '../../sign-in-field/sign-in-field';
 import SignInError from '../sign-in-error/sign-in-error';
 import Footer from '../../footer/footer';
 import { AppRoutes } from '../../../consts';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
 import { checkEmail } from '../../../utils/checkEmail';
 import { checkPassword } from '../../../utils/checkPassword';
@@ -13,6 +14,8 @@ import { checkPassword } from '../../../utils/checkPassword';
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const pagePath = useAppSelector((state) => state.pagePath);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +32,17 @@ function SignIn() {
       setIsEmailError(false);
       setIsPasswordError(false);
       dispatch(loginAction({login: email, password}));
-      navigate(-1);
+
+      if (pagePath === AppRoutes.Film) {
+        navigate(-1);
+      } else {
+        navigate(AppRoutes.Main);
+      }
+
+      toast.success('You are logged in!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+      });
     } else if (isEmailValid || email === '') {
       setIsEmailError(false);
       setIsPasswordError(true);
