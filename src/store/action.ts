@@ -2,23 +2,18 @@ import { createAction } from '@reduxjs/toolkit';
 import {
   FilmCardProps,
   PromoFilm,
-  UserData,
   LoadableFilm,
   LoadableComment,
 } from '../types/types';
-import { AppRoutes, AuthorisationStatus } from '../consts';
+import { AppRoutes } from '../consts';
 
-export const updateGenre = createAction<string>('main/updateGenre');
+export const updateGenre = createAction<string>('films/updateGenre');
 
-export const loadFilms = createAction<FilmCardProps[]>('main/loadFilms');
+export const loadFilms = createAction<FilmCardProps[]>('films/loadFilms');
 
-export const requireAuthorization = createAction<AuthorisationStatus>('user/requireAuthorization');
+export const setloadingFilms = createAction<boolean>('films/setLoadingFilm');
 
-export const setloadingFilms = createAction<boolean>('main/setLoadingFilm');
-
-export const loadPromoFilm = createAction<PromoFilm>('main/loadPromoFilm');
-
-export const requireUser = createAction<UserData>('user/requireUser');
+export const loadPromoFilm = createAction<PromoFilm>('films/loadPromoFilm');
 
 export const loadFilm = createAction<LoadableFilm>('film/filmData');
 
@@ -28,6 +23,6 @@ export const loadSimilarFlms = createAction<FilmCardProps[]>('film/similarFilms'
 
 export const sendComment = createAction<LoadableComment>('film/sendComment');
 
-export const redirectToRoute = createAction<AppRoutes>('main/redirectToRoute');
+export const redirectToRoute = createAction<AppRoutes>('redirect/redirectToRoute');
 
-export const setPagePath = createAction<AppRoutes>('main/setPagePath');
+export const setPagePath = createAction<AppRoutes>('redicrect/setPagePath');

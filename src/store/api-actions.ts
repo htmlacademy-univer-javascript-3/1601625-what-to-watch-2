@@ -10,13 +10,11 @@ import {
   LoadableComment,
   Comment
 } from '../types/types';
-import { APIRoute, AppRoutes, AuthorisationStatus } from '../consts';
+import { APIRoute, AppRoutes } from '../consts';
 import {
   loadFilms,
   loadPromoFilm,
   setloadingFilms,
-  requireAuthorization,
-  requireUser,
   loadFilm,
   loadComments,
   loadSimilarFlms,
@@ -60,31 +58,26 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorisationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorisationStatus.NoAuth));
-    }
+  async (_arg, { extra: api}) => {
+    await api.get(APIRoute.Login);
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'user/login',
-  async ({ login, password }, {dispatch, extra: api}) => {
+  async ({ login, password }, { extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, {
       email: login,
       password
     });
     saveToken(data.token);
-    dispatch(requireAuthorization(AuthorisationStatus.Auth));
-    dispatch(requireUser(data));
+
+    return data;
   },
 );
 
@@ -99,7 +92,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(redirectToRoute(AppRoutes.Main));
-    dispatch(requireAuthorization(AuthorisationStatus.NoAuth));
   },
 );
 
@@ -153,7 +145,7 @@ export const sendCommentAction = createAsyncThunk<void, Comment, {
   extra: AxiosInstance;
 }
 >(
-  'user/sendComment',
+  'film/sendComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     const { data } = await api.post<LoadableComment>(`${APIRoute.Comments}/${id}`, {
       comment,

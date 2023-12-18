@@ -62,3 +62,11 @@ export const enum ReviewConsts {
   MinLength = 40,
   MaxLength = 500
 }
+
+export enum SliceNameSpace {
+  User = 'USER',
+  Data = 'DATA',
+  Film = 'FILM',
+  Films = 'FILMS',
+  Redirect = 'REDIRECT',
+}

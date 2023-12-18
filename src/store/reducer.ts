@@ -5,20 +5,17 @@ import {
   loadFilms,
   setloadingFilms,
   loadPromoFilm,
-  requireAuthorization,
-  requireUser,
   loadFilm,
   loadComments,
   loadSimilarFlms,
   sendComment,
   setPagePath
 } from './action';
-import { GenresEnum, AuthorisationStatus } from '../consts';
+import { GenresEnum } from '../consts';
 
 const initialState: InitialState = {
   genre: GenresEnum.AllGenres,
   films: [],
-  authorisationStatus: AuthorisationStatus.Unknown,
   filmsLoadStatus: [],
   isLoading: false,
   promoFilm: {
@@ -30,12 +27,6 @@ const initialState: InitialState = {
     genre: '',
     released: 0,
     isFavorite: false
-  },
-  user: {
-    name: '',
-    avatarUrl: '',
-    email: '',
-    token: ''
   },
   film: {
     id: '',
@@ -73,12 +64,12 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
     })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorisationStatus = action.payload;
-    })
-    .addCase(requireUser, (state, action) => {
-      state.user = action.payload;
-    })
+    // .addCase(requireAuthorization, (state, action) => {
+    //   state.authorisationStatus = action.payload;
+    // })
+    // .addCase(requireUser, (state, action) => {
+    //   state.user = action.payload;
+    // })
     .addCase(loadFilm, (state, action) => {
       state.film = action.payload;
     })

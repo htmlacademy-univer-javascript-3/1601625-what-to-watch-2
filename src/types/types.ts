@@ -132,20 +132,6 @@ export type GenreProps = {
   setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum>>;
 };
 
-export type InitialState = {
-  genre: string;
-  films: FilmCardProps[];
-  authorisationStatus: AuthorisationStatus;
-  filmsLoadStatus: [];
-  isLoading: boolean;
-  promoFilm: PromoFilm;
-  user: UserData;
-  film: LoadableFilm;
-  comments: LoadableComment[];
-  similarFilms: FilmCardProps[];
-  pagePath: string;
-}
-
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
 
 export type ShowMoreButtonProps = {
@@ -240,3 +226,22 @@ export interface HistoryRouterProps {
   basename?: string;
   children?: React.ReactNode;
 }
+
+export type InitialState = {
+  genre: string;
+  films: FilmCardProps[];
+
+  filmsLoadStatus: [];
+  isLoading: boolean;
+  promoFilm: PromoFilm;
+  film: LoadableFilm;
+  comments: LoadableComment[];
+  similarFilms: FilmCardProps[];
+  pagePath: string;
+}
+
+export type UserProcess = {
+  authorisationStatus: AuthorisationStatus;
+  user: UserData;
+};
+
