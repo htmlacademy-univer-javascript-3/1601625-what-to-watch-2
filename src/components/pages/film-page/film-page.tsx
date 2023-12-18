@@ -8,7 +8,7 @@ import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
 import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmTabs from '../../film-tabs/film-tabs';
-import FilmsList from '../../films-list/films-list';
+import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { updateGenre, setPagePath } from '../../../store/action';
@@ -79,7 +79,7 @@ function FilmPage(){
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={similarFilms.filter((_, idx) => idx < MAX_NUM_SIMILAR_FILM)}/>
+            <MemoFilmsList list={similarFilms.filter((_, idx) => idx < MAX_NUM_SIMILAR_FILM)}/>
           </div>
         </section>
 

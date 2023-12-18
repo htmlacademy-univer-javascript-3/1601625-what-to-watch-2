@@ -1,5 +1,5 @@
 import Header from '../../header/header';
-import FilmsList from '../../films-list/films-list';
+import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { AppRoutes } from '../../../consts';
 import { PropsList, FilmCardProps } from '../../../types/types';
@@ -15,7 +15,7 @@ function MyList({list}: PropsList<FilmCardProps>){
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmsList list={list}/>
+          <MemoFilmsList list={list}/>
         </div>
       </section>
 

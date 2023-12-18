@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import FilmCard from '../film-card/film-card';
 import { PropsList, FilmCardProps } from '../../types/types';
 
@@ -26,4 +26,6 @@ function FilmsList({list}: PropsList<FilmCardProps>) {
   );
 }
 
-export default FilmsList;
+const MemoFilmsList = memo(FilmsList);
+
+export default MemoFilmsList;
