@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceNameSpace, AppRoutes } from '../../consts';
-import { FilmProcess } from '../../types/types';
+import { FilmProcess } from '../../types/state';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction, sendCommentAction } from '../api-actions';
 import { redirectToRoute } from '../action';
 

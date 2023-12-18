@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SliceNameSpace } from '../../consts';
-import { RedirectProcess } from '../../types/types';
+import { RedirectProcess } from '../../types/state';
 
 const initialState: RedirectProcess = {
   pagePath: '',
@@ -15,3 +15,5 @@ export const redirectProcess = createSlice({
     })
   },
 });
+
+export const { setPagePath } = redirectProcess.actions;

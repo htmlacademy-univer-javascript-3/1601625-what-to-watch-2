@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import type { BrowserHistory } from 'history';
-import { AuthorisationStatus, GenresEnum } from '../consts';
+import { GenresEnum } from '../consts';
 
 export type FilmCardProps = {
   id: string;
@@ -226,25 +226,3 @@ export interface HistoryRouterProps {
   basename?: string;
   children?: React.ReactNode;
 }
-
-export type RedirectProcess = {
-  pagePath: string;
-}
-
-export type UserProcess = {
-  authorisationStatus: AuthorisationStatus;
-  user: UserData;
-};
-
-export type FilmsProcess = {
-  genre: string;
-  films: FilmCardProps[];
-  isLoading: boolean;
-  promoFilm: PromoFilm;
-};
-
-export type FilmProcess = {
-  film: LoadableFilm;
-  comments: LoadableComment[];
-  similarFilms: FilmCardProps[];
-};

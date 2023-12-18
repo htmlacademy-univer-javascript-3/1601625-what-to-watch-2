@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SliceNameSpace, GenresEnum } from '../../consts';
-import { FilmsProcess } from '../../types/types';
+import { FilmsProcess } from '../../types/state';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../api-actions';
 
 const initialState: FilmsProcess = {
