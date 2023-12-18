@@ -228,9 +228,6 @@ export interface HistoryRouterProps {
 }
 
 export type InitialState = {
-  film: LoadableFilm;
-  comments: LoadableComment[];
-  similarFilms: FilmCardProps[];
   pagePath: string;
 }
 
@@ -244,4 +241,10 @@ export type FilmsProcess = {
   films: FilmCardProps[];
   isLoading: boolean;
   promoFilm: PromoFilm;
-}
+};
+
+export type FilmProcess = {
+  film: LoadableFilm;
+  comments: LoadableComment[];
+  similarFilms: FilmCardProps[];
+};
