@@ -65,7 +65,6 @@ export const enum ReviewConsts {
 
 export enum SliceNameSpace {
   User = 'USER',
-  Data = 'DATA',
   Film = 'FILM',
   Films = 'FILMS',
   Redirect = 'REDIRECT',

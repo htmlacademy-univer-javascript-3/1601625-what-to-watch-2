@@ -227,7 +227,7 @@ export interface HistoryRouterProps {
   children?: React.ReactNode;
 }
 
-export type InitialState = {
+export type RedirectProcess = {
   pagePath: string;
 }
 
