@@ -12,9 +12,6 @@ import {
 } from '../types/types';
 import { APIRoute, AppRoutes } from '../consts';
 import {
-  loadFilms,
-  loadPromoFilm,
-  setloadingFilms,
   loadFilm,
   loadComments,
   loadSimilarFlms,
@@ -23,31 +20,31 @@ import {
 } from './action';
 import { saveToken, dropToken } from '../services/token';
 
-export const fetchFilmsAction = createAsyncThunk<void, undefined, {
+export const fetchFilmsAction = createAsyncThunk<FilmCardProps[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchFilms',
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setloadingFilms(true));
+  'films/fetchFilms',
+  async (_arg, { extra: api }) => {
     const {data} = await api.get<FilmCardProps[]>(APIRoute.Films);
-    dispatch(setloadingFilms(false));
-    dispatch(loadFilms(data));
+
+    return data;
   }
 );
 
-export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
+export const fetchPromoFilmAction = createAsyncThunk<PromoFilm, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchPromoFilm',
-  async (_arg, { dispatch, extra: api }) => {
+  'films/fetchPromoFilm',
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<PromoFilm>(APIRoute.Promo);
-    dispatch(loadPromoFilm(data));
+
+    return data;
   }
 );
 

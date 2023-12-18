@@ -228,12 +228,6 @@ export interface HistoryRouterProps {
 }
 
 export type InitialState = {
-  genre: string;
-  films: FilmCardProps[];
-
-  filmsLoadStatus: [];
-  isLoading: boolean;
-  promoFilm: PromoFilm;
   film: LoadableFilm;
   comments: LoadableComment[];
   similarFilms: FilmCardProps[];
@@ -245,3 +239,9 @@ export type UserProcess = {
   user: UserData;
 };
 
+export type FilmsProcess = {
+  genre: string;
+  films: FilmCardProps[];
+  isLoading: boolean;
+  promoFilm: PromoFilm;
+}
