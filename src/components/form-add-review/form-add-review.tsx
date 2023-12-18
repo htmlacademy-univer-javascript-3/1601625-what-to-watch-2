@@ -5,6 +5,7 @@ import FormAddReviewMessage from '../form-add-review-message/form-add-review-mes
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
 import { ReviewConsts } from '../../consts';
+import { getFilmInfo } from '../../store/film-process/selectors';
 
 function FormAddReview() {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ function FormAddReview() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
 
-  const {id} = useAppSelector((state) => state.film);
+  const {id} = useAppSelector(getFilmInfo);
 
   const handlerFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

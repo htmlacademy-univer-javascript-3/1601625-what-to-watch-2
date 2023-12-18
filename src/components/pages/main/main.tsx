@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import Header from '../../header/header';
 import FilmCardPoster from '../../film-card-poster/film-card-poster';
@@ -6,7 +6,7 @@ import FilmCardButtonPlay from '../../film-card-button-play/film-card-button-pla
 import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button-mylist';
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
 import GenresList from '../../genres-list/genres-list';
-import FilmsList from '../../films-list/films-list';
+import MemoFilmsList from '../../films-list/films-list';
 import ShowMoreButton from '../../show-more-button/show-more-button';
 import Footer from '../../footer/footer';
 import Spinner from '../../spinner/spinner';
@@ -14,6 +14,8 @@ import { GetFilmsByGenreFunc } from '../../../types/types';
 import { GenresEnum, MAX_NUM_FILMS } from '../../../consts';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../../store/api-actions';
+import { getGenre } from '../../../store/films-process/selectors';
+import { getFilmsInfo, getLoadingStatus, getPromoFilm } from '../../../store/films-process/selectors';
 
 function MainPage() {
   const dispatch = useAppDispatch();
@@ -27,22 +29,22 @@ function MainPage() {
   }, []);
 
   const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
-  const activeGenre = useAppSelector((state) => state.genre);
-  const filmsInfo = useAppSelector((state) => state.films);
-  const isLoadingFilms = useAppSelector((state) => state.isLoading);
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const activeGenre = useAppSelector(getGenre);
+  const filmsInfo = useAppSelector(getFilmsInfo);
+  const isLoadingFilms = useAppSelector(getLoadingStatus);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   const handlerShowMoreClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);
   };
 
-  const getFilmsByGenre: GetFilmsByGenreFunc = (list) => {
+  const getFilmsByGenre: GetFilmsByGenreFunc = useCallback((list) => {
     if (activeGenre === GenresEnum.AllGenres) {
       return list;
     } else {
       return list.filter((film) => film.genre === activeGenre);
     }
-  };
+  }, [activeGenre]);
 
   const filmsByGenre = getFilmsByGenre(filmsInfo);
 
@@ -83,7 +85,7 @@ function MainPage() {
 
           <div className="catalog__films-list">
             {isLoadingFilms && <Spinner />}
-            <FilmsList list={shownFilms} />
+            <MemoFilmsList list={shownFilms} />
           </div>
           {shownFilms.length >= maxNumFilms ? (
             <ShowMoreButton onShowMoreClick={handlerShowMoreClick} />

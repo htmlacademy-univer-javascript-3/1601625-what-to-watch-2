@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks';
+import { getFilmInfo } from '../../store/film-process/selectors';
 
 function FilmTabDetails() {
-  const film = useAppSelector((state) => state.film);
+  const film = useAppSelector(getFilmInfo);
 
   return (
     <div className="film-card__text film-card__row">

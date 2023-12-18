@@ -6,12 +6,13 @@ import FormAddReview from '../../form-add-review/form-add-review';
 import { AppRoutes, AuthorisationStatus } from '../../../consts';
 import Header from '../../header/header';
 import { useAppSelector } from '../../../hooks';
-
+import { getFilmInfo } from '../../../store/film-process/selectors';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function AddReview(){
   const navigate = useNavigate();
-  const film = useAppSelector((state) => state.film);
-  const authStatus = useAppSelector((state) => state.authorisationStatus);
+  const film = useAppSelector(getFilmInfo);
+  const authStatus = useAppSelector(getAuthStatus);
 
   if (authStatus !== AuthorisationStatus.Auth) {
     navigate(AppRoutes.Main);

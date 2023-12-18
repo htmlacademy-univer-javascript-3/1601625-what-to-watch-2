@@ -10,46 +10,33 @@ import {
   LoadableComment,
   Comment
 } from '../types/types';
-import { APIRoute, AppRoutes, AuthorisationStatus } from '../consts';
-import {
-  loadFilms,
-  loadPromoFilm,
-  setloadingFilms,
-  requireAuthorization,
-  requireUser,
-  loadFilm,
-  loadComments,
-  loadSimilarFlms,
-  sendComment,
-  redirectToRoute
-} from './action';
+import { APIRoute, AppRoutes } from '../consts';
+import { redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
 
-export const fetchFilmsAction = createAsyncThunk<void, undefined, {
+export const fetchFilmsAction = createAsyncThunk<FilmCardProps[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchFilms',
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setloadingFilms(true));
+  'films/fetchFilms',
+  async (_arg, { extra: api }) => {
     const {data} = await api.get<FilmCardProps[]>(APIRoute.Films);
-    dispatch(setloadingFilms(false));
-    dispatch(loadFilms(data));
+    return data;
   }
 );
 
-export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
+export const fetchPromoFilmAction = createAsyncThunk<PromoFilm, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchPromoFilm',
-  async (_arg, { dispatch, extra: api }) => {
+  'films/fetchPromoFilm',
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<PromoFilm>(APIRoute.Promo);
-    dispatch(loadPromoFilm(data));
+    return data;
   }
 );
 
@@ -60,31 +47,25 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorisationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorisationStatus.NoAuth));
-    }
+  async (_arg, { extra: api}) => {
+    await api.get(APIRoute.Login);
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'user/login',
-  async ({ login, password }, {dispatch, extra: api}) => {
+  async ({ login, password }, { extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, {
       email: login,
       password
     });
     saveToken(data.token);
-    dispatch(requireAuthorization(AuthorisationStatus.Auth));
-    dispatch(requireUser(data));
+    return data;
   },
 );
 
@@ -99,67 +80,61 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(redirectToRoute(AppRoutes.Main));
-    dispatch(requireAuthorization(AuthorisationStatus.NoAuth));
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<void, string, {
+export const fetchFilmAction = createAsyncThunk<LoadableFilm, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchFilm',
-  async (id, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<LoadableFilm>(`${APIRoute.Films}/${id}`);
-
-      dispatch(loadFilm(data));
-    } catch(error) {
-      dispatch(redirectToRoute(AppRoutes.NotFound));
-    }
+  'film/fetchFilm',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<LoadableFilm>(`${APIRoute.Films}/${id}`);
+    return data;
   }
 );
 
-export const fetchComentsAction = createAsyncThunk<void, string, {
+export const fetchComentsAction = createAsyncThunk<LoadableComment[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchComment',
-  async (id, { dispatch, extra: api }) => {
-    const {data} = await api.get<LoadableComment[]>(`${APIRoute.Comments}/${id}`);
-    dispatch(loadComments(data));
+  'film/fetchComment',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<LoadableComment[]>(`${APIRoute.Comments}/${id}`);
+    return data;
   }
 );
 
-export const fetchSimilarFilmsAction = createAsyncThunk<void, string, {
+export const fetchSimilarFilmsAction = createAsyncThunk<FilmCardProps[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'data/fetchSimilarFilms',
-  async (id, { dispatch, extra: api }) => {
+  'film/fetchSimilarFilms',
+  async (id, { extra: api }) => {
     const {data} = await api.get<FilmCardProps[]>(`${APIRoute.Films}/${id}/similar`);
-    dispatch(loadSimilarFlms(data));
+    return data;
   }
 );
 
-export const sendCommentAction = createAsyncThunk<void, Comment, {
+export const sendCommentAction = createAsyncThunk<LoadableComment, Comment, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'user/sendComment',
-  async ({id, comment, rating}, {dispatch, extra: api}) => {
+  'film/sendComment',
+  async ({id, comment, rating}, { extra: api}) => {
     const { data } = await api.post<LoadableComment>(`${APIRoute.Comments}/${id}`, {
       comment,
       rating
     });
 
-    dispatch(sendComment(data));
+    return data;
   },
 );

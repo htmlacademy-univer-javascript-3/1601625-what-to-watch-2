@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import type { BrowserHistory } from 'history';
-import { AuthorisationStatus, GenresEnum } from '../consts';
+import { GenresEnum } from '../consts';
 
 export type FilmCardProps = {
   id: string;
@@ -131,20 +131,6 @@ export type GenreProps = {
   activeClass: string;
   setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum>>;
 };
-
-export type InitialState = {
-  genre: string;
-  films: FilmCardProps[];
-  authorisationStatus: AuthorisationStatus;
-  filmsLoadStatus: [];
-  isLoading: boolean;
-  promoFilm: PromoFilm;
-  user: UserData;
-  film: LoadableFilm;
-  comments: LoadableComment[];
-  similarFilms: FilmCardProps[];
-  pagePath: string;
-}
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
 

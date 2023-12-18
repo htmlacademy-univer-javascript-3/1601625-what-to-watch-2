@@ -8,12 +8,15 @@ import FilmCardButtonMylist from '../../film-card-button-mylist/film-card-button
 import FilmCardDesc from '../../film-card-desc/film-card-desc';
 import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FilmTabs from '../../film-tabs/film-tabs';
-import FilmsList from '../../films-list/films-list';
+import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { updateGenre, setPagePath } from '../../../store/action';
+import { updateGenre } from '../../../store/films-process/films-process';
+import { setPagePath } from '../../../store/redirect-process/redirect-process';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
 import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
+import { getFilmInfo, getSimilarFilms } from '../../../store/film-process/selectors';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function FilmPage(){
   const dispatch = useAppDispatch();
@@ -30,9 +33,9 @@ function FilmPage(){
     }
   }, [id]);
 
-  const film = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const authStatus = useAppSelector((state) => state.authorisationStatus);
+  const film = useAppSelector(getFilmInfo);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const authStatus = useAppSelector(getAuthStatus);
 
   return (
     <>
@@ -79,7 +82,7 @@ function FilmPage(){
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList list={similarFilms.filter((_, idx) => idx < MAX_NUM_SIMILAR_FILM)}/>
+            <MemoFilmsList list={similarFilms.filter((_, idx) => idx < MAX_NUM_SIMILAR_FILM)}/>
           </div>
         </section>
 
