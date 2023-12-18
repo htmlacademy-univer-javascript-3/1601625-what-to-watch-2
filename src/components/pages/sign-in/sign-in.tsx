@@ -10,12 +10,13 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
 import { checkEmail } from '../../../utils/checkEmail';
 import { checkPassword } from '../../../utils/checkPassword';
+import { getPagePath } from '../../../store/redirect-process/selectors';
 
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const pagePath = useAppSelector((state) => state.pagePath);
+  const pagePath = useAppSelector(getPagePath);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

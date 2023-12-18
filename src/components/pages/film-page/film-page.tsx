@@ -11,9 +11,12 @@ import FilmTabs from '../../film-tabs/film-tabs';
 import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { updateGenre, setPagePath } from '../../../store/action';
+import { updateGenre } from '../../../store/films-process/films-process';
+import { setPagePath } from '../../../store/redirect-process/redirect-process';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
 import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
+import { getFilmInfo, getSimilarFilms } from '../../../store/film-process/selectors';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function FilmPage(){
   const dispatch = useAppDispatch();
@@ -30,9 +33,9 @@ function FilmPage(){
     }
   }, [id]);
 
-  const film = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const authStatus = useAppSelector((state) => state.authorisationStatus);
+  const film = useAppSelector(getFilmInfo);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const authStatus = useAppSelector(getAuthStatus);
 
   return (
     <>

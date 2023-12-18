@@ -4,9 +4,10 @@ import HeadGuest from '../head-guest/head-guest';
 import { HeaderProps } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { AuthorisationStatus } from '../../consts';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
 function Header({linkLogo, children, classes}:HeaderProps){
-  const authorisationStatus = useAppSelector((state) => state.authorisationStatus);
+  const authorisationStatus = useAppSelector(getAuthStatus);
 
   return(
     <header className={`page-header ${classes === undefined ? '' : classes}`}>

@@ -3,10 +3,11 @@ import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoutes } from '../../consts';
+import { getUserInfo } from '../../store/user-process/selectors';
 
 function HeaderUserBlock() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUserInfo);
   const navigate = useNavigate();
 
   const handlerSignOutLinkClick = () => {

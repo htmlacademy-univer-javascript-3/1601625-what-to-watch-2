@@ -1,9 +1,10 @@
 import React from 'react';
 import { getRatingDescription } from '../../utils/getRatingDescription';
 import { useAppSelector } from '../../hooks';
+import { getFilmInfo } from '../../store/film-process/selectors';
 
 function FilmTabOverview(){
-  const film = useAppSelector((state) => state.film);
+  const film = useAppSelector(getFilmInfo);
 
   return (
     <>

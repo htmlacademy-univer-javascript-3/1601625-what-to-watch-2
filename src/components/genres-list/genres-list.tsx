@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Genre from '../genre/genre';
 import { GenresEnum, MAX_NUM_GENRES } from '../../consts';
-import { updateGenre } from '../../store/action';
+import { updateGenre } from '../../store/films-process/films-process';
 import { useAppDispatch } from '../../hooks';
 
 function GenresList(){
