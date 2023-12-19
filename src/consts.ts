@@ -75,3 +75,5 @@ export enum FavoriteFilmStatus {
   AddToFavorite = 1,
   RemoveFromFavorite = 0,
 }
+
+export const MAX_VIDEO_PLAYER_PROGRESS = 100;

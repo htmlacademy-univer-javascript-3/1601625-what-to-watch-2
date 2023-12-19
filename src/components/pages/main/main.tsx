@@ -71,7 +71,7 @@ function MainPage() {
               <FilmCardDesc title={promoFilm.name} genre={promoFilm.genre} year={promoFilm.released} />
 
               <div className="film-card__buttons">
-                <FilmCardButtonPlay />
+                <FilmCardButtonPlay filmId={promoFilm.id} />
                 {
                   authorisationStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={promoFilm} />
                 }

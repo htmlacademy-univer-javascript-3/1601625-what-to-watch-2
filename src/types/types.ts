@@ -128,6 +128,10 @@ export type FilmCardButtonMylistProps = {
   film: LoadableFilm | PromoFilm;
 };
 
+export type FilmCardButtonPlayProps = {
+  filmId: string;
+};
+
 export type GetRatingDescriptionFunc = (rating:number) => string;
 
 export type GenreProps = {

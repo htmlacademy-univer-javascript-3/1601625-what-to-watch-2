@@ -54,7 +54,7 @@ function FilmPage(){
               />
 
               <div className="film-card__buttons">
-                <FilmCardButtonPlay />
+                <FilmCardButtonPlay filmId={film.id} />
                 {
                   authStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={film} />
                 }

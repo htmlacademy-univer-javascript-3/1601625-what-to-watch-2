@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { AppProps } from '../../types/types';
 import { AppRoutes } from '../../consts';
 import MainPage from '../pages/main/main';
 import SignIn from '../pages/sign-in/sign-in';
@@ -18,7 +17,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getAuthStatus } from '../../store/user-process/selectors';
 
-function App(props: AppProps) {
+function App() {
   const dispatch = useAppDispatch();
   const authorisationStatus = useAppSelector(getAuthStatus);
 
@@ -59,7 +58,7 @@ function App(props: AppProps) {
         />
         <Route
           path={AppRoutes.Player}
-          element={<Player videoLink={props.videoLink} />}
+          element={<Player />}
         />
         <Route path={AppRoutes.NotFound} element={<NotFound />} />
       </Routes>
