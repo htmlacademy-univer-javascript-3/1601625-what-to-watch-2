@@ -124,6 +124,10 @@ export type FilmCardDescProps = {
   year: string | number;
 };
 
+export type FilmCardButtonMylistProps = {
+  film: LoadableFilm | PromoFilm;
+};
+
 export type GetRatingDescriptionFunc = (rating:number) => string;
 
 export type GenreProps = {

@@ -28,4 +28,9 @@ export type FilmProcess = {
   similarFilms: FilmCardProps[];
 };
 
+export type MyListProcess = {
+  countFilmsInMyList: number;
+  filmsInMyList: FilmCardProps[];
+  isLoading: boolean;
+};
 

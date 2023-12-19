@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { AppProps } from '../../types/types';
 import { AppRoutes } from '../../consts';
 import MainPage from '../pages/main/main';
@@ -12,8 +13,21 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import { AuthorisationStatus } from '../../consts';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
 function App(props: AppProps) {
+  const dispatch = useAppDispatch();
+  const authorisationStatus = useAppSelector(getAuthStatus);
+
+  useEffect(() => {
+    if (authorisationStatus === AuthorisationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorisationStatus]);
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -30,7 +44,7 @@ function App(props: AppProps) {
           path={AppRoutes.MyList}
           element={
             <PrivateRoute>
-              <MyList list={[]} />
+              <MyList />
             </PrivateRoute>
           }
         />

@@ -4,10 +4,12 @@ import { userProcess } from './user-process/user-process';
 import { filmProcess } from './film-process/film-process';
 import { filmsProcess } from './films-process/films-process';
 import { redirectProcess } from './redirect-process/redirect-process';
+import { myListProcess } from './my-list-process/my-list-process';
 
 export const rootReducer = combineReducers({
   [SliceNameSpace.User]: userProcess.reducer,
   [SliceNameSpace.Films]: filmsProcess.reducer,
   [SliceNameSpace.Film]: filmProcess.reducer,
   [SliceNameSpace.Redirect]: redirectProcess.reducer,
+  [SliceNameSpace.MyList]: myListProcess.reducer,
 });

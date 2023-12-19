@@ -20,11 +20,21 @@ function HeaderUserBlock() {
     });
   };
 
+  const handlerAvatarClick = () => {
+    navigate(AppRoutes.MyList);
+  };
+
   return (
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={user.avatarUrl} alt="User avatar" width="63" height="63" />
+          <img
+            onClick={handlerAvatarClick}
+            src={user.avatarUrl}
+            alt="User avatar"
+            width="63"
+            height="63"
+          />
         </div>
       </li>
       <li className="user-block__item">

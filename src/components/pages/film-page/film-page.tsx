@@ -55,7 +55,9 @@ function FilmPage(){
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay />
-                <FilmCardButtonMylist />
+                {
+                  authStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={film} />
+                }
                 {
                   authStatus === AuthorisationStatus.Auth
                     ? <Link to={id === undefined ? AppRoutes.NotFound : `/films/${id}/review`} className="btn film-card__button">Add review</Link>

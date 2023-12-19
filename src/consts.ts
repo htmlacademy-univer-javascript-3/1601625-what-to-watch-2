@@ -68,4 +68,10 @@ export enum SliceNameSpace {
   Film = 'FILM',
   Films = 'FILMS',
   Redirect = 'REDIRECT',
+  MyList = 'MY_LIST',
+}
+
+export enum FavoriteFilmStatus {
+  AddToFavorite = 1,
+  RemoveFromFavorite = 0,
 }

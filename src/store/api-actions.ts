@@ -10,7 +10,7 @@ import {
   LoadableComment,
   Comment
 } from '../types/types';
-import { APIRoute, AppRoutes } from '../consts';
+import { APIRoute, AppRoutes, FavoriteFilmStatus } from '../consts';
 import { redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
 
@@ -20,7 +20,7 @@ export const fetchFilmsAction = createAsyncThunk<FilmCardProps[], undefined, {
   extra: AxiosInstance;
 }
 >(
-  'films/fetchFilms',
+  'FILMS/fetchFilms',
   async (_arg, { extra: api }) => {
     const {data} = await api.get<FilmCardProps[]>(APIRoute.Films);
     return data;
@@ -33,7 +33,7 @@ export const fetchPromoFilmAction = createAsyncThunk<PromoFilm, undefined, {
   extra: AxiosInstance;
 }
 >(
-  'films/fetchPromoFilm',
+  'FILMS/fetchPromoFilm',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<PromoFilm>(APIRoute.Promo);
     return data;
@@ -46,7 +46,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }
 >(
-  'user/checkAuth',
+  'USER/checkAuth',
   async (_arg, { extra: api}) => {
     await api.get(APIRoute.Login);
   },
@@ -58,7 +58,7 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
   extra: AxiosInstance;
 }
 >(
-  'user/login',
+  'USER/login',
   async ({ login, password }, { extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, {
       email: login,
@@ -75,7 +75,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }
 >(
-  'user/logout',
+  'USER/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
@@ -89,7 +89,7 @@ export const fetchFilmAction = createAsyncThunk<LoadableFilm, string, {
   extra: AxiosInstance;
 }
 >(
-  'film/fetchFilm',
+  'FILM/fetchFilm',
   async (id, { extra: api }) => {
     const { data } = await api.get<LoadableFilm>(`${APIRoute.Films}/${id}`);
     return data;
@@ -102,7 +102,7 @@ export const fetchComentsAction = createAsyncThunk<LoadableComment[], string, {
   extra: AxiosInstance;
 }
 >(
-  'film/fetchComment',
+  'FILM/fetchComment',
   async (id, { extra: api }) => {
     const { data } = await api.get<LoadableComment[]>(`${APIRoute.Comments}/${id}`);
     return data;
@@ -115,7 +115,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<FilmCardProps[], string,
   extra: AxiosInstance;
 }
 >(
-  'film/fetchSimilarFilms',
+  'FILM/fetchSimilarFilms',
   async (id, { extra: api }) => {
     const {data} = await api.get<FilmCardProps[]>(`${APIRoute.Films}/${id}/similar`);
     return data;
@@ -128,13 +128,52 @@ export const sendCommentAction = createAsyncThunk<LoadableComment, Comment, {
   extra: AxiosInstance;
 }
 >(
-  'film/sendComment',
+  'FILM/sendComment',
   async ({id, comment, rating}, { extra: api}) => {
     const { data } = await api.post<LoadableComment>(`${APIRoute.Comments}/${id}`, {
       comment,
       rating
     });
 
+    return data;
+  },
+);
+
+export const fetchFavoriteFilmsAction = createAsyncThunk<FilmCardProps[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'MY_LIST/fetchFavoriteFilms',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<FilmCardProps[]>(APIRoute.Favorite);
+    return data;
+  }
+);
+
+export const addFilmToFavoriteAction = createAsyncThunk<FilmCardProps, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'MY_LIST/addFilmToFavorite',
+  async (id, { extra: api}) => {
+    const { data } = await api.post<FilmCardProps>(`${APIRoute.Favorite}/${id}/${FavoriteFilmStatus.AddToFavorite}`);
+    return data;
+  },
+);
+
+export const removeFilmToFavoriteAction = createAsyncThunk<FilmCardProps, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'MY_LIST/removeFilmToFavorite',
+  async (id, { extra: api}) => {
+    const { data } = await api.post<FilmCardProps>(`${APIRoute.Favorite}/${id}/${FavoriteFilmStatus.RemoveFromFavorite}`);
     return data;
   },
 );
