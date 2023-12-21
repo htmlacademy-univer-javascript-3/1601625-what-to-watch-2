@@ -135,9 +135,9 @@ export type FilmCardButtonPlayProps = {
 export type GetRatingDescriptionFunc = (rating:number) => string;
 
 export type GenreProps = {
-  genre: GenresEnum;
+  genre: string;
   activeClass: string;
-  setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum>>;
+  setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum | string>>;
 };
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];

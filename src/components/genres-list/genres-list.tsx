@@ -2,11 +2,17 @@ import { useState, useEffect } from 'react';
 import Genre from '../genre/genre';
 import { GenresEnum, MAX_NUM_GENRES } from '../../consts';
 import { updateGenre } from '../../store/films-process/films-process';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFilmsInfo } from '../../store/films-process/selectors';
 
-function GenresList(){
-  const [activeGenre, setActiveGenre] = useState(GenresEnum.AllGenres);
+function GenresList() {
+  const [activeGenre, setActiveGenre] = useState<GenresEnum | string>(GenresEnum.AllGenres);
   const dispatch = useAppDispatch();
+
+  const films = useAppSelector(getFilmsInfo);
+
+  const genres = new Set('');
+  films.map((film) => genres.add(film.genre));
 
   useEffect(() => {
     dispatch(updateGenre(activeGenre));
@@ -14,18 +20,22 @@ function GenresList(){
 
   return (
     <ul className="catalog__genres-list">
-      {
-        Object.values(GenresEnum)
-          .filter((_, idx) => idx < MAX_NUM_GENRES)
-          .map((genre) => (
-            <Genre
-              key={genre}
-              genre={genre}
-              setActiveGenre={setActiveGenre}
-              activeClass={activeGenre === genre ? 'catalog__genres-item--active' : ''}
-            />
-          ))
-      }
+      <Genre
+        key={GenresEnum.AllGenres}
+        genre={GenresEnum.AllGenres}
+        setActiveGenre={setActiveGenre}
+        activeClass={activeGenre === GenresEnum.AllGenres ? 'catalog__genres-item--active' : ''}
+      />
+      {[...genres]
+        .filter((_, idx) => idx < MAX_NUM_GENRES)
+        .map((genre) => (
+          <Genre
+            key={genre}
+            genre={genre}
+            setActiveGenre={setActiveGenre}
+            activeClass={activeGenre === genre ? 'catalog__genres-item--active' : ''}
+          />
+        ))}
     </ul>
   );
 }
