@@ -223,6 +223,8 @@ export type Comment = {
 
 export type RatingProps = {
   setRating: React.Dispatch<React.SetStateAction<number>>;
+  isChecked: boolean | undefined;
+  readOnly: boolean;
 };
 
 export type FormAddReviewMessageProps = {

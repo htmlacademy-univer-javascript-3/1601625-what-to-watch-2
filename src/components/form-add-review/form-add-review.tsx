@@ -1,52 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Rating from '../rating/rating';
-import FormAddReviewMessage from '../form-add-review-message/form-add-review-message';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
 import { ReviewConsts } from '../../consts';
-import { getFilmInfo } from '../../store/film-process/selectors';
+import { getFilmInfo, getLoadingStatus, getError } from '../../store/film-process/selectors';
 
 function FormAddReview() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
-  const [error, setError] = useState('');
-  const [isError, setIsError] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [readOnly, setReadOnly] = useState(false);
+  const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
 
   const {id} = useAppSelector(getFilmInfo);
+  const isLoading = useAppSelector(getLoadingStatus);
+  const error = useAppSelector(getError);
+
+  useEffect(() => {
+    if (reviewText.length >= ReviewConsts.MinLength && reviewText.length <= ReviewConsts.MaxLength && rating > 0) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  }, [rating, reviewText.length]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setReadOnly(true);
+      setBtnDisabled(true);
+    } else {
+      setReadOnly(false);
+    }
+  }, [isLoading]);
 
   const handlerFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(sendCommentAction({id, comment: reviewText, rating}));
 
-    if (reviewText.length >= ReviewConsts.MinLength && reviewText.length <= ReviewConsts.MaxLength && rating > 0) {
-      setIsError(false);
-      setError('');
-      dispatch(sendCommentAction({id, comment: reviewText, rating}));
-
+    if (!isLoading && error === undefined) {
       toast.success('The comment has been added successfully!', {
-        position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.TOP_CENTER,
         autoClose: 1500,
-
       });
-    } else if (reviewText.length < ReviewConsts.MinLength) {
-      setIsError(true);
-      setError('Please enter a comment of at least 50 characters!');
-    } else if (reviewText.length > ReviewConsts.MaxLength) {
-      setIsError(true);
-      setError('Please enter a comment of no more than 400 characters!');
-    } else if (rating === 0) {
-      setIsError(true);
-      setError('The rating cannot be 0!');
-    } else {
-      setIsError(false);
-      setError('');
+
+      setReviewText('');
+      setRating(0);
+      setIsChecked(false);
+
+      navigate(`/films/${id}`);
+    } else if (error !== undefined) {
+      toast.error(error, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+      });
     }
   };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={handlerFormSubmit}>
-      <Rating setRating={setRating} />
+    <form action="#" className="add-review__form" onSubmit={handlerFormSubmit} >
+      <Rating setRating={setRating} isChecked={isChecked} readOnly={readOnly} />
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"
@@ -55,13 +71,12 @@ function FormAddReview() {
           placeholder="Review text"
           onChange={(e) => setReviewText(e.target.value)}
           value={reviewText}
+          disabled={readOnly}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button className="add-review__btn" type="submit" disabled={btnDisabled} >Post</button>
         </div>
       </div>
-
-      {isError && <FormAddReviewMessage message={isError && error} />}
     </form>
   );
 }
