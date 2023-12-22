@@ -59,8 +59,8 @@ export const MAX_NUM_GENRES = 10;
 export const MAX_NUM_SIMILAR_FILM = 4;
 
 export const enum ReviewConsts {
-  MinLength = 40,
-  MaxLength = 500
+  MinLength = 50,
+  MaxLength = 400
 }
 
 export enum SliceNameSpace {
