@@ -1,29 +1,22 @@
-import { useEffect, useState } from 'react';
-import { MAX_VIDEO_PLAYER_PROGRESS } from '../consts';
+import { useEffect, useState, useCallback } from 'react';
+import { VideoPlayerConsts } from '../consts';
 
 const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
-    progress: 0,
     isFullscreen: false,
-    time: 0,
+    progress: 0,
+    remainDuration: 0,
   });
 
-  const tooglePlay = () => {
-    setPlayerState({
-      ...playerState,
-      isPlaying: !playerState.isPlaying
-    });
-  };
-
-  useEffect(() => {
-    if (videoPlayer.current){
-      setPlayerState({
-        ...playerState,
-        time: videoPlayer.current.duration
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (videoPlayer.current){
+  //     setPlayerState({
+  //       ...playerState,
+  //       remainDuration: videoPlayer.current.duration,
+  //     });
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (playerState.isPlaying) {
@@ -33,27 +26,39 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
     }
   }, [playerState.isPlaying, videoPlayer]);
 
-  const handlerOnTimeUpdate = () => {
-    if (videoPlayer.current) {
-      const progress = (videoPlayer.current.currentTime / videoPlayer.current.duration) * 100;
-      const remainTime = videoPlayer.current.duration - videoPlayer.current.currentTime;
+  const calcProgress = useCallback((currentTime: number, duration: number): number => (
+    (currentTime / duration) * VideoPlayerConsts.MaxProgressValue
+  ), []);
 
+  useEffect(() => {
+    if (videoPlayer.current) {
+      const progress = calcProgress(videoPlayer.current?.currentTime, videoPlayer.current?.duration);
       setPlayerState({
         ...playerState,
         progress,
-        time: remainTime
       });
+    }
+  }, [playerState.remainDuration]);
 
-      if (progress === MAX_VIDEO_PLAYER_PROGRESS) {
-        setPlayerState({
-          ...playerState,
-          isPlaying: false
-        });
-      }
+  const togglePlay = () => {
+    setPlayerState({
+      ...playerState,
+      isPlaying: !playerState.isPlaying
+    });
+  };
+
+  const handlerOnTimeUpdate = () => {
+    if (videoPlayer.current) {
+      const remainDuration = Math.round(videoPlayer.current.duration - videoPlayer.current.currentTime);
+
+      setPlayerState({
+        ...playerState,
+        remainDuration
+      });
     }
   };
 
-  const toogleFullscreen = () => {
+  const toggleFullscreen = () => {
     videoPlayer.current?.requestFullscreen();
 
     setPlayerState({
@@ -62,11 +67,21 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
     });
   };
 
+  const handlerVideoOnEnded = () => {
+    setPlayerState({
+      ...playerState,
+      progress: 0,
+      isPlaying: false
+    });
+  };
+
   return {
     playerState,
-    tooglePlay,
+    togglePlay,
     handlerOnTimeUpdate,
-    toogleFullscreen
+    toggleFullscreen,
+    handlerVideoOnEnded,
+    setPlayerState
   };
 };
 

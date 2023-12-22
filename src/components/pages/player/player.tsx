@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, SyntheticEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppRoutes, MAX_VIDEO_PLAYER_PROGRESS } from '../../../consts';
+import { AppRoutes, VideoPlayerConsts } from '../../../consts';
 import { useAppSelector } from '../../../hooks';
 import { getFilmInfo } from '../../../store/film-process/selectors';
 import { getPromoFilm } from '../../../store/films-process/selectors';
@@ -17,7 +17,7 @@ function Player(){
   const promoFilm = useAppSelector(getPromoFilm);
 
   const [filmToPlay, setFilmToPlay] = useState<PromoFilm | LoadableFilm>(promoFilm);
-  const { playerState, tooglePlay, handlerOnTimeUpdate, toogleFullscreen } = useVideoPlayer(videoPlayerRef);
+  const { playerState, setPlayerState, togglePlay, handlerOnTimeUpdate, toggleFullscreen, handlerVideoOnEnded } = useVideoPlayer(videoPlayerRef);
 
   useEffect(() => {
     if (id === promoFilm.id){
@@ -29,6 +29,15 @@ function Player(){
     }
   }, [id, film, promoFilm]);
 
+  const handlerVideoOnLoad = (e: SyntheticEvent<HTMLVideoElement>) => {
+    setPlayerState({
+      ...playerState,
+      remainDuration: e.currentTarget.duration
+    });
+  };
+
+  const timeObject = changeVideoTimeFormat(playerState.remainDuration);
+
   return (
     <div className="player">
       <video
@@ -37,8 +46,10 @@ function Player(){
         src={filmToPlay.videoLink}
         poster={filmToPlay.backgroundImage}
         preload='metadata'
-        onTimeUpdate={() => handlerOnTimeUpdate()}
-        onClick={() => tooglePlay()}
+        onTimeUpdate={handlerOnTimeUpdate}
+        onClick={togglePlay}
+        onEnded={handlerVideoOnEnded}
+        onLoadedMetadata={handlerVideoOnLoad}
       >
       </video>
 
@@ -53,17 +64,25 @@ function Player(){
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={playerState.progress} max={MAX_VIDEO_PLAYER_PROGRESS}></progress>
+            <progress className="player__progress" value={playerState.progress} max={VideoPlayerConsts.MaxProgressValue}></progress>
             <div className="player__toggler" style={{left: `${playerState.progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">
-            { playerState.isPlaying ? '-' : null }
-            { playerState.time ? changeVideoTimeFormat(playerState.time) : '00:00'}
+            {
+              playerState.isPlaying || (playerState.progress !== VideoPlayerConsts.MaxProgressValue && playerState.progress !== VideoPlayerConsts.MinProgressValue)
+                ? '-'
+                : null
+            }
+            {
+              playerState.remainDuration
+                ? timeObject?.time
+                : timeObject.timeFormated
+            }
           </div>
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={() => tooglePlay()}>
+          <button type="button" className="player__play" onClick={togglePlay}>
             <svg viewBox="0 0 19 19" width="19" height="19">
               {
                 playerState.isPlaying
@@ -71,11 +90,11 @@ function Player(){
                   : <use xlinkHref="#play-s"></use>
               }
             </svg>
-            <span>Play</span>
+            <span>{playerState.isPlaying ? 'Pause' : 'Play'}</span>
           </button>
           <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen" onClick={() => toogleFullscreen()}>
+          <button type="button" className="player__full-screen" onClick={toggleFullscreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>
