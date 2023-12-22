@@ -1,6 +1,29 @@
-function FilmCardButtonPlay(){
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FilmCardButtonPlayProps } from '../../types/types';
+import { AppRoutes } from '../../consts';
+
+function FilmCardButtonPlay({ filmId }: FilmCardButtonPlayProps){
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handlerButtonClick = () => {
+    if (filmId !== undefined) {
+      if (location.pathname === AppRoutes.Main) {
+        navigate(`/${AppRoutes.Player.split('/')[1]}/${filmId}`);
+      } else {
+        navigate(`../${AppRoutes.Player.split('/')[1]}/${filmId}`);
+      }
+    } else {
+      navigate(AppRoutes.NotFound);
+    }
+  };
+
   return (
-    <button className="btn btn--play film-card__button" type="button">
+    <button
+      className="btn btn--play film-card__button"
+      type="button"
+      onClick={handlerButtonClick}
+    >
       <svg viewBox="0 0 19 19" width="19" height="19">
         <use xlinkHref="#play-s"></use>
       </svg>

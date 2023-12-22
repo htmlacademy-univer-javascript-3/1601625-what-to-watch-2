@@ -11,14 +11,22 @@ import ShowMoreButton from '../../show-more-button/show-more-button';
 import Footer from '../../footer/footer';
 import Spinner from '../../spinner/spinner';
 import { GetFilmsByGenreFunc } from '../../../types/types';
-import { GenresEnum, MAX_NUM_FILMS } from '../../../consts';
+import { GenresEnum, MAX_NUM_FILMS, AuthorisationStatus } from '../../../consts';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../../store/api-actions';
 import { getGenre } from '../../../store/films-process/selectors';
 import { getFilmsInfo, getLoadingStatus, getPromoFilm } from '../../../store/films-process/selectors';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function MainPage() {
   const dispatch = useAppDispatch();
+
+  const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
+  const activeGenre = useAppSelector(getGenre);
+  const filmsInfo = useAppSelector(getFilmsInfo);
+  const isLoadingFilms = useAppSelector(getLoadingStatus);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const authorisationStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
     dispatch(fetchFilmsAction());
@@ -27,12 +35,6 @@ function MainPage() {
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
   }, []);
-
-  const [maxNumFilms, setMaxNumFilms] = useState(MAX_NUM_FILMS);
-  const activeGenre = useAppSelector(getGenre);
-  const filmsInfo = useAppSelector(getFilmsInfo);
-  const isLoadingFilms = useAppSelector(getLoadingStatus);
-  const promoFilm = useAppSelector(getPromoFilm);
 
   const handlerShowMoreClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);
@@ -69,8 +71,10 @@ function MainPage() {
               <FilmCardDesc title={promoFilm.name} genre={promoFilm.genre} year={promoFilm.released} />
 
               <div className="film-card__buttons">
-                <FilmCardButtonPlay />
-                <FilmCardButtonMylist />
+                <FilmCardButtonPlay filmId={promoFilm.id} />
+                {
+                  authorisationStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={promoFilm} />
+                }
               </div>
             </div>
           </div>

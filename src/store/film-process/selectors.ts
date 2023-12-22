@@ -7,3 +7,7 @@ export const getFilmInfo = (state: Pick<State, SliceNameSpace.Film>): LoadableFi
 export const getComments = (state: Pick<State, SliceNameSpace.Film>): LoadableComment[] => state[SliceNameSpace.Film].comments;
 
 export const getSimilarFilms = (state: Pick<State, SliceNameSpace.Film>): FilmCardProps[] => state[SliceNameSpace.Film].similarFilms;
+
+export const getLoadingStatus = (state: Pick<State, SliceNameSpace.Film>): boolean => state[SliceNameSpace.Film].isLoading;
+
+export const getError = (state: Pick<State, SliceNameSpace.Film>): string | undefined => state[SliceNameSpace.Film].error;

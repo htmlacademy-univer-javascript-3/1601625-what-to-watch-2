@@ -124,12 +124,20 @@ export type FilmCardDescProps = {
   year: string | number;
 };
 
+export type FilmCardButtonMylistProps = {
+  film: LoadableFilm | PromoFilm;
+};
+
+export type FilmCardButtonPlayProps = {
+  filmId: string;
+};
+
 export type GetRatingDescriptionFunc = (rating:number) => string;
 
 export type GenreProps = {
-  genre: GenresEnum;
+  genre: string;
   activeClass: string;
-  setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum>>;
+  setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum | string>>;
 };
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
@@ -215,6 +223,8 @@ export type Comment = {
 
 export type RatingProps = {
   setRating: React.Dispatch<React.SetStateAction<number>>;
+  isChecked: boolean | undefined;
+  readOnly: boolean;
 };
 
 export type FormAddReviewMessageProps = {

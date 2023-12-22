@@ -1,7 +1,7 @@
 import RatingStar from '../rating-star/rating-star';
 import { RatingProps } from '../../types/types';
 
-function Rating({ setRating }: RatingProps) {
+function Rating({ setRating, isChecked, readOnly }: RatingProps) {
   const ratingStarsArr = Array.from({length: 10}, (_, idx) => (10 - idx));
 
   return (
@@ -13,6 +13,8 @@ function Rating({ setRating }: RatingProps) {
               key={`star-${String(i)}`}
               id={String(i)}
               setRating={setRating}
+              isChecked={isChecked}
+              readOnly={readOnly}
             />
           ))
         }

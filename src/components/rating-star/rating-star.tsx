@@ -1,6 +1,6 @@
 import { RatingStarProps } from '../../types/types';
 
-function RatingStar({id, setRating }:RatingStarProps) {
+function RatingStar({id, setRating, isChecked, readOnly }:RatingStarProps) {
   return (
     <>
       <input
@@ -10,6 +10,8 @@ function RatingStar({id, setRating }:RatingStarProps) {
         name="rating"
         value={id}
         onChange={(e) => setRating(Number(e.target.value))}
+        checked={isChecked}
+        disabled={readOnly}
       />
       <label
         className="rating__label"

@@ -26,6 +26,13 @@ export type FilmProcess = {
   film: LoadableFilm;
   comments: LoadableComment[];
   similarFilms: FilmCardProps[];
+  isLoading: boolean;
+  error: string | undefined;
 };
 
+export type MyListProcess = {
+  countFilmsInMyList: number;
+  filmsInMyList: FilmCardProps[];
+  isLoading: boolean;
+};
 

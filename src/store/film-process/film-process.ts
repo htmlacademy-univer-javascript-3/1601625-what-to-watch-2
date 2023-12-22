@@ -24,6 +24,8 @@ const initialState: FilmProcess = {
   },
   comments: [],
   similarFilms: [],
+  isLoading: false,
+  error: undefined,
 };
 
 export const filmProcess = createSlice({
@@ -44,7 +46,15 @@ export const filmProcess = createSlice({
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action.payload;
       })
+      .addCase(sendCommentAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(sendCommentAction.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      })
       .addCase(sendCommentAction.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.comments.push(action.payload);
       });
   },
