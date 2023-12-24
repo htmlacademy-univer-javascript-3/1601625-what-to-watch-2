@@ -8,7 +8,7 @@ type Reducer = ReturnType<typeof rootReducer>;
 export const redirect: Middleware<unknown, Reducer> = () =>
   (next) =>
     (action: PayloadAction<string>) => {
-      if (action.type === 'redirect/redirectToRoute') {
+      if (action.type === 'REDIRECT/redirectToRoute') {
         browserHistory.push(action.payload);
       }
 
