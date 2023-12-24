@@ -9,6 +9,7 @@ describe('RedirectProcess selectors', () => {
   };
 
   it('should return page path from state', () => {
-    expect(getPagePath(state)).toEqual('/films/1');
+    const { pagePath } = state[SliceNameSpace.Redirect];
+    expect(getPagePath(state)).toEqual(pagePath);
   });
 });
