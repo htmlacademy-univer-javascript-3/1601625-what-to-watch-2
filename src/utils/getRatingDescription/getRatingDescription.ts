@@ -1,5 +1,5 @@
-import { RatingDescription } from '../consts';
-import { GetRatingDescriptionFunc } from '../types/types';
+import { RatingDescription } from '../../consts';
+import { GetRatingDescriptionFunc } from '../../types/types';
 
 export const getRatingDescription: GetRatingDescriptionFunc = (rating:number) => {
   if (rating >= 0 && rating < 3){

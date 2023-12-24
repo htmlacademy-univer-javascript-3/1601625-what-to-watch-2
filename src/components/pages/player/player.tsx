@@ -6,7 +6,7 @@ import { getFilmInfo } from '../../../store/film-process/selectors';
 import { getPromoFilm } from '../../../store/films-process/selectors';
 import { PromoFilm, LoadableFilm } from '../../../types/types';
 import useVideoPlayer from '../../../hooks/useVideoPlayer';
-import { changeVideoTimeFormat } from '../../../utils/changeVideoTimeFormat';
+import { changeVideoTimeFormat } from '../../../utils/changeVideoTimeFormat/changeVideoTimeFormat';
 
 function Player(){
   const { id } = useParams();

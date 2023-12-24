@@ -8,8 +8,8 @@ import Footer from '../../footer/footer';
 import { AppRoutes } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
-import { checkEmail } from '../../../utils/checkEmail';
-import { checkPassword } from '../../../utils/checkPassword';
+import { checkEmail } from '../../../utils/checkEmail/checkEmail';
+import { checkPassword } from '../../../utils/checkPassword/checkPassword';
 import { getPagePath } from '../../../store/redirect-process/selectors';
 
 function SignIn() {
@@ -23,7 +23,9 @@ function SignIn() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
 
-  const handlerSignInBtnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handlerSignInBtnClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     const isEmailValid = checkEmail(email);
@@ -32,7 +34,7 @@ function SignIn() {
     if (isEmailValid && isPasswordValid) {
       setIsEmailError(false);
       setIsPasswordError(false);
-      dispatch(loginAction({login: email, password}));
+      dispatch(loginAction({ login: email, password }));
 
       if (pagePath === AppRoutes.Film) {
         navigate(-1);
@@ -59,7 +61,7 @@ function SignIn() {
   const showMessage = () => {
     if (isEmailError && isPasswordError && email !== '' && password !== '') {
       return 'email address and password';
-    } else if (isEmailError && email !== ''){
+    } else if (isEmailError && email !== '') {
       return 'email address';
     } else if (isPasswordError && password !== '') {
       return 'password';
@@ -80,7 +82,7 @@ function SignIn() {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">
-          {message !== '' && <SignInError message={message}/>}
+          {message !== '' && <SignInError message={message} />}
           <div className="sign-in__fields">
             <SignInField
               type="email"
@@ -91,7 +93,9 @@ function SignIn() {
               onChangeHandler={setEmail}
               htmlFor="user-email"
               label="Email address"
-              errorClass={isEmailError && email !== '' ? 'sign-in__field--error' : ''}
+              errorClass={
+                isEmailError && email !== '' ? 'sign-in__field--error' : ''
+              }
             />
 
             <SignInField
@@ -103,7 +107,11 @@ function SignIn() {
               onChangeHandler={setPassword}
               htmlFor="user-password"
               label="Password"
-              errorClass={isPasswordError && password !== '' ? 'sign-in__field--error' : ''}
+              errorClass={
+                isPasswordError && password !== ''
+                  ? 'sign-in__field--error'
+                  : ''
+              }
             />
           </div>
           <div className="sign-in__submit">

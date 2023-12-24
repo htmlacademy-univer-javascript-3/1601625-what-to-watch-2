@@ -1,5 +1,5 @@
 import { PropsList, LoadableComment } from '../../types/types';
-import { changeDateFormat } from '../../utils/changeDateFormat';
+import { changeDateFormat } from '../../utils/changeDateFormat/changeDateFormat';
 
 function FilmTabReviewsCol({ list }: PropsList<LoadableComment>) {
   return (
