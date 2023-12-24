@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AppRoutes, AuthorisationStatus, GenresEnum } from '../../../consts';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
@@ -15,11 +15,12 @@ import { updateGenre } from '../../../store/films-process/films-process';
 import { setPagePath } from '../../../store/redirect-process/redirect-process';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
 import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
-import { getFilmInfo, getSimilarFilms } from '../../../store/film-process/selectors';
+import { getError, getFilmInfo, getSimilarFilms } from '../../../store/film-process/selectors';
 import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function FilmPage(){
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {id} = useParams();
 
   useEffect(() => {
@@ -36,6 +37,14 @@ function FilmPage(){
   const film = useAppSelector(getFilmInfo);
   const similarFilms = useAppSelector(getSimilarFilms);
   const authStatus = useAppSelector(getAuthStatus);
+
+  const error = useAppSelector(getError);
+
+  useEffect(() => {
+    if (error === undefined) {
+      navigate(AppRoutes.NotFound);
+    }
+  }, []);
 
   return (
     <>

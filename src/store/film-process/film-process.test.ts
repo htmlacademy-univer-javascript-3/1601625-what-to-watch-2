@@ -48,7 +48,7 @@ describe('FilmProcess slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should update "film" in state with "fetchFilmAction.fulfilled" action', () => {
+  it('should update "film" and "error" to "undefind" in state with "fetchFilmAction.fulfilled" action', () => {
     const film = filmInfo();
 
     const initialState = {
@@ -56,7 +56,7 @@ describe('FilmProcess slice', () => {
       comments: [],
       similarFilms: [],
       isLoading: false,
-      error: undefined,
+      error: 'error',
     };
 
     const expectedState = {
@@ -68,6 +68,29 @@ describe('FilmProcess slice', () => {
     };
 
     const result = filmProcess.reducer(initialState, fetchFilmAction.fulfilled(film, '', ''));
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should update "error" in state with "fetchFilmAction.rejected" action', () => {
+    const error = { name: 'error', message: 'error' };
+
+    const initialState = {
+      film: initialFilm,
+      comments: [],
+      similarFilms: [],
+      isLoading: false,
+      error: undefined,
+    };
+
+    const expectedState = {
+      film: initialFilm,
+      comments: [],
+      similarFilms: [],
+      isLoading: false,
+      error: 'error',
+    };
+
+    const result = filmProcess.reducer(initialState, fetchFilmAction.rejected(error, '', ''));
     expect(result).toEqual(expectedState);
   });
 

@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SliceNameSpace, AppRoutes } from '../../consts';
+import { SliceNameSpace } from '../../consts';
 import { FilmProcess } from '../../types/state';
 import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction, sendCommentAction } from '../api-actions';
-import { redirectToRoute } from '../action';
 
 const initialState: FilmProcess = {
   film: {
@@ -36,9 +35,10 @@ export const filmProcess = createSlice({
     builder
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = action.payload;
+        state.error = undefined;
       })
-      .addCase(fetchFilmAction.rejected, () => {
-        redirectToRoute(AppRoutes.NotFound);
+      .addCase(fetchFilmAction.rejected, (state, action) => {
+        state.error = action.error.message;
       })
       .addCase(fetchComentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
