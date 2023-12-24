@@ -35,6 +35,12 @@ export const userProcess = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorisationStatus = AuthorisationStatus.NoAuth;
+        state.user = {
+          name: '',
+          avatarUrl: '',
+          email: '',
+          token: '',
+        };
       });
   },
 });

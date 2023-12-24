@@ -1,5 +1,5 @@
 import * as faker from 'faker';
-import { FilmCardProps, LoadableComment, LoadableFilm, UserData, PromoFilm } from '../types/types';
+import { FilmCardProps, LoadableComment, LoadableFilm, UserData, PromoFilm, AuthData } from '../types/types';
 
 export const filmReview = (): LoadableComment => ({
   id: faker.datatype.uuid(),
@@ -60,4 +60,9 @@ export const promoFilmInfo = (): PromoFilm => ({
   genre: faker.music.genre(),
   released: faker.datatype.number(),
   isFavorite: faker.datatype.boolean(),
+});
+
+export const userAuthData = (): AuthData => ({
+  login: faker.internet.email(),
+  password: faker.internet.password()
 });
