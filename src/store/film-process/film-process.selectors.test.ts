@@ -1,5 +1,5 @@
 import { SliceNameSpace } from '../../consts';
-import { filmInfo, generateFilmReviewArr, generateSimilarFilmsArray } from '../../utils/mock-data';
+import { filmInfo, generateFilmReviewArr, generateFilmsArray } from '../../utils/mock-data';
 import { getFilmInfo, getComments, getSimilarFilms, getLoadingStatus, getError } from './selectors';
 
 describe('FilmProcess selectors', () => {
@@ -7,7 +7,7 @@ describe('FilmProcess selectors', () => {
     [SliceNameSpace.Film]: {
       film: filmInfo(),
       comments: generateFilmReviewArr(5),
-      similarFilms: generateSimilarFilmsArray(4),
+      similarFilms: generateFilmsArray(4),
       isLoading: false,
       error: undefined,
     }
