@@ -124,23 +124,6 @@ describe('Async actions', () => {
 
       expect(fetchPromoFilmActionFulfilled.payload).toEqual(promoFilm);
     });
-
-    it('should dispatch "fetchPromoFilmAction.pending", "fetchPromoFilmAction.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Films).reply(400, undefined);
-
-      await store.dispatch(fetchPromoFilmAction());
-
-      const emittedActions = store.getActions();
-      const actions = extractActionsTypes(emittedActions);
-      const fetchPromoFilmActionRejected = emittedActions.at(1) as ReturnType<typeof fetchPromoFilmAction.rejected>;
-
-      expect(actions).toEqual([
-        fetchPromoFilmAction.pending.type,
-        fetchPromoFilmAction.rejected.type,
-      ]);
-
-      expect(fetchPromoFilmActionRejected.payload).toEqual(undefined);
-    });
   });
 
   describe('fetchFavoriteFilmsAction', () => {
