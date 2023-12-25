@@ -1,5 +1,8 @@
 import * as faker from 'faker';
 import { FilmCardProps, LoadableComment, LoadableFilm, UserData, PromoFilm, AuthData } from '../types/types';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
+import { createAPI } from '../services/api';
+import { State } from '../types/state';
 
 export const filmReview = (): LoadableComment => ({
   id: faker.datatype.uuid(),
@@ -66,3 +69,7 @@ export const userAuthData = (): AuthData => ({
   login: faker.internet.email(),
   password: faker.internet.password()
 });
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
