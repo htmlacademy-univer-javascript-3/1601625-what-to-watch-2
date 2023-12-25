@@ -10,7 +10,7 @@ function FilmTabOverview() {
     <>
       <div className="film-rating">
         <div className="film-rating__score">
-          {film.rating.toFixed(1).replace('.', ',')}
+          {film.rating.toFixed(1)}
         </div>
         <p className="film-rating__meta">
           <span className="film-rating__level">

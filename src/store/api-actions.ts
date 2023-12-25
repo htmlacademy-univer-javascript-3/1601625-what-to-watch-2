@@ -40,18 +40,6 @@ export const fetchPromoFilmAction = createAsyncThunk<PromoFilm, undefined, {
   }
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->(
-  'USER/checkAuth',
-  async (_arg, { extra: api}) => {
-    await api.get(APIRoute.Login);
-  },
-);
-
 export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
@@ -59,12 +47,13 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
 }
 >(
   'USER/login',
-  async ({ login, password }, { extra: api }) => {
+  async ({ login, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, {
       email: login,
       password
     });
     saveToken(data.token);
+    dispatch(redirectToRoute(AppRoutes.Main));
     return data;
   },
 );
@@ -76,10 +65,9 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }
 >(
   'USER/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(redirectToRoute(AppRoutes.Main));
   },
 );
 
@@ -176,4 +164,21 @@ export const removeFilmToFavoriteAction = createAsyncThunk<FilmCardProps, string
     const { data } = await api.post<FilmCardProps>(`${APIRoute.Favorite}/${id}/${FavoriteFilmStatus.RemoveFromFavorite}`);
     return data;
   },
+);
+
+export const verifyToken = createAsyncThunk<UserData, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'USER/verifyToken',
+  async (_arg, { extra: api }) => {
+    try {
+      return (await api.get<UserData>(APIRoute.Login)).data;
+    } catch (e) {
+      dropToken();
+      throw e;
+    }
+  }
 );

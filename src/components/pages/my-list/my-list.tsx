@@ -1,16 +1,26 @@
+import { useEffect } from 'react';
 import Header from '../../header/header';
 import Spinner from '../../spinner/spinner';
 import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
-import { AppRoutes } from '../../../consts';
-import { useAppSelector } from '../../../hooks';
+import { AppRoutes, AuthorisationStatus } from '../../../consts';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { getCountFilmsInMyList, getFilmsInMyList, getLoadingState } from '../../../store/my-list-process/selectors';
-
+import { getAuthStatus } from '../../../store/user-process/selectors';
+import { fetchFavoriteFilmsAction } from '../../../store/api-actions';
 
 function MyList() {
+  const dispatch = useAppDispatch();
   const filmsInMyList = useAppSelector(getFilmsInMyList);
   const isLoading = useAppSelector(getLoadingState);
   const countFilmsInMyList = useAppSelector(getCountFilmsInMyList);
+  const authorisationStatus = useAppSelector(getAuthStatus);
+
+  useEffect(() => {
+    if (authorisationStatus === AuthorisationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorisationStatus]);
 
   return (
     <div className="user-page">

@@ -18,7 +18,7 @@ function FilmTabReviewsCol({ list }: PropsList<LoadableComment>) {
           </blockquote>
 
           <div className="review__rating">
-            {comment.rating.toFixed(1).replace('.', ',')}
+            {comment.rating.toFixed(1)}
           </div>
         </div>
       ))}

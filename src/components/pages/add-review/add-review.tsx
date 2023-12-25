@@ -1,22 +1,29 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import FilmCardBg from '../../film-card-bg/film-card-bg';
 import BreadcrumbsList from '../../breadcrumbs-list/breadcrumb-list';
 import FilmCardPoster from '../../film-card-poster/film-card-poster';
 import FormAddReview from '../../form-add-review/form-add-review';
-import { AppRoutes, AuthorisationStatus } from '../../../consts';
+import { AppRoutes } from '../../../consts';
 import Header from '../../header/header';
-import { useAppSelector } from '../../../hooks';
-import { getFilmInfo } from '../../../store/film-process/selectors';
-import { getAuthStatus } from '../../../store/user-process/selectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { getError, getFilmInfo } from '../../../store/film-process/selectors';
+import { fetchFilmAction } from '../../../store/api-actions';
 
 function AddReview(){
-  const navigate = useNavigate();
   const film = useAppSelector(getFilmInfo);
-  const authStatus = useAppSelector(getAuthStatus);
+  const error = useAppSelector(getError);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
 
-  if (authStatus !== AuthorisationStatus.Auth) {
-    navigate(AppRoutes.Main);
-  }
+  useEffect(() => {
+    if (error !== undefined) {
+      navigate(AppRoutes.NotFound);
+    } else if (error === undefined && film.id === '' && id !== undefined) {
+      dispatch(fetchFilmAction(id));
+    }
+  }, [error]);
 
   return (
     <section className="film-card film-card--full">

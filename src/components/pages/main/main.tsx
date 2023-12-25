@@ -13,7 +13,7 @@ import Spinner from '../../spinner/spinner';
 import { GetFilmsByGenreFunc } from '../../../types/types';
 import { GenresEnum, MAX_NUM_FILMS, AuthorisationStatus } from '../../../consts';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { fetchFilmsAction, fetchPromoFilmAction } from '../../../store/api-actions';
+import { fetchPromoFilmAction, fetchFavoriteFilmsAction, fetchFilmsAction } from '../../../store/api-actions';
 import { getGenre } from '../../../store/films-process/selectors';
 import { getFilmsInfo, getLoadingStatus, getPromoFilm } from '../../../store/films-process/selectors';
 import { getAuthStatus } from '../../../store/user-process/selectors';
@@ -29,12 +29,15 @@ function MainPage() {
   const authorisationStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
+    dispatch(fetchPromoFilmAction());
     dispatch(fetchFilmsAction());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchPromoFilmAction());
-  }, []);
+    if (authorisationStatus === AuthorisationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorisationStatus]);
 
   const handlerShowMoreClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);
@@ -72,9 +75,7 @@ function MainPage() {
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay filmId={promoFilm.id} />
-                {
-                  authorisationStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={promoFilm} />
-                }
+                <FilmCardButtonMylist film={promoFilm} />
               </div>
             </div>
           </div>

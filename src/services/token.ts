@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'what-to-whatch-token';
+const TOKEN_KEY = 'wtw-token';
 
 export type Token = string;
 

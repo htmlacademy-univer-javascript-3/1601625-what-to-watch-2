@@ -1,31 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import HeaderLogo from '../../header-logo/header-logo';
 import SignInField from '../../sign-in-field/sign-in-field';
 import SignInError from '../sign-in-error/sign-in-error';
 import Footer from '../../footer/footer';
-import { AppRoutes } from '../../../consts';
+import { AppRoutes, AuthorisationStatus } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
 import { checkEmail } from '../../../utils/checkEmail/checkEmail';
 import { checkPassword } from '../../../utils/checkPassword/checkPassword';
-import { getPagePath } from '../../../store/redirect-process/selectors';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const pagePath = useAppSelector(getPagePath);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
+  const authorisationStatus = useAppSelector(getAuthStatus);
 
-  const handlerSignInBtnClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  useEffect(() => {
+    if (authorisationStatus === AuthorisationStatus.Auth){
+      navigate(AppRoutes.Main);
+    }
+  }, [authorisationStatus]);
+
+  const handlerSignInBtnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     const isEmailValid = checkEmail(email);
@@ -36,12 +39,7 @@ function SignIn() {
       setIsPasswordError(false);
       dispatch(loginAction({ login: email, password }));
 
-      if (pagePath === AppRoutes.Film) {
-        navigate(-1);
-      } else {
-        navigate(AppRoutes.Main);
-      }
-
+      navigate(AppRoutes.Main);
       toast.success('You are logged in!', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1500,

@@ -9,15 +9,6 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
     remainDuration: 0,
   });
 
-  // useEffect(() => {
-  //   if (videoPlayer.current){
-  //     setPlayerState({
-  //       ...playerState,
-  //       remainDuration: videoPlayer.current.duration,
-  //     });
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (playerState.isPlaying) {
       videoPlayer.current?.play();
