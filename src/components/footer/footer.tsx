@@ -4,7 +4,7 @@ import { PropsFooter } from '../../types/types';
 function Footer({linkLogo}:PropsFooter) {
   return (
     <footer className="page-footer">
-      <div className="logo">
+      <div className="logo" data-testid='logo'>
         <Link to={linkLogo} className="logo__link logo__link--light">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>

@@ -10,9 +10,8 @@ describe('Component: SignInError', () => {
     render(<SignInError message={mockMessage} />);
 
     const messageContainer = screen.getByTestId(messageTestId);
-    const message = messageContainer.textContent;
 
     expect(messageContainer).toBeInTheDocument();
-    expect(expectedText).toEqual(message);
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });

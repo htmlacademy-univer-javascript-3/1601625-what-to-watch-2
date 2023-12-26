@@ -9,7 +9,6 @@ import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import Layout from '../layout/layout';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { useAppDispatch } from '../../hooks';
@@ -31,14 +30,12 @@ function App() {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route element={<Layout />}>
-          <Route
-            path={AppRoutes.Main}
-            element={
-              <MainPage />
-            }
-          />
-        </Route>
+        <Route
+          path={AppRoutes.Main}
+          element={
+            <MainPage />
+          }
+        />
         <Route path={AppRoutes.Login} element={<SignIn />} />
         <Route
           path={AppRoutes.MyList}
