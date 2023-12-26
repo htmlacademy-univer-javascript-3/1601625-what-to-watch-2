@@ -24,7 +24,7 @@ describe('UserProcess slice', () => {
 
   it('should return default initial state with empty action and undefind state', () => {
     const expectedState = {
-      authorisationStatus: AuthorisationStatus.Unknown,
+      authorisationStatus: AuthorisationStatus.NoAuth,
       user: initialUser
     };
 

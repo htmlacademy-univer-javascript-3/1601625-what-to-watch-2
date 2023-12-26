@@ -411,7 +411,7 @@ describe('Async actions', () => {
     });
 
     it('should one call "dropToken" with "verifyToken.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onDelete(APIRoute.Login).reply(400);
+      mockAxiosAdapter.onGet(APIRoute.Login).reply(400);
       const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
 
       await store.dispatch(verifyToken());
