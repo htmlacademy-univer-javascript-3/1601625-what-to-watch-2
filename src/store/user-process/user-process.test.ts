@@ -1,7 +1,7 @@
 import { AuthorisationStatus } from '../../consts';
 import { userProcess } from './user-process';
 import { userInfo, userAuthData } from '../../utils/mock-data';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { loginAction, logoutAction, verifyToken } from '../api-actions';
 
 describe('UserProcess slice', () => {
   const emptyAction = { type: '' };
@@ -29,36 +29,6 @@ describe('UserProcess slice', () => {
     };
 
     const result = userProcess.reducer(undefined, emptyAction);
-    expect(result).toEqual(expectedState);
-  });
-
-  it('should update "authorisationStatus" to "Auth" in state with "checkAuthAction.fulfilled" action', () => {
-    const initialState = {
-      authorisationStatus: AuthorisationStatus.Unknown,
-      user: initialUser
-    };
-
-    const expectedState = {
-      authorisationStatus: AuthorisationStatus.Auth,
-      user: initialUser
-    };
-
-    const result = userProcess.reducer(initialState, checkAuthAction.fulfilled);
-    expect(result).toEqual(expectedState);
-  });
-
-  it('should update "authorisationStatus" to "NoAuth" in state with "checkAuthAction.rejected" action', () => {
-    const initialState = {
-      authorisationStatus: AuthorisationStatus.Auth,
-      user: initialUser
-    };
-
-    const expectedState = {
-      authorisationStatus: AuthorisationStatus.NoAuth,
-      user: initialUser
-    };
-
-    const result = userProcess.reducer(initialState, checkAuthAction.rejected);
     expect(result).toEqual(expectedState);
   });
 
@@ -112,4 +82,20 @@ describe('UserProcess slice', () => {
     expect(result).toEqual(expectedState);
   });
 
+  it('should update "authorisationStatus" to "Auth" and update "user" data in state with "verifyToken.fulfilled" action', () => {
+    const user = userInfo();
+
+    const initialState = {
+      authorisationStatus: AuthorisationStatus.Unknown,
+      user: initialUser
+    };
+
+    const expectedState = {
+      authorisationStatus: AuthorisationStatus.Auth,
+      user: user
+    };
+
+    const result = userProcess.reducer(initialState, verifyToken.fulfilled(user, '', undefined));
+    expect(result).toEqual(expectedState);
+  });
 });

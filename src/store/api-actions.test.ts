@@ -10,10 +10,10 @@ import {
   filmInfo, filmReview,
   generateFilmReviewArr,
   promoFilmInfo,
-  userAuthData
+  userAuthData,
+  userInfo
 } from '../utils/mock-data';
 import {
-  checkAuthAction,
   fetchFilmsAction,
   fetchPromoFilmAction,
   fetchFavoriteFilmsAction,
@@ -24,7 +24,8 @@ import {
   fetchSimilarFilmsAction,
   sendCommentAction,
   addFilmToFavoriteAction,
-  removeFilmToFavoriteAction
+  removeFilmToFavoriteAction,
+  verifyToken
 } from './api-actions';
 import { APIRoute, FavoriteFilmStatus } from '../consts';
 import { generateFilmsArray } from '../utils/mock-data';
@@ -41,32 +42,6 @@ describe('Async actions', () => {
 
   beforeEach(() => {
     store = mockStoreCreator();
-  });
-
-  describe('checkAuthAction', () => {
-    it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" when server response 200', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Login).reply(200);
-
-      await store.dispatch(checkAuthAction());
-      const actions = extractActionsTypes(store.getActions());
-
-      expect(actions).toEqual([
-        checkAuthAction.pending.type,
-        checkAuthAction.fulfilled.type,
-      ]);
-    });
-
-    it('should dispatch "checkAuthAction.pending" and "checkAuthAction.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoute.Login).reply(400);
-
-      await store.dispatch(checkAuthAction());
-      const actions = extractActionsTypes(store.getActions());
-
-      expect(actions).toEqual([
-        checkAuthAction.pending.type,
-        checkAuthAction.rejected.type,
-      ]);
-    });
   });
 
   describe('fetchFilmsAction', () => {
@@ -158,6 +133,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         loginAction.pending.type,
+        redirectToRoute.type,
         loginAction.fulfilled.type,
       ]);
     });
@@ -182,7 +158,6 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         logoutAction.pending.type,
-        redirectToRoute.type,
         logoutAction.fulfilled.type,
       ]);
     });
@@ -324,10 +299,11 @@ describe('Async actions', () => {
       await store.dispatch(sendCommentAction({ id, comment, rating }));
       const emittedActions = store.getActions();
       const actions = extractActionsTypes(emittedActions);
-      const sendCommentActionFulfilled = emittedActions.at(1) as ReturnType<typeof sendCommentAction.fulfilled>;
+      const sendCommentActionFulfilled = emittedActions.at(2) as ReturnType<typeof sendCommentAction.fulfilled>;
 
       expect(actions).toEqual([
         sendCommentAction.pending.type,
+        redirectToRoute.type,
         sendCommentAction.fulfilled.type,
       ]);
 
@@ -416,6 +392,31 @@ describe('Async actions', () => {
       ]);
 
       expect(removeFilmToFavoriteActionFulfilled.payload).toEqual(film);
+    });
+  });
+
+  describe('verifyToken', () => {
+    const user = userInfo();
+
+    it('should dispatch "verifyToken.fullfield" when server response 200', async () => {
+      mockAxiosAdapter.onGet(APIRoute.Login).reply(200, user);
+
+      await store.dispatch(verifyToken());
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        verifyToken.pending.type,
+        verifyToken.fulfilled.type,
+      ]);
+    });
+
+    it('should one call "dropToken" with "verifyToken.rejected" when server response 400', async () => {
+      mockAxiosAdapter.onDelete(APIRoute.Login).reply(400);
+      const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
+
+      await store.dispatch(verifyToken());
+
+      expect(mockDropToken).toBeCalledTimes(1);
     });
   });
 });
