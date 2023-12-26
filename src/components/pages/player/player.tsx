@@ -50,8 +50,7 @@ function Player(){
         onClick={togglePlay}
         onEnded={handlerVideoOnEnded}
         onLoadedMetadata={handlerVideoOnLoad}
-      >
-      </video>
+      />
 
       <button
         type="button"
@@ -73,14 +72,15 @@ function Player(){
           </div>
           <div className="player__time-value">
             {
+              !playerState.isPlaying && playerState.progress === VideoPlayerConsts.MinProgressValue && timeObject?.time.replace('-', '')
+            }
+            {
               playerState.isPlaying || (playerState.progress !== VideoPlayerConsts.MaxProgressValue && playerState.progress !== VideoPlayerConsts.MinProgressValue)
-                ? '-'
+                ? timeObject?.time
                 : null
             }
             {
-              playerState.remainDuration
-                ? timeObject?.time
-                : timeObject.timeFormated
+              playerState.progress === VideoPlayerConsts.MaxProgressValue && timeObject.timeFormated
             }
           </div>
         </div>

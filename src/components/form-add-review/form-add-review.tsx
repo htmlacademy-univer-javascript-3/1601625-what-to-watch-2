@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Rating from '../rating/rating';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -8,7 +7,6 @@ import { ReviewConsts } from '../../consts';
 import { getFilmInfo, getLoadingStatus, getError } from '../../store/film-process/selectors';
 
 function FormAddReview() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
@@ -50,9 +48,9 @@ function FormAddReview() {
       setReviewText('');
       setRating(0);
       setIsChecked(false);
+    }
 
-      navigate(`/films/${id}`);
-    } else if (error !== undefined) {
+    if (error !== undefined) {
       toast.error(error, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1500,

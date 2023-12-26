@@ -39,7 +39,6 @@ function SignIn() {
       setIsPasswordError(false);
       dispatch(loginAction({ login: email, password }));
 
-      navigate(AppRoutes.Main);
       toast.success('You are logged in!', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1500,

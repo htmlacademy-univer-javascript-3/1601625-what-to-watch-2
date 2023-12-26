@@ -40,11 +40,13 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
 
   const handlerOnTimeUpdate = () => {
     if (videoPlayer.current) {
-      const remainDuration = Math.round(videoPlayer.current.duration - videoPlayer.current.currentTime);
+      const remainDuration = videoPlayer.current.duration - videoPlayer.current.currentTime;
+      const progress = calcProgress(videoPlayer.current?.currentTime, videoPlayer.current?.duration);
 
       setPlayerState({
         ...playerState,
-        remainDuration
+        remainDuration,
+        progress
       });
     }
   };

@@ -117,11 +117,13 @@ export const sendCommentAction = createAsyncThunk<LoadableComment, Comment, {
 }
 >(
   'FILM/sendComment',
-  async ({id, comment, rating}, { extra: api}) => {
+  async ({id, comment, rating}, { dispatch, extra: api}) => {
     const { data } = await api.post<LoadableComment>(`${APIRoute.Comments}/${id}`, {
       comment,
       rating
     });
+
+    dispatch(redirectToRoute(`/films/${id}`));
 
     return data;
   },
