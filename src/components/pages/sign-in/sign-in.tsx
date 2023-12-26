@@ -1,27 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import HeaderLogo from '../../header-logo/header-logo';
 import SignInField from '../../sign-in-field/sign-in-field';
 import SignInError from '../sign-in-error/sign-in-error';
 import Footer from '../../footer/footer';
-import { AppRoutes } from '../../../consts';
+import { AppRoutes, AuthorisationStatus } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
-import { checkEmail } from '../../../utils/checkEmail';
-import { checkPassword } from '../../../utils/checkPassword';
-import { getPagePath } from '../../../store/redirect-process/selectors';
+import { checkEmail } from '../../../utils/checkEmail/checkEmail';
+import { checkPassword } from '../../../utils/checkPassword/checkPassword';
+import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const pagePath = useAppSelector(getPagePath);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
+  const authorisationStatus = useAppSelector(getAuthStatus);
+
+  useEffect(() => {
+    if (authorisationStatus === AuthorisationStatus.Auth){
+      navigate(AppRoutes.Main);
+    }
+  }, [authorisationStatus]);
 
   const handlerSignInBtnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -32,13 +37,7 @@ function SignIn() {
     if (isEmailValid && isPasswordValid) {
       setIsEmailError(false);
       setIsPasswordError(false);
-      dispatch(loginAction({login: email, password}));
-
-      if (pagePath === AppRoutes.Film) {
-        navigate(-1);
-      } else {
-        navigate(AppRoutes.Main);
-      }
+      dispatch(loginAction({ login: email, password }));
 
       toast.success('You are logged in!', {
         position: toast.POSITION.TOP_CENTER,
@@ -59,7 +58,7 @@ function SignIn() {
   const showMessage = () => {
     if (isEmailError && isPasswordError && email !== '' && password !== '') {
       return 'email address and password';
-    } else if (isEmailError && email !== ''){
+    } else if (isEmailError && email !== '') {
       return 'email address';
     } else if (isPasswordError && password !== '') {
       return 'password';
@@ -80,7 +79,7 @@ function SignIn() {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">
-          {message !== '' && <SignInError message={message}/>}
+          {message !== '' && <SignInError message={message} />}
           <div className="sign-in__fields">
             <SignInField
               type="email"
@@ -91,7 +90,9 @@ function SignIn() {
               onChangeHandler={setEmail}
               htmlFor="user-email"
               label="Email address"
-              errorClass={isEmailError && email !== '' ? 'sign-in__field--error' : ''}
+              errorClass={
+                isEmailError && email !== '' ? 'sign-in__field--error' : ''
+              }
             />
 
             <SignInField
@@ -103,7 +104,11 @@ function SignIn() {
               onChangeHandler={setPassword}
               htmlFor="user-password"
               label="Password"
-              errorClass={isPasswordError && password !== '' ? 'sign-in__field--error' : ''}
+              errorClass={
+                isPasswordError && password !== ''
+                  ? 'sign-in__field--error'
+                  : ''
+              }
             />
           </div>
           <div className="sign-in__submit">

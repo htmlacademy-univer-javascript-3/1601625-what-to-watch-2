@@ -1,5 +1,5 @@
 import { PropsList, LoadableComment } from '../../types/types';
-import { changeDateFormat } from '../../utils/changeDateFormat';
+import { changeDateFormat } from '../../utils/changeDateFormat/changeDateFormat';
 
 function FilmTabReviewsCol({ list }: PropsList<LoadableComment>) {
   return (
@@ -18,7 +18,7 @@ function FilmTabReviewsCol({ list }: PropsList<LoadableComment>) {
           </blockquote>
 
           <div className="review__rating">
-            {comment.rating.toFixed(1).replace('.', ',')}
+            {comment.rating.toFixed(1)}
           </div>
         </div>
       ))}

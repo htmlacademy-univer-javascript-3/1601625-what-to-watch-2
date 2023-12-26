@@ -12,10 +12,9 @@ import MemoFilmsList from '../../films-list/films-list';
 import Footer from '../../footer/footer';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { updateGenre } from '../../../store/films-process/films-process';
-import { setPagePath } from '../../../store/redirect-process/redirect-process';
-import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction } from '../../../store/api-actions';
+import { fetchFilmAction, fetchComentsAction, fetchSimilarFilmsAction, fetchFavoriteFilmsAction } from '../../../store/api-actions';
 import { MAX_NUM_SIMILAR_FILM } from '../../../consts';
-import { getFilmInfo, getSimilarFilms } from '../../../store/film-process/selectors';
+import { getFilmInfo, getSimilarFilms, getError } from '../../../store/film-process/selectors';
 import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function FilmPage(){
@@ -24,7 +23,6 @@ function FilmPage(){
 
   useEffect(() => {
     dispatch(updateGenre(GenresEnum.AllGenres));
-    dispatch(setPagePath(AppRoutes.Film));
 
     if (id !== undefined){
       dispatch(fetchFilmAction(id));
@@ -36,6 +34,14 @@ function FilmPage(){
   const film = useAppSelector(getFilmInfo);
   const similarFilms = useAppSelector(getSimilarFilms);
   const authStatus = useAppSelector(getAuthStatus);
+  const error = useAppSelector(getError);
+  const authorisationStatus = useAppSelector(getAuthStatus);
+
+  useEffect(() => {
+    if (authorisationStatus === AuthorisationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorisationStatus]);
 
   return (
     <>
@@ -55,12 +61,10 @@ function FilmPage(){
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay filmId={film.id} />
-                {
-                  authStatus === AuthorisationStatus.Auth && <FilmCardButtonMylist film={film} />
-                }
+                <FilmCardButtonMylist film={film} />
                 {
                   authStatus === AuthorisationStatus.Auth
-                    ? <Link to={id === undefined ? AppRoutes.NotFound : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                    ? <Link to={id === undefined || error !== undefined ? AppRoutes.NotFound : `/films/${id}/review`} className="btn film-card__button">Add review</Link>
                     : null
                 }
               </div>

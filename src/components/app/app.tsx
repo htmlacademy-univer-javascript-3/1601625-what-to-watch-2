@@ -9,35 +9,33 @@ import AddReview from '../pages/add-review/add-review';
 import Player from '../pages/player/player';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import Layout from '../layout/layout';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
-import { AuthorisationStatus } from '../../consts';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { fetchFavoriteFilmsAction } from '../../store/api-actions';
-import { getAuthStatus } from '../../store/user-process/selectors';
+import { useAppDispatch } from '../../hooks';
+import { verifyToken, fetchFilmsAction } from '../../store/api-actions';
+import { getToken } from '../../services/token';
+
+const token = getToken();
 
 function App() {
   const dispatch = useAppDispatch();
-  const authorisationStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
-    if (authorisationStatus === AuthorisationStatus.Auth) {
-      dispatch(fetchFavoriteFilmsAction());
+    dispatch(fetchFilmsAction());
+    if (token) {
+      dispatch(verifyToken());
     }
-  }, [authorisationStatus]);
+  }, [dispatch]);
 
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route element={<Layout />}>
-          <Route
-            path={AppRoutes.Main}
-            element={
-              <MainPage />
-            }
-          />
-        </Route>
+        <Route
+          path={AppRoutes.Main}
+          element={
+            <MainPage />
+          }
+        />
         <Route path={AppRoutes.Login} element={<SignIn />} />
         <Route
           path={AppRoutes.MyList}

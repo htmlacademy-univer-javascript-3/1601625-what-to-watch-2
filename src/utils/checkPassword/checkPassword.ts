@@ -1,4 +1,4 @@
-import { checkPasswordFunc } from '../types/types';
+import { checkPasswordFunc } from '../../types/types';
 
 export const checkPassword: checkPasswordFunc = (password) => {
   const regex = new RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/);

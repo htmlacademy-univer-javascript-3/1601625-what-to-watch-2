@@ -67,7 +67,6 @@ export enum SliceNameSpace {
   User = 'USER',
   Film = 'FILM',
   Films = 'FILMS',
-  Redirect = 'REDIRECT',
   MyList = 'MY_LIST',
 }
 

@@ -12,7 +12,6 @@ function HeaderUserBlock() {
 
   const handlerSignOutLinkClick = () => {
     dispatch(logoutAction());
-    navigate(AppRoutes.Main);
 
     toast.success('You are logged out of your account!', {
       position: toast.POSITION.TOP_CENTER,

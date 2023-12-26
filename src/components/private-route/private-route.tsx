@@ -8,7 +8,10 @@ function PrivateRoute({children}: PrivateRouteProps) {
   const authorizationStatus = useAppSelector(getAuthStatus);
 
   return (
-    authorizationStatus === AuthorisationStatus.Auth ? children : <Navigate to={AppRoutes.Login}/>
+    <>
+      {authorizationStatus === AuthorisationStatus.Auth && children}
+      {authorizationStatus === AuthorisationStatus.NoAuth && <Navigate to={AppRoutes.Login} />}
+    </>
   );
 }
 

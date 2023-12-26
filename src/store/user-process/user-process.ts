@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceNameSpace, AuthorisationStatus } from '../../consts';
 import { UserProcess } from '../../types/state';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { loginAction, logoutAction, verifyToken } from '../api-actions';
+import { getToken } from '../../services/token';
+
+const token = getToken();
 
 const initialState: UserProcess = {
-  authorisationStatus: AuthorisationStatus.Unknown,
+  authorisationStatus: token ? AuthorisationStatus.Unknown : AuthorisationStatus.NoAuth,
   user: {
     name: '',
     avatarUrl: '',
@@ -20,21 +23,25 @@ export const userProcess = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(checkAuthAction.fulfilled, (state) => {
-        state.authorisationStatus = AuthorisationStatus.Auth;
-      })
-      .addCase(checkAuthAction.rejected, (state) => {
-        state.authorisationStatus = AuthorisationStatus.NoAuth;
-      })
       .addCase(loginAction.fulfilled, (state, action) => {
-        state.user = action.payload;
         state.authorisationStatus = AuthorisationStatus.Auth;
+        state.user = action.payload;
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorisationStatus = AuthorisationStatus.NoAuth;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorisationStatus = AuthorisationStatus.NoAuth;
+        state.user = {
+          name: '',
+          avatarUrl: '',
+          email: '',
+          token: '',
+        };
+      })
+      .addCase(verifyToken.fulfilled, (state, action) => {
+        state.authorisationStatus = AuthorisationStatus.Auth;
+        state.user = action.payload;
       });
   },
 });

@@ -1,12 +1,11 @@
-import { useEffect, useState, useRef, SyntheticEvent } from 'react';
+import { useEffect, useRef, SyntheticEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes, VideoPlayerConsts } from '../../../consts';
-import { useAppSelector } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { getFilmInfo } from '../../../store/film-process/selectors';
-import { getPromoFilm } from '../../../store/films-process/selectors';
-import { PromoFilm, LoadableFilm } from '../../../types/types';
 import useVideoPlayer from '../../../hooks/useVideoPlayer';
-import { changeVideoTimeFormat } from '../../../utils/changeVideoTimeFormat';
+import { changeVideoTimeFormat } from '../../../utils/changeVideoTimeFormat/changeVideoTimeFormat';
+import { fetchFilmAction } from '../../../store/api-actions';
 
 function Player(){
   const { id } = useParams();
@@ -14,26 +13,27 @@ function Player(){
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
 
   const film = useAppSelector(getFilmInfo);
-  const promoFilm = useAppSelector(getPromoFilm);
-
-  const [filmToPlay, setFilmToPlay] = useState<PromoFilm | LoadableFilm>(promoFilm);
   const { playerState, setPlayerState, togglePlay, handlerOnTimeUpdate, toggleFullscreen, handlerVideoOnEnded } = useVideoPlayer(videoPlayerRef);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if (id === promoFilm.id){
-      setFilmToPlay(promoFilm);
-    } else if (id === film.id) {
-      setFilmToPlay(film);
+    if (id !== undefined) {
+      dispatch(fetchFilmAction(id));
     } else {
       navigate(AppRoutes.NotFound);
     }
-  }, [id, film, promoFilm]);
+  }, [id]);
 
   const handlerVideoOnLoad = (e: SyntheticEvent<HTMLVideoElement>) => {
     setPlayerState({
       ...playerState,
       remainDuration: e.currentTarget.duration
     });
+  };
+
+  const handlerExitBtnClick = () => {
+    navigate(AppRoutes.Film.replace(':id', film.id));
   };
 
   const timeObject = changeVideoTimeFormat(playerState.remainDuration);
@@ -43,20 +43,19 @@ function Player(){
       <video
         className="player__video"
         ref={videoPlayerRef}
-        src={filmToPlay.videoLink}
-        poster={filmToPlay.backgroundImage}
+        src={film.videoLink}
+        poster={film.backgroundImage}
         preload='metadata'
         onTimeUpdate={handlerOnTimeUpdate}
         onClick={togglePlay}
         onEnded={handlerVideoOnEnded}
         onLoadedMetadata={handlerVideoOnLoad}
-      >
-      </video>
+      />
 
       <button
         type="button"
         className="player__exit"
-        onClick={() => navigate(-1)}
+        onClick={handlerExitBtnClick}
       >
         Exit
       </button>
@@ -64,19 +63,24 @@ function Player(){
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={playerState.progress} max={VideoPlayerConsts.MaxProgressValue}></progress>
+            <progress
+              className="player__progress"
+              value={!Number.isNaN(playerState.progress) ? playerState.progress : 0}
+              max={VideoPlayerConsts.MaxProgressValue}
+            />
             <div className="player__toggler" style={{left: `${playerState.progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">
             {
+              !playerState.isPlaying && playerState.progress === VideoPlayerConsts.MinProgressValue && timeObject?.time.replace('-', '')
+            }
+            {
               playerState.isPlaying || (playerState.progress !== VideoPlayerConsts.MaxProgressValue && playerState.progress !== VideoPlayerConsts.MinProgressValue)
-                ? '-'
+                ? timeObject?.time
                 : null
             }
             {
-              playerState.remainDuration
-                ? timeObject?.time
-                : timeObject.timeFormated
+              playerState.progress === VideoPlayerConsts.MaxProgressValue && timeObject.timeFormated
             }
           </div>
         </div>
@@ -92,7 +96,7 @@ function Player(){
             </svg>
             <span>{playerState.isPlaying ? 'Pause' : 'Play'}</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.name}</div>
 
           <button type="button" className="player__full-screen" onClick={toggleFullscreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
