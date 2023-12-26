@@ -3,7 +3,7 @@ import './spinner.css';
 function Spinner() {
   return (
     <div className='spinner-container'>
-      <span className='spinner'></span>
+      <span className='spinner' role='spinner'></span>
     </div>
   );
 }
