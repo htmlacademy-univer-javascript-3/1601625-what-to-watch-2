@@ -26,7 +26,7 @@ function SignIn() {
     if (authorisationStatus === AuthorisationStatus.Auth){
       navigate(AppRoutes.Main);
     }
-  }, [authorisationStatus]);
+  }, [authorisationStatus, navigate]);
 
   const handlerSignInBtnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -113,6 +113,7 @@ function SignIn() {
           </div>
           <div className="sign-in__submit">
             <button
+              data-testid='sign-in-btn'
               className="sign-in__btn"
               type="submit"
               onClick={(e) => handlerSignInBtnClick(e)}

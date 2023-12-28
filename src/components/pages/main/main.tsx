@@ -37,7 +37,7 @@ function MainPage() {
     if (authorisationStatus === AuthorisationStatus.Auth) {
       dispatch(fetchFavoriteFilmsAction());
     }
-  }, [authorisationStatus]);
+  }, [authorisationStatus, dispatch]);
 
   const handlerShowMoreClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);

@@ -11,6 +11,7 @@ function SignInField(props: SignInFieldProps) {
         id={props.id}
         value={props.value}
         onChange={(e) => props.onChangeHandler(e.target.value)}
+        data-testid='sign-in-input'
       />
       <label className='sign-in__label visually-hidden' htmlFor={props.htmlFor}>
         {props.label}

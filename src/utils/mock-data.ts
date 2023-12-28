@@ -3,6 +3,7 @@ import { FilmCardProps, LoadableComment, LoadableFilm, UserData, PromoFilm, Auth
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { State } from '../types/state';
+import { AuthorisationStatus } from '../consts';
 
 export const filmReview = (): LoadableComment => ({
   id: faker.datatype.uuid(),
@@ -73,3 +74,29 @@ export const userAuthData = (): AuthData => ({
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  USER: {
+    authorisationStatus: AuthorisationStatus.NoAuth,
+    user: userInfo()
+  },
+  FILMS: {
+    films: [],
+    genre: '',
+    isLoading: false,
+    promoFilm: filmInfo()
+  },
+  FILM: {
+    film: filmInfo(),
+    comments: [],
+    similarFilms: [],
+    isLoading: false,
+    error: undefined
+  },
+  MY_LIST: {
+    countFilmsInMyList: 0,
+    filmsInMyList: [],
+    isLoading: false,
+  },
+  ...initialState ?? {},
+});

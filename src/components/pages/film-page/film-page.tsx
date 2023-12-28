@@ -29,7 +29,7 @@ function FilmPage(){
       dispatch(fetchComentsAction(id));
       dispatch(fetchSimilarFilmsAction(id));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   const film = useAppSelector(getFilmInfo);
   const similarFilms = useAppSelector(getSimilarFilms);
@@ -41,7 +41,7 @@ function FilmPage(){
     if (authorisationStatus === AuthorisationStatus.Auth) {
       dispatch(fetchFavoriteFilmsAction());
     }
-  }, [authorisationStatus]);
+  }, [authorisationStatus, dispatch]);
 
   return (
     <>

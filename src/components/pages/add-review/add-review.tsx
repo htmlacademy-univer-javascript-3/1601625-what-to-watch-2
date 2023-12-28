@@ -23,7 +23,7 @@ function AddReview(){
     } else if (error === undefined && film.id === '' && id !== undefined) {
       dispatch(fetchFilmAction(id));
     }
-  }, [error]);
+  }, [error, film.id, id, dispatch, navigate]);
 
   return (
     <section className="film-card film-card--full">

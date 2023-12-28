@@ -23,7 +23,7 @@ function Player(){
     } else {
       navigate(AppRoutes.NotFound);
     }
-  }, [id]);
+  }, [id, dispatch, navigate]);
 
   const handlerVideoOnLoad = (e: SyntheticEvent<HTMLVideoElement>) => {
     setPlayerState({

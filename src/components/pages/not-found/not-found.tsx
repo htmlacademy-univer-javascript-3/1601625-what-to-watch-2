@@ -12,7 +12,7 @@ function NotFound(){
         How you got here is a mystery.<br/>
         But you can click the button below to go back to the homepage.
       </p>
-      <Link to={AppRoutes.Main} className='not-found-btn'>HOME</Link>
+      <Link to={AppRoutes.Main} className='not-found-btn' data-testid='not-found-btn'>HOME</Link>
     </div>
   );
 }
