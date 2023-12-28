@@ -79,3 +79,10 @@ export enum VideoPlayerConsts {
   MaxProgressValue = 100,
   MinProgressValue = 0
 }
+
+export enum FilmCardSize {
+  Width = '280',
+  Height = '175'
+}
+
+export const NUM_RATING_STAR = 10;

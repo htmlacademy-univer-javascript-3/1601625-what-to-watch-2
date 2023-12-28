@@ -20,7 +20,7 @@ function MyList() {
     if (authorisationStatus === AuthorisationStatus.Auth) {
       dispatch(fetchFavoriteFilmsAction());
     }
-  }, [authorisationStatus]);
+  }, [authorisationStatus, dispatch]);
 
   return (
     <div className="user-page">

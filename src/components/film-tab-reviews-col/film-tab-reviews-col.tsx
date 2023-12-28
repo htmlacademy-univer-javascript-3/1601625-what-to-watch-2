@@ -3,9 +3,9 @@ import { changeDateFormat } from '../../utils/changeDateFormat/changeDateFormat'
 
 function FilmTabReviewsCol({ list }: PropsList<LoadableComment>) {
   return (
-    <div className="film-card__reviews-col">
+    <div className="film-card__reviews-col" data-testid='reviews-col'>
       {list.map((comment) => (
-        <div className="review" key={comment.id}>
+        <div className="review" key={comment.id} role='review'>
           <blockquote className="review__quote">
             <p className="review__text">{comment.comment}</p>
 

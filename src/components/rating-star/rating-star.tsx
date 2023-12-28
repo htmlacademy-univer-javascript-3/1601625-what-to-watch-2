@@ -12,6 +12,7 @@ function RatingStar({id, setRating, isChecked, readOnly }:RatingStarProps) {
         onChange={(e) => setRating(Number(e.target.value))}
         checked={isChecked}
         disabled={readOnly}
+        data-testid='rating-star'
       />
       <label
         className="rating__label"

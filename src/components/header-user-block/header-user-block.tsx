@@ -33,6 +33,7 @@ function HeaderUserBlock() {
             alt="User avatar"
             width="63"
             height="63"
+            data-testid='user-avatar'
           />
         </div>
       </li>
@@ -40,6 +41,7 @@ function HeaderUserBlock() {
         <a
           className="user-block__link"
           onClick={handlerSignOutLinkClick}
+          data-testid='sign-out-btn'
         >
           Sign out
         </a>
