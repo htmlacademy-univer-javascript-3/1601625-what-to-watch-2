@@ -125,7 +125,7 @@ export type FilmCardDescProps = {
 };
 
 export type FilmCardButtonMylistProps = {
-  film: LoadableFilm | PromoFilm;
+  film: LoadableFilm | PromoFilm | FilmCardProps;
 };
 
 export type FilmCardButtonPlayProps = {

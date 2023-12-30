@@ -8,7 +8,7 @@ function FilmTabReviews() {
   const commentsCol = getHalfArray(comments);
 
   return (
-    <div className="film-card__reviews film-card__row">
+    <div className="film-card__reviews film-card__row" data-testid='film-card-reviews'>
       <FilmTabReviewsCol
         list={comments.filter((_, idx) => idx <= commentsCol)}
       />

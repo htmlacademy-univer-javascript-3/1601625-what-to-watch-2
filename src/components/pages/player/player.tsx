@@ -50,6 +50,7 @@ function Player(){
         onClick={togglePlay}
         onEnded={handlerVideoOnEnded}
         onLoadedMetadata={handlerVideoOnLoad}
+        data-testid='video-player'
       />
 
       <button

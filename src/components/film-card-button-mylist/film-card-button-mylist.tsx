@@ -65,7 +65,7 @@ function FilmCardButtonMylist({film}: FilmCardButtonMylistProps){
         }
       </svg>
       <span>My list</span>
-      <span className="film-card__count">{countFilms}</span>
+      <span className="film-card__count" data-testid='my-list-count'>{countFilms}</span>
     </button>
   );
 }
