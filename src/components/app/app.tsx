@@ -23,7 +23,7 @@ function App() {
     if (token) {
       dispatch(verifyToken());
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <Routes>
