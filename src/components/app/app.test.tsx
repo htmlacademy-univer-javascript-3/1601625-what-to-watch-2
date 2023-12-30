@@ -7,7 +7,6 @@ import { filmInfo, makeFakeStore, userInfo } from '../../utils/mock-data';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
-  // const films = generateFilmsArray(25);
   const film = filmInfo();
   const user = userInfo();
 

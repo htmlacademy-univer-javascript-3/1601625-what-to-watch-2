@@ -5,6 +5,7 @@ function VideoPlayer({active, src, img, filmTitle, videoTimeout, width, height}:
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    videoPlayerRef.current?.load();
     if (active) {
       const timerId = setTimeout(()=> {
         videoPlayerRef.current?.play();
@@ -20,7 +21,7 @@ function VideoPlayer({active, src, img, filmTitle, videoTimeout, width, height}:
 
   return (
     active
-      ? <video data-testid='video' ref={videoPlayerRef} src={src} width={width} height={height} poster={img} muted loop />
+      ? <video data-testid='video' preload='metadata' ref={videoPlayerRef} src={src} width={width} height={height} poster={img} muted loop />
       : <img src={img} alt={filmTitle} width={width} height={height} />
   );
 }

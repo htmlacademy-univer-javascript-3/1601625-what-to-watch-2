@@ -8,25 +8,29 @@ function FilmTabOverview() {
 
   return (
     <>
-      <div className="film-rating">
-        <div className="film-rating__score">
+      <div className="film-rating" data-testid='film-tab-overview'>
+        <div className="film-rating__score" data-testid='film-rating-score'>
           {film.rating.toFixed(1)}
         </div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">
+          <span className="film-rating__level" data-testid='film-rating-level'>
             {getRatingDescription(film.rating)}
           </span>
-          <span className="film-rating__count">{film.scoresCount} ratings</span>
+          <span className="film-rating__count" data-testid='film-rating-count'>
+            {film.scoresCount} ratings
+          </span>
         </p>
       </div>
 
       <div className="film-card__text">
         <p>{film.description}</p>
         <p className="film-card__director">
-          <strong>{`Director: ${film.director}`}</strong>
+          <strong data-testid='film-card-director'>
+            {`Director: ${film.director}`}
+          </strong>
         </p>
         <p className="film-card__starring">
-          <strong>
+          <strong data-testid='film-card-starring'>
             Starring:
             {film.starring
               .filter((_, idx) => idx < film.starring.length - 1)

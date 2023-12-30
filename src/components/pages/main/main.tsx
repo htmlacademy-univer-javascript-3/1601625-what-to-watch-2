@@ -11,11 +11,23 @@ import ShowMoreButton from '../../show-more-button/show-more-button';
 import Footer from '../../footer/footer';
 import Spinner from '../../spinner/spinner';
 import { GetFilmsByGenreFunc } from '../../../types/types';
-import { GenresEnum, MAX_NUM_FILMS, AuthorisationStatus } from '../../../consts';
+import {
+  GenresEnum,
+  MAX_NUM_FILMS,
+  AuthorisationStatus,
+} from '../../../consts';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { fetchPromoFilmAction, fetchFavoriteFilmsAction, fetchFilmsAction } from '../../../store/api-actions';
+import {
+  fetchPromoFilmAction,
+  fetchFavoriteFilmsAction,
+  fetchFilmsAction,
+} from '../../../store/api-actions';
 import { getGenre } from '../../../store/films-process/selectors';
-import { getFilmsInfo, getLoadingStatus, getPromoFilm } from '../../../store/films-process/selectors';
+import {
+  getFilmsInfo,
+  getLoadingStatus,
+  getPromoFilm,
+} from '../../../store/films-process/selectors';
 import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function MainPage() {
@@ -43,13 +55,16 @@ function MainPage() {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);
   };
 
-  const getFilmsByGenre: GetFilmsByGenreFunc = useCallback((list) => {
-    if (activeGenre === GenresEnum.AllGenres) {
-      return list;
-    } else {
-      return list.filter((film) => film.genre === activeGenre);
-    }
-  }, [activeGenre]);
+  const getFilmsByGenre: GetFilmsByGenreFunc = useCallback(
+    (list) => {
+      if (activeGenre === GenresEnum.AllGenres) {
+        return list;
+      } else {
+        return list.filter((film) => film.genre === activeGenre);
+      }
+    },
+    [activeGenre]
+  );
 
   const filmsByGenre = getFilmsByGenre(filmsInfo);
 
@@ -61,17 +76,27 @@ function MainPage() {
   return (
     <>
       <section className="film-card">
-        <FilmCardBg img={promoFilm.backgroundImage} filmTitle={promoFilm.name} />
+        <FilmCardBg
+          img={promoFilm.backgroundImage}
+          filmTitle={promoFilm.name}
+        />
         <h1 className="visually-hidden">WTW</h1>
 
         <Header linkLogo="/" classes="film-card__head" />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmCardPoster imgSrc={promoFilm.posterImage} imgTitle={promoFilm.name} />
+            <FilmCardPoster
+              imgSrc={promoFilm.posterImage}
+              imgTitle={promoFilm.name}
+            />
 
             <div className="film-card__desc">
-              <FilmCardDesc title={promoFilm.name} genre={promoFilm.genre} year={promoFilm.released} />
+              <FilmCardDesc
+                title={promoFilm.name}
+                genre={promoFilm.genre}
+                year={promoFilm.released}
+              />
 
               <div className="film-card__buttons">
                 <FilmCardButtonPlay filmId={promoFilm.id} />
