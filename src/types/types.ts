@@ -12,7 +12,7 @@ export type FilmCardProps = {
 
 export type FilmCardStateProps = FilmCardProps & {
   active: boolean;
-  setActiveCardId: React.Dispatch<React.SetStateAction<string | null>>;
+  onFilmCardMouseEvent: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 export type MainPageProps = PromoFilm;
@@ -87,8 +87,8 @@ export type AddActiveClassFunc = (idx: number, activeClass: string) => string;
 
 export type TabsNavProps = {
   tabs: string[];
-  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
-  addActiveClass: AddActiveClassFunc;
+  onTabClick: React.Dispatch<React.SetStateAction<number>>;
+  onActiveClassAdd: AddActiveClassFunc;
 };
 
 export type FilmTabsContainerProps = {
@@ -137,7 +137,7 @@ export type GetRatingDescriptionFunc = (rating:number) => string;
 export type GenreProps = {
   genre: string;
   activeClass: string;
-  setActiveGenre: React.Dispatch<React.SetStateAction<GenresEnum | string>>;
+  onGenreClick: React.Dispatch<React.SetStateAction<GenresEnum | string>>;
 };
 
 export type GetFilmsByGenreFunc = (list: FilmCardProps[]) => FilmCardProps[];
@@ -222,7 +222,7 @@ export type Comment = {
 }
 
 export type RatingProps = {
-  setRating: React.Dispatch<React.SetStateAction<number>>;
+  onRatingChange: React.Dispatch<React.SetStateAction<number>>;
   isChecked: boolean | undefined;
   readOnly: boolean;
 };

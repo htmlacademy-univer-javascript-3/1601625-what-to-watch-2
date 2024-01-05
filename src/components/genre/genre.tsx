@@ -1,12 +1,12 @@
 import { GenreProps } from '../../types/types';
 import './genre.css';
 
-function Genre({ genre, activeClass, setActiveGenre }: GenreProps) {
+function Genre({ genre, activeClass, onGenreClick }: GenreProps) {
   return (
     <li
       className={`catalog__genres-item genre-item_hover ${activeClass}`}
-      onClick={() => setActiveGenre(genre)}
-      role='genre'
+      onClick={() => onGenreClick(genre)}
+      role="genre"
     >
       <a className="catalog__genres-link">{genre}</a>
     </li>

@@ -10,7 +10,7 @@ function HeaderUserBlock() {
   const user = useAppSelector(getUserInfo);
   const navigate = useNavigate();
 
-  const handlerSignOutLinkClick = () => {
+  const handleSignOutLinkClick = () => {
     dispatch(logoutAction());
 
     toast.success('You are logged out of your account!', {
@@ -19,7 +19,7 @@ function HeaderUserBlock() {
     });
   };
 
-  const handlerAvatarClick = () => {
+  const handleAvatarClick = () => {
     navigate(AppRoutes.MyList);
   };
 
@@ -28,7 +28,7 @@ function HeaderUserBlock() {
       <li className="user-block__item">
         <div className="user-block__avatar">
           <img
-            onClick={handlerAvatarClick}
+            onClick={handleAvatarClick}
             src={user.avatarUrl}
             alt="User avatar"
             width="63"
@@ -40,7 +40,7 @@ function HeaderUserBlock() {
       <li className="user-block__item">
         <a
           className="user-block__link"
-          onClick={handlerSignOutLinkClick}
+          onClick={handleSignOutLinkClick}
           data-testid='sign-out-btn'
         >
           Sign out

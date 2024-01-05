@@ -1,4 +1,4 @@
-import { getRatingDescription } from './getRatingDescription';
+import { getRatingDescription } from './get-rating-description';
 import { RatingDescription } from '../../consts';
 
 describe('Function: getRatingDescription', () => {

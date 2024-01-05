@@ -8,8 +8,8 @@ import Footer from '../../footer/footer';
 import { AppRoutes, AuthorisationStatus } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { loginAction } from '../../../store/api-actions';
-import { checkEmail } from '../../../utils/checkEmail/checkEmail';
-import { checkPassword } from '../../../utils/checkPassword/checkPassword';
+import { checkEmail } from '../../../utils/check-email/check-email';
+import { checkPassword } from '../../../utils/check-password/check-password';
 import { getAuthStatus } from '../../../store/user-process/selectors';
 
 function SignIn() {
@@ -23,12 +23,14 @@ function SignIn() {
   const authorisationStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
-    if (authorisationStatus === AuthorisationStatus.Auth){
+    if (authorisationStatus === AuthorisationStatus.Auth) {
       navigate(AppRoutes.Main);
     }
   }, [authorisationStatus, navigate]);
 
-  const handlerSignInBtnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSignInBtnClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     const isEmailValid = checkEmail(email);
@@ -113,10 +115,10 @@ function SignIn() {
           </div>
           <div className="sign-in__submit">
             <button
-              data-testid='sign-in-btn'
+              data-testid="sign-in-btn"
               className="sign-in__btn"
               type="submit"
-              onClick={(e) => handlerSignInBtnClick(e)}
+              onClick={(e) => handleSignInBtnClick(e)}
             >
               Sign in
             </button>

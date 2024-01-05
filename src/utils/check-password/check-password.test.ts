@@ -1,4 +1,4 @@
-import { checkPassword } from './checkPassword';
+import { checkPassword } from './check-password';
 
 describe('Function: checkPassword', () => {
   it('it should return true if the password consists of at least one letter and a number', () => {

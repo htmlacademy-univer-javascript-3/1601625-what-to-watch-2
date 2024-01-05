@@ -34,7 +34,7 @@ function FilmCardButtonMylist({film}: FilmCardButtonMylistProps){
     }
   }, [film.id, filmsInMyList]);
 
-  const handlerMyListBtnClick = () => {
+  const handleMyListBtnClick = () => {
     if (authorisationStatus === AuthorisationStatus.Auth){
       if (isFavorite === false) {
         if (film.id !== undefined) {
@@ -55,7 +55,7 @@ function FilmCardButtonMylist({film}: FilmCardButtonMylistProps){
     <button
       className="btn btn--list film-card__button"
       type="button"
-      onClick={handlerMyListBtnClick}
+      onClick={handleMyListBtnClick}
     >
       <svg viewBox="0 0 19 20" width="19" height="20">
         {
@@ -65,7 +65,12 @@ function FilmCardButtonMylist({film}: FilmCardButtonMylistProps){
         }
       </svg>
       <span>My list</span>
-      <span className="film-card__count" data-testid='my-list-count'>{countFilms}</span>
+      <span
+        className="film-card__count"
+        data-testid='my-list-count'
+      >
+        {countFilms}
+      </span>
     </button>
   );
 }

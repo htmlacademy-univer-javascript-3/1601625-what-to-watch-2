@@ -1,4 +1,4 @@
-import { checkEmail } from './checkEmail';
+import { checkEmail } from './check-email';
 
 describe('Function: checkEmail', () => {
   it('should return true if email is correct', () => {

@@ -3,9 +3,9 @@ import ShowMoreButton from './show-more-button';
 
 describe('Component: ShowMoreButton', () => {
   it('should render correct', () => {
-    const handlerShowMoreClick = vi.fn();
+    const handleShowMoreClick = vi.fn();
 
-    render(<ShowMoreButton onShowMoreClick={handlerShowMoreClick}/>);
+    render(<ShowMoreButton onShowMoreClick={handleShowMoreClick}/>);
     expect(screen.getByText('Show more')).toBeInTheDocument();
   });
 });

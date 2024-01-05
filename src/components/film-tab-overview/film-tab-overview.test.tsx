@@ -3,23 +3,21 @@ import { withStore } from '../../utils/mock-component';
 import FilmTabOverview from './film-tab-overview';
 import { filmInfo } from '../../utils/mock-data';
 import { SliceNameSpace } from '../../consts';
-import { getRatingDescription } from '../../utils/getRatingDescription/getRatingDescription';
+import { getRatingDescription } from '../../utils/get-rating-description/get-rating-description';
 
 describe('Component: FilmTabOverview', () => {
   const mockFilm = filmInfo();
 
   it('should render correctly', () => {
-    const { withStoreComponent } = withStore(<FilmTabOverview />,
-      {
-        [SliceNameSpace.Film]: {
-          comments: [],
-          similarFilms: [],
-          isLoading: false,
-          error: undefined,
-          film: mockFilm,
-        },
-      }
-    );
+    const { withStoreComponent } = withStore(<FilmTabOverview />, {
+      [SliceNameSpace.Film]: {
+        comments: [],
+        similarFilms: [],
+        isLoading: false,
+        error: undefined,
+        film: mockFilm,
+      },
+    });
 
     render(withStoreComponent);
 
@@ -36,6 +34,8 @@ describe('Component: FilmTabOverview', () => {
     expect(director.textContent).toBe(`Director: ${mockFilm.director}`);
 
     const starring = screen.getByTestId('film-card-starring');
-    expect(starring.textContent?.split(':')[1].split(',').length).toBe(mockFilm.starring.length);
+    expect(starring.textContent?.split(':')[1].split(',').length).toBe(
+      mockFilm.starring.length
+    );
   });
 });

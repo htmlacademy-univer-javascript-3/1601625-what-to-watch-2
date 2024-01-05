@@ -3,12 +3,12 @@ import RatingStar from './rating-star';
 
 describe('Component: RatingStar', () => {
   it('should render correct', () => {
-    const handlerInputOnChange = vi.fn();
+    const handleInputOnChange = vi.fn();
 
     render(
       <RatingStar
-        id='01'
-        setRating={handlerInputOnChange}
+        id="01"
+        onRatingChange={handleInputOnChange}
         isChecked={false}
         readOnly={false}
       />
@@ -17,4 +17,3 @@ describe('Component: RatingStar', () => {
     expect(screen.getByLabelText('Rating 01')).toBeInTheDocument();
   });
 });
-

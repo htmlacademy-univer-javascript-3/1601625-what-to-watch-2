@@ -14,12 +14,10 @@ function FilmTabs() {
     <>
       <FilmTabsNav
         tabs={TABS}
-        setActiveTab={setActiveTab}
-        addActiveClass={addActiveClass}
+        onTabClick={setActiveTab}
+        onActiveClassAdd={addActiveClass}
       />
-      <FilmTabsContainer
-        activeTab={activeTab}
-      />
+      <FilmTabsContainer activeTab={activeTab} />
     </>
   );
 }

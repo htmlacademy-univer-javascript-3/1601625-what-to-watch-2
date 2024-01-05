@@ -5,17 +5,12 @@ describe('Component: Genre', () => {
   const mockGenre = 'Darama';
 
   it('should render correctly', () => {
-    const handlerBtnOnClick = vi.fn();
+    const handleBtnOnClick = vi.fn();
 
     render(
-      <Genre
-        genre={mockGenre}
-        activeClass=''
-        setActiveGenre={handlerBtnOnClick}
-      />
+      <Genre genre={mockGenre} activeClass="" onGenreClick={handleBtnOnClick} />
     );
 
     expect(screen.getByText(mockGenre)).toBeInTheDocument();
   });
 });
-
