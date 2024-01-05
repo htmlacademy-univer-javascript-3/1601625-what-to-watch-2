@@ -4,14 +4,14 @@ import { TABS } from '../../consts';
 
 describe('Component: FilmTabsNav', () => {
   it('should render correctly', () => {
-    const handlerBtnOnClick = vi.fn();
+    const handleBtnOnClick = vi.fn();
     const addActiveClassFn = vi.fn();
 
     render(
       <FilmTabsNav
         tabs={TABS}
-        setActiveTab={handlerBtnOnClick}
-        addActiveClass={addActiveClassFn}
+        onTabClick={handleBtnOnClick}
+        onActiveClassAdd={addActiveClassFn}
       />
     );
 

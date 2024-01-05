@@ -51,7 +51,7 @@ function MainPage() {
     }
   }, [authorisationStatus, dispatch]);
 
-  const handlerShowMoreClick = () => {
+  const handleShowMoreBtnClick = () => {
     setMaxNumFilms((max) => max + MAX_NUM_FILMS);
   };
 
@@ -118,7 +118,7 @@ function MainPage() {
             <MemoFilmsList list={shownFilms} />
           </div>
           {shownFilms.length >= maxNumFilms ? (
-            <ShowMoreButton onShowMoreClick={handlerShowMoreClick} />
+            <ShowMoreButton onShowMoreClick={handleShowMoreBtnClick} />
           ) : null}
         </section>
 

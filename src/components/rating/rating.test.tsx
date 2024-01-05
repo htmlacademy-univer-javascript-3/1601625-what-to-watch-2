@@ -4,11 +4,11 @@ import { NUM_RATING_STAR } from '../../consts';
 
 describe('Component: Rating', () => {
   it('should render correct', () => {
-    const handlerInputOnChange = vi.fn();
+    const handleInputOnChange = vi.fn();
 
     render(
       <Rating
-        setRating={handlerInputOnChange}
+        onRatingChange={handleInputOnChange}
         isChecked={false}
         readOnly={false}
       />
@@ -17,4 +17,3 @@ describe('Component: Rating', () => {
     expect(screen.getAllByTestId('rating-star').length).toBe(NUM_RATING_STAR);
   });
 });
-

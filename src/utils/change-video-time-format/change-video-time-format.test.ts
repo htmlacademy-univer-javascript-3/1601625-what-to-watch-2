@@ -1,4 +1,4 @@
-import { changeVideoTimeFormat } from './changeVideoTimeFormat';
+import { changeVideoTimeFormat } from './change-video-time-format';
 
 describe('Function: changeVideoTimeFormat', () => {
   it('should return time from seconds to format: -mm:ss, and time format: 00:00, if time less than 1 hour', () => {

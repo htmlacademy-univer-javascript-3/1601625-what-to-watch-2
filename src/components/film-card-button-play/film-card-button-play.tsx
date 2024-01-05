@@ -6,7 +6,7 @@ function FilmCardButtonPlay({ filmId }: FilmCardButtonPlayProps){
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handlerButtonClick = () => {
+  const handlePlayBtnClick = () => {
     if (filmId !== undefined) {
       if (location.pathname === AppRoutes.Main) {
         navigate(`/${AppRoutes.Player.split('/')[1]}/${filmId}`);
@@ -22,7 +22,7 @@ function FilmCardButtonPlay({ filmId }: FilmCardButtonPlayProps){
     <button
       className="btn btn--play film-card__button"
       type="button"
-      onClick={handlerButtonClick}
+      onClick={handlePlayBtnClick}
     >
       <svg viewBox="0 0 19 19" width="19" height="19">
         <use xlinkHref="#play-s"></use>

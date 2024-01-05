@@ -1,4 +1,4 @@
-import { getHalfArray } from './getHalfArray';
+import { getHalfArray } from './get-half-array';
 import { generateFilmReviewArr } from '../mock-data';
 
 describe('Function: getHalfArray', () => {

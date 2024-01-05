@@ -1,6 +1,6 @@
 import { RatingStarProps } from '../../types/types';
 
-function RatingStar({id, setRating, isChecked, readOnly }:RatingStarProps) {
+function RatingStar({ id, onRatingChange, isChecked, readOnly }: RatingStarProps) {
   return (
     <>
       <input
@@ -9,16 +9,13 @@ function RatingStar({id, setRating, isChecked, readOnly }:RatingStarProps) {
         type="radio"
         name="rating"
         value={id}
-        onChange={(e) => setRating(Number(e.target.value))}
+        onChange={(e) => onRatingChange(Number(e.target.value))}
         checked={isChecked}
         disabled={readOnly}
-        data-testid='rating-star'
+        data-testid="rating-star"
       />
-      <label
-        className="rating__label"
-        htmlFor={`star-${id}`}
-      >
-          Rating {id}
+      <label className="rating__label" htmlFor={`star-${id}`}>
+        Rating {id}
       </label>
     </>
   );

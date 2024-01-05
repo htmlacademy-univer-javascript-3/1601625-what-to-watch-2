@@ -4,20 +4,24 @@ import VideoPlayer from '../video-player/video-player';
 import { VIDEO_TIMEOUT, FilmCardSize } from '../../consts';
 import './film-card.css';
 
-function FilmCard({id, previewImage, name, active, setActiveCardId, previewVideoLink}: FilmCardStateProps){
+function FilmCard({ id, previewImage, name, active, onFilmCardMouseEvent, previewVideoLink }: FilmCardStateProps) {
   const navigate = useNavigate();
 
-  const handlerClick = () => {
+  const handleFilmCardClick = () => {
     navigate(`/films/${id}`);
   };
 
-  return(
+  return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => setActiveCardId(id)}
-      onMouseLeave={() => setActiveCardId(null)}
+      onMouseOver={() => onFilmCardMouseEvent(id)}
+      onMouseLeave={() => onFilmCardMouseEvent(null)}
     >
-      <div data-testid='film-card' className="small-film-card__image small-film-card_hover" onClick={() => handlerClick()}>
+      <div
+        data-testid="film-card"
+        className="small-film-card__image small-film-card_hover"
+        onClick={() => handleFilmCardClick()}
+      >
         <VideoPlayer
           active={active}
           src={previewVideoLink}
@@ -29,7 +33,9 @@ function FilmCard({id, previewImage, name, active, setActiveCardId, previewVideo
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`/films/${id}`}>
+          {name}
+        </Link>
       </h3>
     </article>
   );

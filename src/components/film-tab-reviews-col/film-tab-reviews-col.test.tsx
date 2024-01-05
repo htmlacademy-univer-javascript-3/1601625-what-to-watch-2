@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import FilmTabReviewsCol from './film-tab-reviews-col';
 import { generateFilmReviewArr } from '../../utils/mock-data';
-import { changeDateFormat } from '../../utils/changeDateFormat/changeDateFormat';
+import { changeDateFormat } from '../../utils/change-date-format/change-date-format';
 
 describe('Component: FilmTabReviewsCol', () => {
   it('should render correctly', () => {
@@ -12,7 +12,9 @@ describe('Component: FilmTabReviewsCol', () => {
 
     expect(screen.getByText(mockList[0].comment)).toBeInTheDocument();
     expect(screen.getByText(mockList[0].rating.toFixed(1))).toBeInTheDocument();
-    expect(screen.getByText(changeDateFormat(mockList[0].date))).toBeInTheDocument();
+    expect(
+      screen.getByText(changeDateFormat(mockList[0].date))
+    ).toBeInTheDocument();
   });
 
   it('should render num reviews equal array.length', () => {

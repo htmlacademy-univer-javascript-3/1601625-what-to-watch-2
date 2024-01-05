@@ -4,7 +4,11 @@ import Rating from '../rating/rating';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
 import { ReviewConsts } from '../../consts';
-import { getFilmInfo, getLoadingStatus, getError } from '../../store/film-process/selectors';
+import {
+  getFilmInfo,
+  getLoadingStatus,
+  getError,
+} from '../../store/film-process/selectors';
 
 function FormAddReview() {
   const dispatch = useAppDispatch();
@@ -14,12 +18,16 @@ function FormAddReview() {
   const [readOnly, setReadOnly] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
 
-  const {id} = useAppSelector(getFilmInfo);
+  const { id } = useAppSelector(getFilmInfo);
   const isLoading = useAppSelector(getLoadingStatus);
   const error = useAppSelector(getError);
 
   useEffect(() => {
-    if (reviewText.length >= ReviewConsts.MinLength && reviewText.length <= ReviewConsts.MaxLength && rating > 0) {
+    if (
+      reviewText.length >= ReviewConsts.MinLength &&
+      reviewText.length <= ReviewConsts.MaxLength &&
+      rating > 0
+    ) {
       setBtnDisabled(false);
     } else {
       setBtnDisabled(true);
@@ -35,9 +43,9 @@ function FormAddReview() {
     }
   }, [isLoading]);
 
-  const handlerFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(sendCommentAction({id, comment: reviewText, rating}));
+    dispatch(sendCommentAction({ id, comment: reviewText, rating }));
 
     if (!isLoading && error === undefined) {
       toast.success('The comment has been added successfully!', {
@@ -59,8 +67,12 @@ function FormAddReview() {
   };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={handlerFormSubmit} >
-      <Rating setRating={setRating} isChecked={isChecked} readOnly={readOnly} />
+    <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
+      <Rating
+        onRatingChange={setRating}
+        isChecked={isChecked}
+        readOnly={readOnly}
+      />
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"
@@ -72,12 +84,17 @@ function FormAddReview() {
           disabled={readOnly}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={btnDisabled} >Post</button>
+          <button
+            className="add-review__btn"
+            type="submit"
+            disabled={btnDisabled}
+          >
+            Post
+          </button>
         </div>
       </div>
     </form>
   );
 }
-
 
 export default FormAddReview;

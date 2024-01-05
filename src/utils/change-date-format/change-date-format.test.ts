@@ -1,4 +1,4 @@
-import { changeDateFormat } from './changeDateFormat';
+import { changeDateFormat } from './change-date-format';
 
 describe('Function: changeDateFormat', () => {
   it('should return data in format: Full month day, year', () => {

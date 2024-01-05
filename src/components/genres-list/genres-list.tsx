@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsInfo } from '../../store/films-process/selectors';
 
 function GenresList() {
-  const [activeGenre, setActiveGenre] = useState<GenresEnum | string>(GenresEnum.AllGenres);
+  const [activeGenre, setActiveGenre] = useState<GenresEnum | string>(
+    GenresEnum.AllGenres
+  );
   const dispatch = useAppDispatch();
 
   const films = useAppSelector(getFilmsInfo);
@@ -23,8 +25,12 @@ function GenresList() {
       <Genre
         key={GenresEnum.AllGenres}
         genre={GenresEnum.AllGenres}
-        setActiveGenre={setActiveGenre}
-        activeClass={activeGenre === GenresEnum.AllGenres ? 'catalog__genres-item--active' : ''}
+        onGenreClick={setActiveGenre}
+        activeClass={
+          activeGenre === GenresEnum.AllGenres
+            ? 'catalog__genres-item--active'
+            : ''
+        }
       />
       {[...genres]
         .filter((_, idx) => idx < MAX_NUM_GENRES)
@@ -32,8 +38,10 @@ function GenresList() {
           <Genre
             key={genre}
             genre={genre}
-            setActiveGenre={setActiveGenre}
-            activeClass={activeGenre === genre ? 'catalog__genres-item--active' : ''}
+            onGenreClick={setActiveGenre}
+            activeClass={
+              activeGenre === genre ? 'catalog__genres-item--active' : ''
+            }
           />
         ))}
     </ul>

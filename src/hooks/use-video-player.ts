@@ -38,7 +38,7 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
     });
   };
 
-  const handlerOnTimeUpdate = () => {
+  const handleVideoOnTimeUpdate = () => {
     if (videoPlayer.current) {
       const remainDuration = videoPlayer.current.duration - videoPlayer.current.currentTime;
       const progress = calcProgress(videoPlayer.current?.currentTime, videoPlayer.current?.duration);
@@ -60,7 +60,7 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
     });
   };
 
-  const handlerVideoOnEnded = () => {
+  const handleVideoOnEnded = () => {
     setPlayerState({
       ...playerState,
       progress: 0,
@@ -71,9 +71,9 @@ const useVideoPlayer = (videoPlayer: React.RefObject<HTMLVideoElement>) => {
   return {
     playerState,
     togglePlay,
-    handlerOnTimeUpdate,
+    handleVideoOnTimeUpdate,
     toggleFullscreen,
-    handlerVideoOnEnded,
+    handleVideoOnEnded,
     setPlayerState
   };
 };

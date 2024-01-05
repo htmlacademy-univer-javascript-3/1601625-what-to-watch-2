@@ -10,7 +10,7 @@ describe('Component: FilmCard', () => {
   const film = filmInfo();
 
   it('should display video on hover and image by default', async () => {
-    const handlerOnMouseEvent = vi.fn();
+    const handleFilmCardMouseEvent = vi.fn();
 
     const preparedComponent = withHistory(
       <FilmCard
@@ -20,7 +20,7 @@ describe('Component: FilmCard', () => {
         previewVideoLink={film.videoLink}
         genre={film.genre}
         active
-        setActiveCardId={handlerOnMouseEvent}
+        onFilmCardMouseEvent={handleFilmCardMouseEvent}
       />
     );
 
@@ -34,7 +34,7 @@ describe('Component: FilmCard', () => {
   });
 
   it('should display image by default', async () => {
-    const handlerOnMouseEvent = vi.fn();
+    const handleFilmCardMouseEvent = vi.fn();
 
     const preparedComponent = withHistory(
       <FilmCard
@@ -44,7 +44,7 @@ describe('Component: FilmCard', () => {
         previewVideoLink={film.videoLink}
         genre={film.genre}
         active={false}
-        setActiveCardId={handlerOnMouseEvent}
+        onFilmCardMouseEvent={handleFilmCardMouseEvent}
       />
     );
 
@@ -59,7 +59,7 @@ describe('Component: FilmCard', () => {
 
   it('should rederect to "film" when user click to filmCard', async () => {
     const mockHistory: MemoryHistory = createMemoryHistory();
-    const handlerOnMouseEvent = vi.fn();
+    const handleFilmCardMouseEvent = vi.fn();
 
     const preparedComponent = withHistory(
       <FilmCard
@@ -69,7 +69,7 @@ describe('Component: FilmCard', () => {
         previewVideoLink={film.videoLink}
         genre={film.genre}
         active={false}
-        setActiveCardId={handlerOnMouseEvent}
+        onFilmCardMouseEvent={handleFilmCardMouseEvent}
       />,
       mockHistory
     );
@@ -77,6 +77,8 @@ describe('Component: FilmCard', () => {
     render(preparedComponent);
 
     await userEvent.click(screen.getByTestId('film-card'));
-    expect(mockHistory.location.pathname).toBe(AppRoutes.Film.replace(':id', film.id));
+    expect(mockHistory.location.pathname).toBe(
+      AppRoutes.Film.replace(':id', film.id)
+    );
   });
 });
